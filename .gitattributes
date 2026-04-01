@@ -1,0 +1,11 @@
+# Keep text files stable across platforms.
+* text=auto
+
+# Documentation and scenario files should stay LF.
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+
