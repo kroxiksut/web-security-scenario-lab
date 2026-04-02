@@ -1,0 +1,29 @@
+﻿:root {
+  --font-family-sans: "IBM Plex Sans", "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-family-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+
+  --elevation-1: 0 3px 14px rgba(15, 23, 42, 0.08);
+  --elevation-2: 0 10px 28px rgba(15, 23, 42, 0.14);
+
+  --container-width: 1280px;
+  --header-height: 68px;
+
+  --transition-fast: 140ms ease-in-out;
+  --transition-base: 220ms ease-in-out;
+}

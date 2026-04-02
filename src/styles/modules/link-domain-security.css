@@ -1,0 +1,71 @@
+﻿/* Link Domain Security scenario helpers */
+.lds-link-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.lds-link-card {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  padding: var(--space-4);
+}
+
+.lds-link-card a {
+  font-weight: 600;
+}
+
+.lds-link-meta {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.lds-label {
+  color: var(--color-text-muted);
+  margin-right: var(--space-2);
+}
+
+.lds-domain {
+  font-family: var(--font-family-mono);
+  font-size: 0.86rem;
+  word-break: break-all;
+}
+
+.lds-link--mismatch {
+  border-color: color-mix(in srgb, var(--color-warning) 46%, var(--color-border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-warning) 42%, transparent);
+}
+
+.lds-link--unsafe {
+  border-color: color-mix(in srgb, var(--color-danger) 44%, var(--color-border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-danger) 40%, transparent);
+}
+
+.lds-link--benign {
+  border-color: color-mix(in srgb, var(--color-success) 40%, var(--color-border));
+}
+
+.lds-protocol--unsafe {
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.lds-domain--punycode,
+.lds-domain--mixed-script {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.lds-debug {
+  margin-top: var(--space-5);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  padding: var(--space-4);
+  background: var(--color-surface-soft);
+}

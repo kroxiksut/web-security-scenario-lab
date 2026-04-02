@@ -1,0 +1,88 @@
+﻿/* Visual Manipulation scenario helpers */
+.vm-playground {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  padding: var(--space-5);
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vm-technique-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.vm-hidden-display {
+  display: none !important;
+}
+
+.vm-hidden-visibility {
+  visibility: hidden !important;
+}
+
+.vm-hidden-opacity {
+  opacity: 0 !important;
+}
+
+.vm-offscreen {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+}
+
+.vm-clipped {
+  position: absolute !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(100%) !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.vm-tiny-low-contrast {
+  font-size: 1px !important;
+  line-height: 1 !important;
+  color: color-mix(in srgb, var(--color-bg) 88%, var(--color-text) 12%) !important;
+}
+
+.vm-editable-trap {
+  min-height: 34px;
+  padding: var(--space-2);
+  border-radius: var(--radius-xs);
+  border: var(--border-width-1) dashed var(--color-border);
+  background: var(--color-surface-soft);
+}
+
+.vm-overlay-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--color-overlay);
+}
+
+.vm-overlay-fixed.is-hidden {
+  display: none;
+}
+
+.vm-overlay-banner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  min-height: 54px;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  background: var(--color-surface);
+  z-index: 35;
+}
+
+.vm-zmask {
+  position: absolute;
+  inset: 22% 18%;
+  z-index: 14;
+  background: linear-gradient(180deg, transparent 0%, var(--color-surface) 62%);
+}

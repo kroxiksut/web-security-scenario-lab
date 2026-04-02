@@ -1,0 +1,82 @@
+﻿:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #f4f7fb;
+  --color-surface: #ffffff;
+  --color-surface-soft: #eef3fa;
+  --color-text: #10243f;
+  --color-text-muted: #4a5d75;
+  --color-border: #d6e0ec;
+  --color-accent: #0b5fff;
+  --color-accent-hover: #084ed1;
+  --color-info: #1565c0;
+  --color-success: #2e7d32;
+  --color-warning: #ed6c02;
+  --color-danger: #c62828;
+  --color-focus: rgba(11, 95, 255, 0.35);
+  --color-overlay: rgba(10, 23, 46, 0.56);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #0b1220;
+  --color-surface: #121c2c;
+  --color-surface-soft: #1b2940;
+  --color-text: #dce8ff;
+  --color-text-muted: #9ab0d0;
+  --color-border: #324969;
+  --color-accent: #7ea6ff;
+  --color-accent-hover: #9abaff;
+  --color-info: #75b8ff;
+  --color-success: #6fcf74;
+  --color-warning: #ffa34d;
+  --color-danger: #ff7676;
+  --color-focus: rgba(126, 166, 255, 0.35);
+  --color-overlay: rgba(3, 8, 17, 0.72);
+}
+
+:root[data-theme="auto"],
+:root:not([data-theme]) {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"],
+  :root:not([data-theme]) {
+    --color-bg: #0b1220;
+    --color-surface: #121c2c;
+    --color-surface-soft: #1b2940;
+    --color-text: #dce8ff;
+    --color-text-muted: #9ab0d0;
+    --color-border: #324969;
+    --color-accent: #7ea6ff;
+    --color-accent-hover: #9abaff;
+    --color-info: #75b8ff;
+    --color-success: #6fcf74;
+    --color-warning: #ffa34d;
+    --color-danger: #ff7676;
+    --color-focus: rgba(126, 166, 255, 0.35);
+    --color-overlay: rgba(3, 8, 17, 0.72);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme="auto"],
+  :root:not([data-theme]) {
+    --color-bg: #f4f7fb;
+    --color-surface: #ffffff;
+    --color-surface-soft: #eef3fa;
+    --color-text: #10243f;
+    --color-text-muted: #4a5d75;
+    --color-border: #d6e0ec;
+    --color-accent: #0b5fff;
+    --color-accent-hover: #084ed1;
+    --color-info: #1565c0;
+    --color-success: #2e7d32;
+    --color-warning: #ed6c02;
+    --color-danger: #c62828;
+    --color-focus: rgba(11, 95, 255, 0.35);
+    --color-overlay: rgba(10, 23, 46, 0.56);
+  }
+}

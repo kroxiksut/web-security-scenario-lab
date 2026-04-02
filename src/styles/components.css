@@ -1,0 +1,268 @@
+﻿.panel {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--elevation-1);
+}
+
+.panel__header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.panel__body {
+  padding: var(--space-5);
+}
+
+.card-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  padding: var(--space-4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-1);
+}
+
+.control-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.control-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.control-label {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.segmented {
+  display: inline-flex;
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  background: var(--color-surface-soft);
+}
+
+.segmented button {
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 7px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.segmented button[aria-pressed="true"] {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-xs);
+  border: var(--border-width-1) solid transparent;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.button:hover {
+  background: var(--color-accent-hover);
+}
+
+.button--ghost {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.input,
+.select {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  background: var(--color-surface);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: var(--border-width-1) solid transparent;
+}
+
+.badge--mvp {
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 50%, transparent);
+  background: color-mix(in srgb, var(--color-success) 18%, transparent);
+}
+
+.badge--planned {
+  color: var(--color-info);
+  border-color: color-mix(in srgb, var(--color-info) 44%, transparent);
+  background: color-mix(in srgb, var(--color-info) 18%, transparent);
+}
+
+.badge--severity-high {
+  color: var(--color-danger);
+  border-color: color-mix(in srgb, var(--color-danger) 44%, transparent);
+  background: color-mix(in srgb, var(--color-danger) 14%, transparent);
+}
+
+.badge--severity-medium {
+  color: var(--color-warning);
+  border-color: color-mix(in srgb, var(--color-warning) 44%, transparent);
+  background: color-mix(in srgb, var(--color-warning) 14%, transparent);
+}
+
+.badge--severity-low {
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 44%, transparent);
+  background: color-mix(in srgb, var(--color-success) 14%, transparent);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag {
+  border-radius: 999px;
+  padding: 2px 10px;
+  border: var(--border-width-1) solid var(--color-border);
+  background: var(--color-surface-soft);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.notice {
+  border-left: 4px solid var(--color-warning);
+  padding: var(--space-4);
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--color-warning) 10%, var(--color-surface));
+}
+.module-menu {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.module-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 8px 10px;
+  border-radius: var(--radius-xs);
+  border: var(--border-width-1) solid transparent;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.module-menu a:hover {
+  background: var(--color-surface-soft);
+  border-color: var(--color-border);
+}
+
+.module-menu a.is-active {
+  border-color: color-mix(in srgb, var(--color-accent) 36%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent) 12%, var(--color-surface));
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+.setting-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.setting-item {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  background: var(--color-surface);
+}
+
+.setting-item__title {
+  margin: 0 0 var(--space-2) 0;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.setting-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.settings-status {
+  margin-top: var(--space-3);
+  color: var(--color-success);
+  font-weight: 600;
+}
+.settings-shortcut {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: var(--border-width-1) solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.settings-shortcut:hover {
+  background: var(--color-surface-soft);
+}
+.settings-actions {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.settings-actions input[type="file"] {
+  display: none;
+}
+
+.settings-status.is-error {
+  color: var(--color-danger);
+}
