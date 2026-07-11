@@ -1,11 +1,32 @@
-# Keep text files stable across platforms.
-* text=auto
+# Normalize all text files to LF in the repository AND the working tree.
+# This stops the "LF will be replaced by CRLF the next time Git touches it"
+# warning on Windows — a web project uses LF everywhere.
+* text=auto eol=lf
 
-# Documentation and scenario files should stay LF.
-*.md text eol=lf
-*.txt text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-*.json text eol=lf
-*.toml text eol=lf
+# Explicit text types (clarity; same LF policy).
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.cjs   text eol=lf
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.jsx   text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.toml  text eol=lf
+*.svg   text eol=lf
 
+# Binary assets — never convert line endings.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary

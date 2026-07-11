@@ -78,12 +78,18 @@ Planned modules should be present in the project structure as documented placeho
 
 - `HTML5`
 - `CSS3`
-- `Vanilla JavaScript` with `ES modules`
+- `Vanilla JavaScript` with `ES modules`; `TypeScript` for the scenario engine and shared
+  infrastructure where it improves safety and maintainability
 - `JSON` manifests for scenario descriptions and evaluation metadata
 - `Vite` for local development and static build output
 - `Playwright` for local and CI browser checks
 
 `Vite` and `Playwright` are development tools only. They are not required in deployed static hosting.
+
+Scenario pages may embed popular web frameworks/libraries (React, Vue, Svelte, Angular, Solid,
+Preact, Lit/Web Components, jQuery, htmx, Alpine, Tailwind, …). **This set is not fixed and may
+be expanded over time** to keep detector coverage aligned with the real-world web. All such
+libraries are vendored/pinned locally — no runtime CDN dependency.
 
 ## High-Level Structure
 

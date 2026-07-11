@@ -7,9 +7,23 @@ Desktop.ini
 .idea/
 .vscode/
 .codex/
+.claude/
 *.swp
 *.swo
 *~
+
+# AI instruction files — LOCAL ONLY, never published (see AGENTS.md HARD RULE 2).
+# English only by design; Russian is reserved for tasks, README, and documentation.
+AGENTS.md
+AI_RULES.md
+AI_CONTEXT.md
+CLAUDE.md
+
+# Task files anywhere in the tree
+TASKS.md
+TASKS.ru.md
+**/TASKS.md
+**/TASKS.ru.md
 
 # Logs
 *.log
@@ -45,4 +59,5 @@ coverage/
 *.tar.gz
 *.tgz
 *.rar
+
 

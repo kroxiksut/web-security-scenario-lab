@@ -1,0 +1,25 @@
+{
+  "id": "homographs-rotator",
+  "module": "link-domain-security",
+  "title": {
+    "en": "Homographs Rotator",
+    "ru": "Ротатор гомографов"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "link-target-mismatch",
+    "shouldFire": true,
+    "severity": "medium",
+    "tags": ["homograph", "punycode", "mixed-script", "unsafe-protocol", "visible-target-mismatch"],
+    "coverageDimensions": [
+      "punycode or homograph pattern",
+      "mixed-script domain",
+      "visible-target mismatch",
+      "unsafe protocol or schema obfuscation"
+    ],
+    "whyFlagged": {
+      "en": "The anchor text shows a trusted-looking domain while the href uses a mixed-script homograph or an unsafe protocol, so the visible target does not match the real destination.",
+      "ru": "Видимый текст ссылки показывает доверенный домен, а href использует mixed-script гомограф или небезопасный протокол — видимая цель не совпадает с реальной."
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "hidden-text-mixed",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (mixed techniques)",
+    "ru": "Скрытый текст (смешанные техники)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "z-index"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "z-index masking"
+    ],
+    "whyFlagged": {
+      "en": "The page hides content from the user with several CSS techniques at once (near-zero opacity, off-screen positioning, clipping, and a high-z-index overlay), which is a common way to smuggle instructions past a human reader.",
+      "ru": "Страница прячет контент от пользователя сразу несколькими CSS-приёмами (почти нулевая непрозрачность, вынос за экран, клиппинг и оверлей с высоким z-index) — типичный способ скрыть инструкции от человека."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "const el = document.querySelector('.vm-hidden-opacity');\nconst cs = getComputedStyle(el);\nif (parseFloat(cs.opacity) < 0.05 && el.textContent.trim()) flag(el);",
+        "explanation": {
+          "en": "Flag elements that carry text but are rendered at near-zero opacity.",
+          "ru": "Помечаем элементы с текстом, отрисованные с почти нулевой непрозрачностью."
+        }
+      }
+    ]
+  }
+}

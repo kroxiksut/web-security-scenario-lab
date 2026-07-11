@@ -1,0 +1,14 @@
+dist/
+node_modules/
+*.min.js
+*.min.css
+
+# Legacy / hand-authored content Prettier does not own (yet).
+# Markdown docs are maintained by hand in EN/RU pairs — keep manual wrapping and Cyrillic intact.
+*.md
+**/*.md
+# Existing hand-authored styles and pages (not owned by our formatter).
+*.css
+**/*.css
+*.html
+**/*.html

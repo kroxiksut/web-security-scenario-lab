@@ -33,7 +33,9 @@
 - add pages with `jQuery`, `React`, and `Vue`
 - add `Shadow DOM` and `iframe` coverage
 - add browser matrix checks
-- add Playwright smoke tests
+- adopt the TypeScript scenario engine + Vitest/Ajv/ESLint/Prettier toolchain (engine/infra
+  tests only; scenario pages are intentionally not test-covered)
+- add optional/manual Playwright E2E against the PageCheck extension (non-gating)
 - publish contribution guidelines for planned modules
 - introduce initial coverage matrix views
 
@@ -46,6 +48,8 @@
   - `api-interception`
 - extend scenario catalog structure
 - extend evaluation metadata taxonomy
+- add educational `detectionExamples` (illustrative, non-executed detector tests shown next to
+  each scenario with explanations)
 - add more locales
 - document browser-specific caveats
 

@@ -1,0 +1,49 @@
+/* Scenario controls bar (seed / reroll / reset / copy link) and the evaluation panel list. */
+
+.scenario-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  padding: var(--space-3);
+  background: var(--color-surface-soft);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.scenario-controls__seed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.scenario-seed-input {
+  min-width: 180px;
+  padding: var(--space-2) var(--space-2);
+  font-family: var(--font-family-mono);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-xs);
+}
+
+.eval-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-3) 0;
+  font-size: 0.9rem;
+}
+
+.eval-list dt {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.eval-list dd {
+  margin: 0;
+  color: var(--color-text);
+}

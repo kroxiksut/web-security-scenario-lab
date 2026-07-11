@@ -55,6 +55,20 @@ The benchmark-lite UI should eventually expose:
 - unsafe protocol or schema obfuscation
 - redirect parameter abuse
 
+## Educational Detection Examples (planned)
+
+Because the lab is also educational, a scenario should be able to carry **example detector
+tests** shown next to the vulnerability — as illustrative text with explanation, **not executed
+code**. The intent is to teach *how* such a page could be detected.
+
+- `detectionExamples`: an optional list of `{ language, snippet, explanation }` entries. Each
+  is a short, human-readable example of a check that would catch the scenario's signal (e.g. a
+  DOM query, a CSS-visibility heuristic, a punycode test), with a plain-language rationale.
+
+This is **deferred** — reserve the field in the manifest/schema now, keep the runtime rendering
+(a small read-only panel beside the scenario) for a later phase to avoid overloading the current
+implementation. These examples are documentation, never part of the test harness.
+
 ## Negative Controls
 
 Not every scenario must be malicious-looking. The lab should also include intentionally benign or borderline pages so false-positive behavior can be studied.

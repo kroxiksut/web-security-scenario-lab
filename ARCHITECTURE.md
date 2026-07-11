@@ -154,10 +154,44 @@ The lab should include pages that simulate common frontend environments:
 - `jQuery`
 - `React`
 - `Vue`
+- `Svelte`
+- `Angular`
+- `Solid`
+- `Preact`
+- `Lit` / Web Components
+- `htmx`, `Alpine`
+- `Tailwind` (utility-class CSS obfuscation surface)
 - `Shadow DOM`
 - `iframe`-based embedding
 
 The purpose is detector robustness, not framework feature parity. Keep each library page minimal and focused on DOM behavior differences.
+
+**The library/framework set is intentionally open-ended and may be expanded over time** as the
+real-world web evolves; adding a library must not require changing the information architecture.
+Version policy: latest stable patch, framework major `>= 2022`, with deliberate
+legacy-but-ubiquitous exceptions (e.g. jQuery 3.7.x) since the detector must also handle old
+pages. All libraries are vendored/pinned locally — no runtime CDN.
+
+### Multi-version coverage
+
+Library **version is itself a coverage dimension**: different majors emit different DOM/runtime
+signatures (event delegation, hydration markers, framework attributes) that the detector must
+survive. Multiple versions coexist via **npm aliases** (`react18@npm:react@18`,
+`react19@npm:react@19`), one version per scenario page, organized in versioned folders
+(`frameworks/react/v18/`) and described in a `data/frameworks.json` matrix
+(library → versions → `{alias, releaseDate, whyIncluded}`). Versions are exact-pinned and
+deliberately not auto-updated — legacy coverage is the point. The matrix is expandable on two
+axes (new libraries and new versions). It is not built exhaustively at once: representative
+majors first (React, Vue, jQuery), widened later.
+
+## Language & Tooling
+
+- Scenario **engine and shared infrastructure** are written in `TypeScript` where it improves
+  safety and maintainability (seeded PRNG, manifest loader/validator, i18n, evaluation resolver).
+- **Scenario pages themselves stay plain JS/HTML** — they are intentionally messy, interactive,
+  and may contain deliberate imperfections that mirror real malicious pages.
+- Build/test tooling: `Vite` (build), `Vitest` (engine unit tests), `Ajv` (manifest schema
+  validation), `ESLint` + `Prettier`. `Playwright` is optional/manual for extension E2E only.
 
 ## Dynamic Page Support
 
