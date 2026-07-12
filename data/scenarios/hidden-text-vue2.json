@@ -1,0 +1,27 @@
+{
+  "id": "hidden-text-vue2",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (legacy Vue 2.7)",
+    "ru": "Скрытый текст (легаси Vue 2.7)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:vue", "framework-managed-dom", "legacy-version"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Vue 2 virtual DOM)",
+      "legacy Vue major (2.7, new Vue().$mount)"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the Vue 3 page, but on the legacy Vue 2.7 major with its older virtual-DOM/render format and the `new Vue().$mount` model. Version is a coverage dimension: an older reactive runtime must not let framework-authored hidden nodes slip past the detector.",
+      "ru": "Та же манипуляция со скрытым контентом, что и на странице Vue 3, но на легаси-мажоре Vue 2.7 с его более старым форматом виртуального DOM/render и моделью `new Vue().$mount`. Версия — измерение покрытия: более старый реактивный рантайм не должен позволить скрытым узлам, созданным фреймворком, проскользнуть мимо детектора."
+    }
+  }
+}

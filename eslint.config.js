@@ -15,4 +15,11 @@ export default tseslint.config(
     files: ["serve.mjs", "vite.config.ts", "eslint.config.js"],
     languageOptions: { globals: { ...globals.node } },
   },
+  {
+    // Ambient declarations for npm-aliased framework versions re-export CommonJS-typed packages
+    // (`import X = require("react"); export = X`), the only form that preserves the real types
+    // through an alias specifier. Allow that idiom in declaration files.
+    files: ["**/*.d.ts"],
+    rules: { "@typescript-eslint/no-require-imports": "off" },
+  },
 );

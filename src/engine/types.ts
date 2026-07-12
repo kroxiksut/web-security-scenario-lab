@@ -46,3 +46,46 @@ export interface ScenarioManifest {
   modes?: ScenarioMode[];
   evaluation: EvaluationMeta;
 }
+
+/**
+ * One exact-pinned framework version. Library **version is a coverage dimension** (see AGENTS.md):
+ * different majors emit different DOM/runtime signatures the detector must survive. Pins are
+ * deliberate and NOT auto-updated — legacy is the point.
+ */
+export interface FrameworkVersion {
+  /** Exact pinned version, e.g. "3.7.1" (no `^`). */
+  version: string;
+  /** Major line label used for grouping, e.g. "3". */
+  major: string;
+  /** Versioned folder segment under `frameworks/<id>/`, e.g. "v3". One version per page. */
+  folder: string;
+  /** Import specifier the scenario uses — a plain package or an npm alias (`jquery1`, `react18`). */
+  alias: string;
+  /** ISO release date of the pinned release (documentary; feeds the coverage matrix). */
+  releaseDate: string;
+  /** Why this version earns a slot in the matrix. */
+  whyIncluded: Localized;
+  /** Scenarios reproduced on this framework/version: manifest `id` + the page that hosts it. */
+  scenarios: FrameworkScenarioRef[];
+}
+
+/** A scenario rendered on a specific framework/version, plus the page path that hosts it. */
+export interface FrameworkScenarioRef {
+  /** Manifest id under `data/scenarios/` (evaluation ground truth). */
+  id: string;
+  /** Repo-root-relative path to the hosting HTML page (e.g. `frameworks/react/v18/hidden-text.html`). */
+  page: string;
+}
+
+/** One framework/library tracked by the coverage matrix, across its pinned versions. */
+export interface FrameworkEntry {
+  id: string;
+  name: string;
+  kind: "library" | "framework";
+  versions: FrameworkVersion[];
+}
+
+/** The framework coverage matrix (`data/frameworks.json`). Expandable on two axes: libs and versions. */
+export interface FrameworkMatrix {
+  frameworks: FrameworkEntry[];
+}

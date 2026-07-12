@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-iframe",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (same-origin iframe)",
+    "ru": "Скрытый текст (same-origin iframe)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "iframe", "child-frame"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "same-origin child frame (srcdoc)",
+      "cross-boundary DOM descent"
+    ],
+    "whyFlagged": {
+      "en": "The suppressed content lives in a same-origin child frame created via srcdoc, not the top document. A detector must descend into iframe.contentDocument (and run on child frames) to see it. The suppression techniques match the baseline hidden-text scenario.",
+      "ru": "Скрытый контент находится в same-origin дочернем фрейме, созданном через srcdoc, а не в верхнем документе. Детектор должен спускаться в iframe.contentDocument (и работать на дочерних фреймах), чтобы его увидеть. Приёмы сокрытия совпадают с базовым сценарием скрытого текста."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "for (const frame of document.querySelectorAll('iframe')) {\n  const doc = frame.contentDocument;\n  if (doc) for (const el of doc.querySelectorAll('*')) scan(el);\n}",
+        "explanation": {
+          "en": "Same-origin frames expose contentDocument, so scanning each frame's document reaches hidden content the top document alone would miss.",
+          "ru": "Same-origin фреймы дают доступ к contentDocument, поэтому сканирование документа каждого фрейма достаёт скрытый контент, который верхний документ пропустил бы."
+        }
+      }
+    ]
+  }
+}

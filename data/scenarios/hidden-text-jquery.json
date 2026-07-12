@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-jquery",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (jQuery-managed DOM)",
+    "ru": "Скрытый текст (DOM под управлением jQuery)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:jquery", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (jQuery)",
+      "jQuery hide()/css()/append() mutation"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are created and hidden through jQuery's API (hide(), css(), append()) and timed animations instead of direct DOM calls. The detector must fire regardless of which runtime built the DOM.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаются и прячутся через API jQuery (hide(), css(), append()) и отложенные анимации, а не прямыми вызовами DOM. Детектор должен срабатывать независимо от того, какой рантайм построил DOM."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "document.querySelectorAll('.vm-playground *').forEach((el) => {\n  const cs = getComputedStyle(el);\n  if ((cs.display === 'none' || parseFloat(cs.opacity) < 0.05) && el.textContent.trim()) flag(el);\n});",
+        "explanation": {
+          "en": "Detection reads computed style, so jQuery's hide() (which sets display:none) and css() opacity are caught the same way as inline styles set by hand.",
+          "ru": "Детекция читает вычисленный стиль, поэтому jQuery hide() (ставит display:none) и css() с opacity ловятся так же, как заданные вручную inline-стили."
+        }
+      }
+    ]
+  }
+}

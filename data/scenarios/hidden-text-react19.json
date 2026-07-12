@@ -1,0 +1,27 @@
+{
+  "id": "hidden-text-react19",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (React 19)",
+    "ru": "Скрытый текст (React 19)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:react", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (React virtual DOM)",
+      "current React reconciler (createRoot, React 19)"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the other React pages, on the current React 19 reconciler via `createRoot`. Version is a coverage dimension: the newest runtime must not emit DOM the detector fails to inspect.",
+      "ru": "Та же манипуляция со скрытым контентом, что и на других React-страницах, на актуальном реконсиляторе React 19 через `createRoot`. Версия — измерение покрытия: новейший рантайм не должен давать DOM, который детектор не проверяет."
+    }
+  }
+}

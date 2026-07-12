@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-shadow-dom",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Shadow DOM)",
+    "ru": "Скрытый текст (Shadow DOM)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "shadow-dom", "encapsulation"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "open shadow root traversal",
+      "nested shadow root traversal"
+    ],
+    "whyFlagged": {
+      "en": "The suppressed content lives inside an open shadow root (and a nested inner shadow root), not the light DOM. A detector that only walks document nodes will miss it; it must descend into element.shadowRoot recursively. The suppression techniques themselves match the baseline hidden-text scenario.",
+      "ru": "Скрытый контент находится внутри открытого shadow root (и вложенного внутреннего shadow root), а не в light DOM. Детектор, обходящий только узлы документа, его пропустит; он должен рекурсивно спускаться в element.shadowRoot. Сами приёмы сокрытия совпадают с базовым сценарием скрытого текста."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "function walk(node) {\n  for (const el of node.querySelectorAll('*')) {\n    scan(el);\n    if (el.shadowRoot) walk(el.shadowRoot);\n  }\n}\nwalk(document);",
+        "explanation": {
+          "en": "Recursing into element.shadowRoot at each node reaches hidden content inside open shadow trees the same as light-DOM nodes.",
+          "ru": "Рекурсия в element.shadowRoot на каждом узле достаёт скрытый контент внутри открытых shadow-деревьев так же, как узлы light DOM."
+        }
+      }
+    ]
+  }
+}

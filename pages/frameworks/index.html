@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framework Coverage Matrix | Web Security Scenario Lab</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body data-module="frameworks" data-page="frameworks" data-root="../..">
+    <!-- Coverage matrix view (Phase 3). The table is rendered at runtime from
+         data/frameworks.json by src/pages/frameworks.ts and re-rendered on locale change. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0" data-i18n="frameworks.title">Framework Coverage Matrix</h1>
+          <p class="muted" data-i18n="frameworks.description">
+            Framework runtimes and pinned versions the lab reproduces scenarios on.
+          </p>
+        </div>
+        <div class="panel__body">
+          <div data-frameworks-table></div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (React 19) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../../.."
+    data-scenario="hidden-text-react19"
+  >
+    <!-- Framework robustness page (Phase 3): the hidden-content scenario on React 19,
+         mounted via createRoot. The evaluation sidepanel comes from the manifest. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — React 19</h1>
+          <p class="muted">
+            Version-coverage variant: identical component to the React 18 page, on the current React
+            19 reconciler via <code>createRoot</code>. Add <code>?focus=1</code> for isolated test mode.
+          </p>
+          <p class="muted">
+            <span class="tag">framework: React 19.2.7</span>
+            <span class="tag">current reconciler</span>
+            <span class="tag">createRoot</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="vm-playground">
+            <p>Visible text block for baseline rendering.</p>
+            <!-- React 19 mounts its own subtree here at runtime. -->
+          </div>
+          <div class="vm-technique-list">
+            <span class="tag">inline opacity</span>
+            <span class="tag">off-screen</span>
+            <span class="tag">clipping</span>
+            <span class="tag">tiny font</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
+              Back to module catalog
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../../src/main.ts"></script>
+  </body>
+</html>

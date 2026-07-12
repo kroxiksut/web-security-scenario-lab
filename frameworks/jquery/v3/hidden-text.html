@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (jQuery 3.7) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../../.."
+    data-scenario="hidden-text-jquery"
+  >
+    <!-- Framework robustness page (Phase 3): the hidden-content scenario rendered through a
+         jQuery-managed DOM. The evaluation sidepanel is rendered from the manifest at runtime. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — jQuery 3.7</h1>
+          <p class="muted">
+            Framework variant: nodes are built and suppressed via jQuery <code>hide()</code>/<code>css()</code>/<code>append()</code>.
+            Add <code>?focus=1</code> to run isolated test mode without menus and side UI.
+          </p>
+          <p class="muted">
+            <span class="tag">framework: jQuery 3.7.1</span>
+            <span class="tag">framework-managed DOM</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="vm-playground">
+            <p>Visible text block for baseline rendering.</p>
+            <p class="vm-hidden-opacity">Hidden by opacity.</p>
+            <p class="vm-offscreen">Hidden off-screen node.</p>
+            <p class="vm-clipped">Hidden clipped node.</p>
+          </div>
+          <div class="vm-technique-list">
+            <span class="tag">hide()</span>
+            <span class="tag">css(opacity)</span>
+            <span class="tag">off-screen</span>
+            <span class="tag">clipping</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
+              Back to module catalog
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../../src/main.ts"></script>
+  </body>
+</html>

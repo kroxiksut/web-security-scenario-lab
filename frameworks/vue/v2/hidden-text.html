@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (legacy Vue 2.7) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../../.."
+    data-scenario="hidden-text-vue2"
+  >
+    <!-- Framework robustness page (Phase 3): the hidden-content scenario on legacy Vue 2.7,
+         mounted via new Vue().$mount. The evaluation sidepanel comes from the manifest. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — legacy Vue 2.7</h1>
+          <p class="muted">
+            Version-coverage variant: the same scenario on the legacy Vue 2.7 major (older
+            virtual-DOM/render format, <code>new Vue().$mount</code>). Add <code>?focus=1</code> for
+            isolated test mode.
+          </p>
+          <p class="muted">
+            <span class="tag">framework: Vue 2.7.16</span>
+            <span class="tag">legacy version</span>
+            <span class="tag">framework-managed DOM</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="vm-playground">
+            <p>Visible text block for baseline rendering.</p>
+            <!-- Vue 2 mounts its own subtree here at runtime. -->
+          </div>
+          <div class="vm-technique-list">
+            <span class="tag">inline opacity</span>
+            <span class="tag">off-screen</span>
+            <span class="tag">clipping</span>
+            <span class="tag">tiny font</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
+              Back to module catalog
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../../src/main.ts"></script>
+  </body>
+</html>

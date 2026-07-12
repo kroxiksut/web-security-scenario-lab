@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-react18",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (React 18 virtual DOM)",
+    "ru": "Скрытый текст (виртуальный DOM React 18)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:react", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (React virtual DOM)",
+      "React inline-style suppression via createElement"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are produced by a React component (createElement + createRoot) with inline styles set through the virtual DOM, and grown reactively via state on interaction. The detector must fire on framework-authored DOM, not only hand-written markup.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаёт React-компонент (createElement + createRoot) с inline-стилями через виртуальный DOM, и они реактивно добавляются через состояние при взаимодействии. Детектор должен срабатывать на DOM, созданном фреймворком, а не только на рукописной разметке."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "React commits nodes after mount and on state changes, so a subtree MutationObserver catches virtual-DOM-authored hidden nodes the same as any other insertion.",
+          "ru": "React вставляет узлы после монтирования и при изменениях состояния, поэтому MutationObserver по поддереву ловит скрытые узлы из виртуального DOM так же, как любую другую вставку."
+        }
+      }
+    ]
+  }
+}

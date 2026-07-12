@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-vue3",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Vue 3 render functions)",
+    "ru": "Скрытый текст (render-функции Vue 3)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:vue", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Vue render functions)",
+      "Vue reactive style-binding suppression"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are produced by a Vue 3 app (createApp + render functions) with reactive style bindings, and grown via a ref on interaction. The detector must fire on framework-authored DOM, not only hand-written markup.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаёт приложение Vue 3 (createApp + render-функции) с реактивными привязками стилей, и они добавляются через ref при взаимодействии. Детектор должен срабатывать на DOM, созданном фреймворком, а не только на рукописной разметке."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Vue patches the DOM after mount and on reactive updates, so a subtree MutationObserver catches render-function-authored hidden nodes the same as any other insertion.",
+          "ru": "Vue патчит DOM после монтирования и при реактивных обновлениях, поэтому MutationObserver по поддереву ловит скрытые узлы из render-функций так же, как любую другую вставку."
+        }
+      }
+    ]
+  }
+}

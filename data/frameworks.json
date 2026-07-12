@@ -1,0 +1,109 @@
+{
+  "frameworks": [
+    {
+      "id": "jquery",
+      "name": "jQuery",
+      "kind": "library",
+      "versions": [
+        {
+          "version": "3.7.1",
+          "major": "3",
+          "folder": "v3",
+          "alias": "jquery",
+          "releaseDate": "2023-08-28",
+          "whyIncluded": {
+            "en": "Latest stable jQuery 3.x — still present on a large share of real-world pages. The detector must survive DOM built and mutated through jQuery's API (hide/css/append, timed animations) rather than direct DOM calls.",
+            "ru": "Актуальный стабильный jQuery 3.x — до сих пор встречается на большой доле реальных страниц. Детектор должен выдерживать DOM, построенный и изменяемый через API jQuery (hide/css/append, отложенные анимации), а не прямыми вызовами DOM."
+          },
+          "scenarios": [{ "id": "hidden-text-jquery", "page": "frameworks/jquery/v3/hidden-text.html" }]
+        },
+        {
+          "version": "1.12.4",
+          "major": "1",
+          "folder": "v1",
+          "alias": "jquery1",
+          "releaseDate": "2016-05-20",
+          "whyIncluded": {
+            "en": "Intentionally stale legacy major, still deployed across long-lived sites. A different runtime era emits different DOM/animation signatures; keeping it pinned validates that the detector fires regardless of library age.",
+            "ru": "Намеренно устаревший легаси-мажор, до сих пор развёрнутый на долгоживущих сайтах. Другая эпоха рантайма даёт другие сигнатуры DOM/анимаций; закреплённый пин проверяет, что детектор срабатывает независимо от возраста библиотеки."
+          },
+          "scenarios": [{ "id": "hidden-text-jquery-legacy", "page": "frameworks/jquery/v1/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "17.0.2",
+          "major": "17",
+          "folder": "v17",
+          "alias": "react17",
+          "releaseDate": "2021-03-22",
+          "whyIncluded": {
+            "en": "Legacy pre-concurrent React, still widely deployed. Mounts via the synchronous `ReactDOM.render` path — a different commit model than createRoot — so it exercises the detector against an older reconciler. Version-isolated in a nested install so its react-dom binds React 17.",
+            "ru": "Легаси React до concurrent-режима, до сих пор широко развёрнут. Монтируется через синхронный путь `ReactDOM.render` — другая модель коммита, чем createRoot — поэтому проверяет детектор на старом реконсиляторе. Изолирован во вложенной установке, чтобы его react-dom связывался с React 17."
+          },
+          "scenarios": [{ "id": "hidden-text-react17", "page": "frameworks/react/v17/hidden-text.html" }]
+        },
+        {
+          "version": "18.3.1",
+          "major": "18",
+          "folder": "v18",
+          "alias": "react",
+          "releaseDate": "2024-04-26",
+          "whyIncluded": {
+            "en": "Dominant virtual-DOM framework. Nodes are committed by the reconciler after mount and on state changes, so the detector must handle framework-authored DOM and reactive mutation, not only hand-written markup. Rendered via createElement (no JSX) so the lab needs no JSX build plugin.",
+            "ru": "Доминирующий фреймворк с виртуальным DOM. Узлы вставляются реконсилятором после монтирования и при изменениях состояния, поэтому детектор должен обрабатывать DOM, созданный фреймворком, и реактивные мутации, а не только рукописную разметку. Рендер через createElement (без JSX), поэтому лабе не нужен JSX-плагин сборки."
+          },
+          "scenarios": [{ "id": "hidden-text-react18", "page": "frameworks/react/v18/hidden-text.html" }]
+        },
+        {
+          "version": "19.2.7",
+          "major": "19",
+          "folder": "v19",
+          "alias": "react19",
+          "releaseDate": "2025-11-19",
+          "whyIncluded": {
+            "en": "Current React major on the newest reconciler via createRoot. Version is a coverage dimension: the latest runtime must not emit framework-authored DOM the detector fails to inspect. Version-isolated in a nested install so its react-dom binds React 19.",
+            "ru": "Актуальный мажор React на новейшем реконсиляторе через createRoot. Версия — измерение покрытия: свежий рантайм не должен давать созданный фреймворком DOM, который детектор не проверяет. Изолирован во вложенной установке, чтобы его react-dom связывался с React 19."
+          },
+          "scenarios": [{ "id": "hidden-text-react19", "page": "frameworks/react/v19/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "vue",
+      "name": "Vue",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "2.7.16",
+          "major": "2",
+          "folder": "v2",
+          "alias": "vue2",
+          "releaseDate": "2023-12-24",
+          "whyIncluded": {
+            "en": "Legacy Vue major, still deployed across long-lived apps. Older virtual-DOM/render format (`h(tag, { attrs, on, style }, children)`) and the `new Vue().$mount` model differ from Vue 3's createApp, so it exercises the detector against an earlier reactive runtime. Self-contained, so a plain npm alias suffices (no nested install).",
+            "ru": "Легаси-мажор Vue, до сих пор развёрнут в долгоживущих приложениях. Более старый формат виртуального DOM/render (`h(tag, { attrs, on, style }, children)`) и модель `new Vue().$mount` отличаются от createApp во Vue 3, поэтому проверяет детектор на более раннем реактивном рантайме. Самодостаточен, поэтому достаточно обычного npm-алиаса (без вложенной установки)."
+          },
+          "scenarios": [{ "id": "hidden-text-vue2", "page": "frameworks/vue/v2/hidden-text.html" }]
+        },
+        {
+          "version": "3.5.39",
+          "major": "3",
+          "folder": "v3",
+          "alias": "vue",
+          "releaseDate": "2025-08-15",
+          "whyIncluded": {
+            "en": "Major reactive framework with its own virtual DOM and patch scheduler. Nodes are authored by render functions and mutated on reactive updates, so the detector must handle Vue-managed DOM. Rendered via render functions (no SFCs) so the lab needs no Vue SFC build plugin.",
+            "ru": "Крупный реактивный фреймворк со своим виртуальным DOM и планировщиком патчей. Узлы создаются render-функциями и меняются при реактивных обновлениях, поэтому детектор должен обрабатывать DOM под управлением Vue. Рендер через render-функции (без SFC), поэтому лабе не нужен SFC-плагин сборки Vue."
+          },
+          "scenarios": [{ "id": "hidden-text-vue3", "page": "frameworks/vue/v3/hidden-text.html" }]
+        }
+      ]
+    }
+  ]
+}

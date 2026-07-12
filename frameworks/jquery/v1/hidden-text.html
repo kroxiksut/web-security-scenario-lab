@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (legacy jQuery 1.12) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../../.."
+    data-scenario="hidden-text-jquery-legacy"
+  >
+    <!-- Framework robustness page (Phase 3): the hidden-content scenario on the intentionally
+         stale jQuery 1.12 major. Same driver as the v3 page; only the pinned runtime differs. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — legacy jQuery 1.12</h1>
+          <p class="muted">
+            Version-coverage variant: identical behavior to the jQuery 3.7 page, bound to the
+            intentionally stale <code>jquery@1.12.4</code> major. Add <code>?focus=1</code> for
+            isolated test mode.
+          </p>
+          <p class="muted">
+            <span class="tag">framework: jQuery 1.12.4</span>
+            <span class="tag">legacy version</span>
+            <span class="tag">framework-managed DOM</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="vm-playground">
+            <p>Visible text block for baseline rendering.</p>
+            <p class="vm-hidden-opacity">Hidden by opacity.</p>
+            <p class="vm-offscreen">Hidden off-screen node.</p>
+            <p class="vm-clipped">Hidden clipped node.</p>
+          </div>
+          <div class="vm-technique-list">
+            <span class="tag">hide()</span>
+            <span class="tag">css(opacity)</span>
+            <span class="tag">off-screen</span>
+            <span class="tag">clipping</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
+              Back to module catalog
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../../src/main.ts"></script>
+  </body>
+</html>

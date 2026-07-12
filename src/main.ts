@@ -6,6 +6,7 @@ import { applyRuntimeSettings, readSettings } from "./shell/settingsStore.ts";
 import { setupFocusMode, setupTestLinks } from "./shell/focusMode.ts";
 import { initSettingsPage } from "./pages/settings.ts";
 import { initScenarioPage } from "./pages/scenario.ts";
+import { initFrameworksPage } from "./pages/frameworks.ts";
 
 /**
  * Single entry point for every page. Builds the shell around the page content, then applies
@@ -26,6 +27,7 @@ function boot(): void {
   setupFocusMode(settings);
 
   if (document.body.dataset.page === "settings") initSettingsPage();
+  if (document.body.dataset.page === "frameworks") initFrameworksPage();
   if (document.body.dataset.scenario) initScenarioPage();
 }
 

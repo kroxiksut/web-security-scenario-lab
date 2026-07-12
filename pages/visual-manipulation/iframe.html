@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (same-origin iframe) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="hidden-text-iframe"
+  >
+    <!-- DOM-boundary coverage (Phase 3): hidden content lives in a same-origin child frame via
+         srcdoc. The evaluation sidepanel is rendered from the manifest at runtime. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — same-origin iframe</h1>
+          <p class="muted">
+            The suppressed nodes live in a child browsing context created via <code>srcdoc</code> —
+            a detector must descend into <code>iframe.contentDocument</code>. Add
+            <code>?focus=1</code> for isolated test mode.
+          </p>
+          <p class="muted">
+            <span class="tag">same-origin iframe</span>
+            <span class="tag">srcdoc</span>
+            <span class="tag">child frame</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="iframe-mount"></div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

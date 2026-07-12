@@ -9,6 +9,7 @@
   "nav.modules": "Модули",
   "nav.home": "Главная",
   "nav.settings": "Настройки",
+  "nav.frameworks": "Фреймворки",
   "status.mvp": "MVP",
   "status.planned": "Запланировано",
   "evaluation.title": "Сводка оценки",
@@ -53,5 +54,15 @@
   "settings.saved": "Настройки сохранены",
   "settings.import_success": "Настройки импортированы",
   "settings.import_error": "Ошибка импорта: некорректный JSON",
-  "settings.reset_done": "Значения по умолчанию восстановлены"
+  "settings.reset_done": "Значения по умолчанию восстановлены",
+  "frameworks.title": "Матрица покрытия фреймворков",
+  "frameworks.description": "Рантаймы фреймворков и закреплённые версии, на которых лаба воспроизводит сценарии. Версия — измерение покрытия: каждый мажор даёт свою сигнатуру DOM/рантайма, которую детектор PageCheck должен выдержать. Все библиотеки бандлятся локально (без runtime CDN).",
+  "frameworks.summary": "библиотек · версий · страниц сценариев",
+  "frameworks.col.version": "Версия",
+  "frameworks.col.released": "Релиз",
+  "frameworks.col.alias": "Import-алиас",
+  "frameworks.col.scenarios": "Страницы сценариев",
+  "frameworks.col.why": "Зачем включено",
+  "frameworks.kind.library": "библиотека",
+  "frameworks.kind.framework": "фреймворк"
 }

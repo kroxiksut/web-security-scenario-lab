@@ -1,0 +1,27 @@
+{
+  "id": "hidden-text-react17",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (legacy React 17)",
+    "ru": "Скрытый текст (легаси React 17)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:react", "framework-managed-dom", "legacy-version"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (React virtual DOM)",
+      "legacy React mount (ReactDOM.render, pre-concurrent)"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the React 18 page, but mounted through the legacy synchronous `ReactDOM.render` path (React 17) instead of concurrent `createRoot`. A different commit path must not let framework-authored hidden nodes slip past the detector.",
+      "ru": "Та же манипуляция со скрытым контентом, что и на странице React 18, но смонтирована через легаси-путь синхронного `ReactDOM.render` (React 17), а не concurrent `createRoot`. Другой путь коммита не должен позволить скрытым узлам, созданным фреймворком, проскользнуть мимо детектора."
+    }
+  }
+}

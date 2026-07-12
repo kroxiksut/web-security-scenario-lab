@@ -9,6 +9,7 @@
   "nav.modules": "Modules",
   "nav.home": "Home",
   "nav.settings": "Settings",
+  "nav.frameworks": "Frameworks",
   "status.mvp": "MVP",
   "status.planned": "Planned",
   "evaluation.title": "Evaluation Summary",
@@ -53,5 +54,15 @@
   "settings.saved": "Settings saved",
   "settings.import_success": "Settings imported",
   "settings.import_error": "Import failed: invalid JSON",
-  "settings.reset_done": "Defaults restored"
+  "settings.reset_done": "Defaults restored",
+  "frameworks.title": "Framework Coverage Matrix",
+  "frameworks.description": "Framework runtimes and pinned versions the lab reproduces scenarios on. Version is a coverage dimension: each major emits a different DOM/runtime signature the PageCheck detector must survive. All libraries are bundled locally (no runtime CDN).",
+  "frameworks.summary": "libraries · versions · scenario pages",
+  "frameworks.col.version": "Version",
+  "frameworks.col.released": "Released",
+  "frameworks.col.alias": "Import alias",
+  "frameworks.col.scenarios": "Scenario pages",
+  "frameworks.col.why": "Why included",
+  "frameworks.kind.library": "library",
+  "frameworks.kind.framework": "framework"
 }

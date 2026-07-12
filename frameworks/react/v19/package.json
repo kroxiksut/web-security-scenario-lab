@@ -1,0 +1,9 @@
+{
+  "name": "framework-react-v19",
+  "private": true,
+  "description": "Isolated pinned React 19 for the scenario lab. Nested node_modules so react-dom binds to its matching react (see AI_CONTEXT.md). Not part of the root install; run `npm run frameworks:install`.",
+  "dependencies": {
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  }
+}

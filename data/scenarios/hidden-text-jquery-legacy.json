@@ -1,0 +1,27 @@
+{
+  "id": "hidden-text-jquery-legacy",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (legacy jQuery 1.12)",
+    "ru": "Скрытый текст (легаси jQuery 1.12)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:jquery", "framework-managed-dom", "legacy-version"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (jQuery)",
+      "legacy library version (jQuery 1.12)"
+    ],
+    "whyFlagged": {
+      "en": "Identical hidden-content manipulation to the jQuery 3.7 page, but rendered through the intentionally stale jQuery 1.12 major. Version is a coverage dimension: an old runtime emits different DOM/animation signatures, and the detector must fire regardless of the library age.",
+      "ru": "Та же манипуляция со скрытым контентом, что и на странице jQuery 3.7, но отрисованная через намеренно устаревший мажор jQuery 1.12. Версия — измерение покрытия: старый рантайм даёт другие сигнатуры DOM/анимаций, и детектор должен срабатывать независимо от возраста библиотеки."
+    }
+  }
+}

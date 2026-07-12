@@ -26,4 +26,5 @@ English documentation for Web Security Scenario Lab. Russian mirror: [`../ru/ind
 - [Contributing](../../CONTRIBUTING.md) · [DCO](../../DCO.md)
 
 ## Native to `docs/`
-_(new documents authored under `docs/en` will be listed here as they are added)_
+- [Adding a Framework or Version](./adding-frameworks.md) — Phase 3: framework robustness pages, the
+  coverage matrix, install strategies (root alias vs nested node_modules), and the verify checklist
