@@ -104,6 +104,139 @@
           "scenarios": [{ "id": "hidden-text-vue3", "page": "frameworks/vue/v3/hidden-text.html" }]
         }
       ]
+    },
+    {
+      "id": "preact",
+      "name": "Preact",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "10.29.7",
+          "major": "10",
+          "folder": "v10",
+          "alias": "preact",
+          "releaseDate": "2026-07-08",
+          "whyIncluded": {
+            "en": "A ~3 kB React alternative with its own reconciler and virtual DOM, widely used where bundle size matters. It emits framework-authored DOM through a runtime distinct from React, so the detector must handle Preact-managed nodes and hook-driven reactive mutation, not only React or hand-written markup. Rendered via h() (no JSX) so the lab needs no JSX build plugin; self-contained, so a future multi-version pass can use plain npm aliases.",
+            "ru": "React-альтернатива ~3 КБ с собственным реконсилятором и виртуальным DOM, широко используется там, где важен размер бандла. Она создаёт DOM средствами фреймворка через рантайм, отличный от React, поэтому детектор должен обрабатывать узлы под управлением Preact и реактивные мутации на хуках, а не только React или рукописную разметку. Рендер через h() (без JSX), поэтому лабе не нужен JSX-плагин сборки; самодостаточен, поэтому будущий мультиверсионный проход может использовать обычные npm-алиасы."
+          },
+          "scenarios": [{ "id": "hidden-text-preact", "page": "frameworks/preact/v10/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "lit",
+      "name": "Lit",
+      "kind": "library",
+      "versions": [
+        {
+          "version": "3.3.3",
+          "major": "3",
+          "folder": "v3",
+          "alias": "lit",
+          "releaseDate": "2026-05-14",
+          "whyIncluded": {
+            "en": "The dominant Web Components library. A LitElement renders into its own shadow root by default, so it combines two evasions in one runtime: framework-authored DOM and shadow-boundary encapsulation. The detector must both handle the Lit runtime and traverse element.shadowRoot. Rendered via the html tagged template (no JSX/compiler) so the lab needs no build plugin; self-contained, so a future multi-version pass can use a plain npm alias.",
+            "ru": "Доминирующая библиотека веб-компонентов. LitElement по умолчанию рендерит в собственный shadow root, поэтому в одном рантайме совмещены два способа обхода: DOM, созданный фреймворком, и инкапсуляция в shadow-границе. Детектор должен и обрабатывать рантайм Lit, и обходить element.shadowRoot. Рендер через tagged-шаблон html (без JSX/компилятора), поэтому лабе не нужен плагин сборки; самодостаточен, поэтому будущий мультиверсионный проход может использовать обычный npm-алиас."
+          },
+          "scenarios": [{ "id": "hidden-text-lit", "page": "frameworks/lit/v3/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "alpine",
+      "name": "Alpine.js",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "3.15.12",
+          "major": "3",
+          "folder": "v3",
+          "alias": "alpinejs",
+          "releaseDate": "2026-04-30",
+          "whyIncluded": {
+            "en": "A widely-used attribute-driven reactive framework. Behavior lives in x-data / x-for / :style / @click attributes and Alpine materializes the DOM from that markup on start(), hiding nodes through a reactive style binding rather than imperative calls. The detector must fire on attribute-driven, framework-materialized DOM. Self-contained, so a future multi-version pass can use a plain npm alias.",
+            "ru": "Широко используемый реактивный фреймворк, управляемый атрибутами. Поведение задаётся в атрибутах x-data / x-for / :style / @click, и Alpine материализует DOM из этой разметки на start(), пряча узлы через реактивную привязку стиля, а не императивными вызовами. Детектор должен срабатывать на DOM, управляемом атрибутами и материализованном фреймворком. Самодостаточен, поэтому будущий мультиверсионный проход может использовать обычный npm-алиас."
+          },
+          "scenarios": [{ "id": "hidden-text-alpine", "page": "frameworks/alpine/v3/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "htmx",
+      "name": "htmx",
+      "kind": "library",
+      "versions": [
+        {
+          "version": "2.0.10",
+          "major": "2",
+          "folder": "v2",
+          "alias": "htmx.org",
+          "releaseDate": "2026-04-21",
+          "whyIncluded": {
+            "en": "A popular hypermedia library that swaps server HTML into the page via hx-* attributes. Here the hidden nodes arrive out-of-band as a static server fragment swapped in by an AJAX request, not built in-page by JS. The detector must fire on content inserted after initial render by an htmx swap — a scan of only the initial HTML would miss it. Self-contained; the fragment is served by the same trivial static server (no backend).",
+            "ru": "Популярная hypermedia-библиотека, подставляющая серверный HTML в страницу через атрибуты hx-*. Здесь скрытые узлы приходят вне очереди как статический серверный фрагмент, подставленный AJAX-запросом, а не строятся на самой странице средствами JS. Детектор должен срабатывать на контенте, вставленном после первичного рендера через htmx-swap — сканирование только исходного HTML его пропустит. Самодостаточен; фрагмент отдаётся тем же тривиальным статическим сервером (без бэкенда)."
+          },
+          "scenarios": [{ "id": "hidden-text-htmx", "page": "frameworks/htmx/v2/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "svelte",
+      "name": "Svelte",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "5.56.4",
+          "major": "5",
+          "folder": "v5",
+          "alias": "svelte",
+          "releaseDate": "2026-06-23",
+          "whyIncluded": {
+            "en": "A compiler-first framework: Svelte compiles components to a fine-grained runtime with no virtual DOM, emitting direct DOM operations and in-place reactive updates via runes ($state). That runtime signature differs from the virtual-DOM diffing of React/Vue/Preact, so the detector must also fire on compiler-emitted, imperatively-updated framework DOM. Compiled by @sveltejs/vite-plugin-svelte — the lab's first compiler-plugin framework; the component script is plain JS so no svelte-preprocess is needed.",
+            "ru": "Компиляторный фреймворк: Svelte компилирует компоненты в точечный рантайм без виртуального DOM, генерируя прямые операции с DOM и реактивные обновления на месте через runes ($state). Эта сигнатура рантайма отличается от диффинга виртуального DOM в React/Vue/Preact, поэтому детектор должен срабатывать и на DOM, сгенерированном компилятором и обновляемом императивно. Компилируется @sveltejs/vite-plugin-svelte — первый компиляторный фреймворк в лабе; скрипт компонента на обычном JS, поэтому svelte-preprocess не нужен."
+          },
+          "scenarios": [{ "id": "hidden-text-svelte", "page": "frameworks/svelte/v5/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "solid",
+      "name": "Solid",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "1.9.14",
+          "major": "1",
+          "folder": "v1",
+          "alias": "solid-js",
+          "releaseDate": "2026-07-01",
+          "whyIncluded": {
+            "en": "A JSX framework with a fine-grained reactive runtime and no virtual DOM: vite-plugin-solid compiles JSX into signal-driven code that patches the real DOM directly. This is the lab's JSX-compiler pipeline (distinct from Svelte's compiler) and a signal-driven runtime signature distinct from virtual-DOM diffing, so the detector must fire on Solid-authored DOM as well. Solid is bundled locally; the JSX surface is confined to one .tsx component while the driver stays JSX-free via createComponent.",
+            "ru": "JSX-фреймворк с точечным реактивным рантаймом и без виртуального DOM: vite-plugin-solid компилирует JSX в код на сигналах, который напрямую патчит реальный DOM. Это JSX-компиляторный конвейер лабы (отличный от компилятора Svelte) и сигнальная сигнатура рантайма, отличная от диффинга виртуального DOM, поэтому детектор должен срабатывать и на DOM, созданном Solid. Solid бандлится локально; JSX ограничен одним .tsx-компонентом, а драйвер остаётся без JSX через createComponent."
+          },
+          "scenarios": [{ "id": "hidden-text-solid", "page": "frameworks/solid/v1/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "tailwind",
+      "name": "Tailwind CSS",
+      "kind": "library",
+      "versions": [
+        {
+          "version": "4.3.2",
+          "major": "4",
+          "folder": "v4",
+          "alias": "tailwindcss",
+          "releaseDate": "2026-06-29",
+          "whyIncluded": {
+            "en": "A utility-CSS library with no JS DOM runtime. The nodes are built with plain DOM, but hidden through Tailwind utility classes (opacity-0, absolute left-[-9999px], text-[0.1px], sr-only) from a generated stylesheet rather than inline styles. This is a distinct evasion axis: a detector that only inspects inline style attributes misses it — it must read computed style. Compiled by @tailwindcss/vite; the generated CSS is scoped to this scenario's chunk (never the shell).",
+            "ru": "Утилитарная CSS-библиотека без JS-рантайма для DOM. Узлы создаются обычным DOM, но спрятаны через утилитарные классы Tailwind (opacity-0, absolute left-[-9999px], text-[0.1px], sr-only) из сгенерированной таблицы стилей, а не inline-стилями. Это отдельная ось обхода: детектор, смотрящий только на inline-атрибуты style, её пропускает — он должен читать вычисленный стиль. Компилируется @tailwindcss/vite; сгенерированный CSS ограничен чанком этого сценария (не попадает в шелл)."
+          },
+          "scenarios": [{ "id": "hidden-text-tailwind", "page": "frameworks/tailwind/v4/hidden-text.html" }]
+        }
+      ]
     }
   ]
 }

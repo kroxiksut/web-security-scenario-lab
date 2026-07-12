@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-solid",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Solid fine-grained runtime)",
+    "ru": "Скрытый текст (точечный рантайм Solid)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:solid", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Solid fine-grained runtime)",
+      "JSX-compiled signal-driven suppression (no virtual DOM)"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are produced by a JSX Solid component compiled to Solid's fine-grained runtime: there is no virtual DOM, and updates flow through signals that patch the real DOM directly on interaction. This signal-driven signature differs from both virtual-DOM diffing (React/Vue/Preact) and Svelte's compiled output, so the detector must fire on Solid-authored DOM as well.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаёт JSX-компонент Solid, скомпилированный в точечный рантайм Solid: виртуального DOM нет, а обновления идут через сигналы, которые напрямую патчат реальный DOM при взаимодействии. Эта сигнальная сигнатура отличается и от диффинга виртуального DOM (React/Vue/Preact), и от скомпилированного вывода Svelte, поэтому детектор должен срабатывать и на DOM, созданном Solid."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Solid inserts and updates real DOM nodes directly via signals (no virtual-DOM layer), so a subtree MutationObserver plus computed-style checks catch the signal-driven hidden nodes exactly as with any other DOM insertion.",
+          "ru": "Solid вставляет и обновляет реальные узлы DOM напрямую через сигналы (без слоя виртуального DOM), поэтому MutationObserver по поддереву вместе с проверкой вычисленного стиля ловит скрытые узлы, управляемые сигналами, так же, как любую другую вставку в DOM."
+        }
+      }
+    ]
+  }
+}

@@ -6,6 +6,8 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
     "types": ["node"],
     "strict": true,
     "noUncheckedIndexedAccess": true,

@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-preact",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Preact 10 virtual DOM)",
+    "ru": "Скрытый текст (виртуальный DOM Preact 10)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:preact", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Preact virtual DOM)",
+      "Preact inline-style suppression via h()"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are produced by a Preact component (h + render) with inline styles set through its own ~3 kB virtual DOM, and grown reactively via a hook on interaction. Preact ships a separate reconciler from React, so the detector must fire on this distinct framework runtime, not only on React or hand-written markup.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаёт Preact-компонент (h + render) с inline-стилями через собственный виртуальный DOM (~3 КБ), и они реактивно добавляются через хук при взаимодействии. У Preact отдельный реконсилятор, не как у React, поэтому детектор должен срабатывать на этом самостоятельном рантайме фреймворка, а не только на React или рукописной разметке."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Preact commits nodes after mount and on hook state changes, so a subtree MutationObserver catches virtual-DOM-authored hidden nodes the same as any other insertion, independent of which virtual-DOM library rendered them.",
+          "ru": "Preact вставляет узлы после монтирования и при изменениях состояния хука, поэтому MutationObserver по поддереву ловит скрытые узлы из виртуального DOM так же, как любую другую вставку, независимо от того, какая библиотека виртуального DOM их отрисовала."
+        }
+      }
+    ]
+  }
+}

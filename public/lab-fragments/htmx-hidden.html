@@ -1,0 +1,10 @@
+<!-- htmx-swapped fragment (Phase 3 robustness). Static server HTML that htmx swaps into the page via
+     hx-get. The hidden nodes below are authored as plain server markup with inline suppression styles;
+     the detector must fire on AJAX-swapped, out-of-band content, not only on DOM built in-page by JS.
+     Internal template only — never user input. -->
+<p style="opacity: 0.02">lab-marker: suppressed inside an htmx-swapped fragment</p>
+<p style="position: absolute; left: -9999px">off-screen smuggled text delivered by an htmx swap</p>
+<p style="font-size: 0.1px">hidden note (test): tiny-font fragment node from htmx</p>
+<p style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0)">
+  clipped instruction placeholder swapped in by htmx
+</p>

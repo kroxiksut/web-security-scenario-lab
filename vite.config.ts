@@ -1,5 +1,8 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import solid from "vite-plugin-solid";
+import tailwindcss from "@tailwindcss/vite";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const page = (p: string): string => fileURLToPath(new URL(p, import.meta.url));
@@ -14,6 +17,16 @@ const dir = (p: string): string => fileURLToPath(new URL(p, import.meta.url));
 export default defineConfig({
   root,
   base: "./",
+  // Compiler-plugin frameworks. vite-plugin-solid transforms the Solid `.tsx` component; the Svelte
+  // plugin transforms `.svelte` files. Each only touches its own file type, so pages that import
+  // neither are unaffected, and each framework code-splits into its own chunk (never entering the
+  // neutral shell). Non-JSX `.ts` scenarios (e.g. React via createElement) carry no JSX, so Solid's
+  // JSX transform does not affect them.
+  //
+  // @tailwindcss/vite only activates on CSS that imports Tailwind; the Tailwind scenario's CSS is
+  // imported solely by its own `.ts`, so the generated utilities code-split into that scenario's
+  // chunk and never enter the shell (main.css imports no Tailwind).
+  plugins: [solid(), svelte(), tailwindcss()],
   // Vue is used via render functions only (no SFCs, no @vitejs/plugin-vue). The esm-bundler build
   // references these compile-time feature flags; define them here so the plugin-less setup builds
   // clean with no runtime warnings. Harmless for pages that don't import Vue (dead-code eliminated).
@@ -62,6 +75,13 @@ export default defineConfig({
         "frameworks-react-v19-hidden-text": page("frameworks/react/v19/hidden-text.html"),
         "frameworks-vue-v3-hidden-text": page("frameworks/vue/v3/hidden-text.html"),
         "frameworks-vue-v2-hidden-text": page("frameworks/vue/v2/hidden-text.html"),
+        "frameworks-preact-v10-hidden-text": page("frameworks/preact/v10/hidden-text.html"),
+        "frameworks-lit-v3-hidden-text": page("frameworks/lit/v3/hidden-text.html"),
+        "frameworks-alpine-v3-hidden-text": page("frameworks/alpine/v3/hidden-text.html"),
+        "frameworks-htmx-v2-hidden-text": page("frameworks/htmx/v2/hidden-text.html"),
+        "frameworks-svelte-v5-hidden-text": page("frameworks/svelte/v5/hidden-text.html"),
+        "frameworks-solid-v1-hidden-text": page("frameworks/solid/v1/hidden-text.html"),
+        "frameworks-tailwind-v4-hidden-text": page("frameworks/tailwind/v4/hidden-text.html"),
       },
     },
   },

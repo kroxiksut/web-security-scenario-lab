@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-tailwind",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Tailwind utility classes)",
+    "ru": "Скрытый текст (утилитарные классы Tailwind)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:tailwind", "class-based-suppression"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping (sr-only)",
+      "utility-CSS class-based suppression",
+      "computed-style (not inline-style) hiding"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the nodes are hidden through Tailwind utility classes (opacity-0, absolute left-[-9999px], text-[0.1px], sr-only) from a generated stylesheet, not through inline style attributes. This is a distinct evasion: a detector that only inspects inline style attributes would miss it entirely — it must read computed style to catch suppression applied via external stylesheet classes.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но узлы спрятаны через утилитарные классы Tailwind (opacity-0, absolute left-[-9999px], text-[0.1px], sr-only) из сгенерированной таблицы стилей, а не через inline-атрибуты style. Это отдельный способ обхода: детектор, который смотрит только на inline-атрибуты style, полностью его пропустит — он должен читать вычисленный стиль, чтобы поймать подавление, заданное классами из внешней таблицы стилей."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "document.querySelectorAll('.vm-playground *').forEach((el) => {\n  const cs = getComputedStyle(el);\n  const offscreen = parseFloat(cs.left) < -2000;\n  if ((cs.opacity < 0.05 || offscreen || parseFloat(cs.fontSize) < 1) && el.textContent.trim())\n    flag(el);\n});",
+        "explanation": {
+          "en": "Detection must read getComputedStyle, not the inline style attribute: Tailwind applies suppression through class rules in an external stylesheet, so only the computed style reflects opacity-0 / off-screen / tiny-font / sr-only. An inline-attribute-only scan would report nothing.",
+          "ru": "Детекция должна читать getComputedStyle, а не inline-атрибут style: Tailwind применяет подавление через правила классов во внешней таблице стилей, поэтому только вычисленный стиль отражает opacity-0 / off-screen / крошечный шрифт / sr-only. Сканирование только inline-атрибутов не покажет ничего."
+        }
+      }
+    ]
+  }
+}

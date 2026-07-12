@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-htmx",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (htmx AJAX-swapped fragment)",
+    "ru": "Скрытый текст (фрагмент, подставленный htmx через AJAX)"
+  },
+  "modes": ["fixed"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:htmx", "ajax-swap", "out-of-band"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (htmx hypermedia swap)",
+      "AJAX-swapped out-of-band inserted content"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are not built in-page: htmx issues an hx-get and swaps a static server fragment (with inline suppression styles) into the DOM on load and on each click. The detector must fire on content inserted out-of-band by an AJAX swap after initial render, not only on markup present in the page's own script or initial HTML.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы не строятся на самой странице: htmx выполняет hx-get и подставляет статический серверный фрагмент (с inline-стилями подавления) в DOM при загрузке и при каждом клике. Детектор должен срабатывать на контенте, вставленном вне очереди через AJAX-swap после первичного рендера, а не только на разметке из собственного скрипта страницы или исходного HTML."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n); // htmx swap appends nodes here\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "htmx inserts the swapped fragment via the DOM after its AJAX response, so a subtree MutationObserver observes the insertion and computed-style checks then catch the hidden nodes — an initial-HTML-only scan would miss them entirely.",
+          "ru": "htmx вставляет подставленный фрагмент через DOM после AJAX-ответа, поэтому MutationObserver по поддереву фиксирует вставку, а проверки вычисленного стиля ловят скрытые узлы — сканирование только исходного HTML их полностью пропустит."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-svelte",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Svelte 5 compiled runtime)",
+    "ru": "Скрытый текст (компилируемый рантайм Svelte 5)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:svelte", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Svelte compiled runtime)",
+      "no-virtual-DOM fine-grained reactive suppression"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are produced by a compiled Svelte 5 component with no virtual DOM: Svelte's compiler emits direct, fine-grained DOM operations and updates nodes in place through a rune ($state) on interaction. This runtime signature differs from React/Vue/Preact's virtual-DOM diffing, so the detector must fire on compiler-emitted, imperatively-updated framework DOM as well.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаёт скомпилированный компонент Svelte 5 без виртуального DOM: компилятор Svelte генерирует прямые точечные операции с DOM и обновляет узлы на месте через rune ($state) при взаимодействии. Эта сигнатура рантайма отличается от диффинга виртуального DOM в React/Vue/Preact, поэтому детектор должен срабатывать и на DOM, сгенерированном компилятором и обновляемом императивно."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Svelte inserts and updates real DOM nodes directly (no virtual-DOM layer), so a subtree MutationObserver plus computed-style checks catch the compiler-emitted hidden nodes exactly as with any other DOM insertion.",
+          "ru": "Svelte вставляет и обновляет реальные узлы DOM напрямую (без слоя виртуального DOM), поэтому MutationObserver по поддереву вместе с проверкой вычисленного стиля ловит скрытые узлы, сгенерированные компилятором, так же, как любую другую вставку в DOM."
+        }
+      }
+    ]
+  }
+}

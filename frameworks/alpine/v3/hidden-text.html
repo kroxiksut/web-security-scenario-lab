@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (Alpine 3) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../../.."
+    data-scenario="hidden-text-alpine"
+  >
+    <!-- Framework robustness page (Phase 3): the hidden-content scenario declared through Alpine.js
+         directives (x-data / x-for / :style / @click). The evaluation sidepanel comes from the
+         manifest. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — Alpine 3</h1>
+          <p class="muted">
+            Framework variant: hidden nodes are declared through Alpine directives and hidden via a
+            reactive <code>:style</code> binding, grown on click by an Alpine <code>@click</code>
+            handler. Add <code>?focus=1</code> for isolated test mode.
+          </p>
+          <p class="muted">
+            <span class="tag">framework: Alpine 3.15.12</span>
+            <span class="tag">attribute-driven</span>
+            <span class="tag">framework-managed DOM</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="vm-playground">
+            <p>Visible text block for baseline rendering.</p>
+            <!-- Alpine wires up an injected x-data subtree here at runtime. -->
+          </div>
+          <div class="vm-technique-list">
+            <span class="tag">inline opacity</span>
+            <span class="tag">off-screen</span>
+            <span class="tag">clipping</span>
+            <span class="tag">tiny font</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
+              Back to module catalog
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../../src/main.ts"></script>
+  </body>
+</html>

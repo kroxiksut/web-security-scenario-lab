@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-alpine",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Alpine directive-driven DOM)",
+    "ru": "Скрытый текст (DOM под управлением директив Alpine)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:alpine", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Alpine reactive runtime)",
+      "declarative suppression via Alpine :style / x-for directives"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are declared through Alpine directives (x-data, x-for, :style) and hidden by a reactive style binding rather than imperative DOM calls; Alpine walks the markup and materializes the nodes on start(), and grows them via an @click handler. The detector must fire on attribute-driven, framework-materialized DOM, not only on hand-written or imperatively-built markup.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы объявлены через директивы Alpine (x-data, x-for, :style) и спрятаны реактивной привязкой стиля, а не императивными вызовами DOM; Alpine обходит разметку и материализует узлы на start(), а @click-обработчик их добавляет. Детектор должен срабатывать на DOM, управляемом атрибутами и материализованном фреймворком, а не только на рукописной или императивно построенной разметке."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Alpine materializes x-for nodes into the DOM after start() and on reactive updates, so a subtree MutationObserver plus computed-style checks catch the directive-authored hidden nodes the same as any other insertion.",
+          "ru": "Alpine материализует узлы x-for в DOM после start() и при реактивных обновлениях, поэтому MutationObserver по поддереву вместе с проверкой вычисленного стиля ловит скрытые узлы, созданные директивами, так же, как любую другую вставку."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-lit",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Lit shadow-root DOM)",
+    "ru": "Скрытый текст (DOM в shadow-root под управлением Lit)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:lit", "shadow-dom", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Lit web component)",
+      "shadow-root-encapsulated suppression via Lit template"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but a Lit custom element (LitElement) authors the suppressed nodes inside its own shadow root through a tagged-template render, grown reactively on interaction. This combines two evasions the detector must handle at once: framework-authored DOM and shadow-boundary encapsulation. It must both cope with the Lit runtime and traverse element.shadowRoot to see the hidden nodes.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но кастомный элемент Lit (LitElement) создаёт скрытые узлы внутри собственного shadow root через рендер tagged-шаблона, добавляя их реактивно при взаимодействии. Здесь совмещены два способа обхода, которые детектор должен обрабатывать одновременно: DOM, созданный фреймворком, и инкапсуляция в shadow-границе. Детектор должен и справляться с рантаймом Lit, и обходить element.shadowRoot, чтобы увидеть скрытые узлы."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "function scan(node) {\n  for (const el of node.querySelectorAll('*')) {\n    const cs = getComputedStyle(el);\n    if ((cs.opacity < 0.05 || cs.display === 'none') && el.textContent.trim()) flag(el);\n    if (el.shadowRoot) scan(el.shadowRoot); // descend into Lit's shadow root\n  }\n}\nscan(document.body);",
+        "explanation": {
+          "en": "Detection must recurse into element.shadowRoot: Lit renders into a shadow root, so a traversal that stops at the light DOM never reaches the hidden nodes. Once inside, computed-style checks catch the inline suppression the same as anywhere else.",
+          "ru": "Детекция должна рекурсивно заходить в element.shadowRoot: Lit рендерит в shadow root, поэтому обход, останавливающийся на light DOM, никогда не доберётся до скрытых узлов. Внутри проверки вычисленного стиля ловят inline-подавление так же, как везде."
+        }
+      }
+    ]
+  }
+}

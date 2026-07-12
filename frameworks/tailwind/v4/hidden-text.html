@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text (Tailwind 4) | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../../.."
+    data-scenario="hidden-text-tailwind"
+  >
+    <!-- Framework robustness page (Phase 3): the hidden-content scenario where nodes are hidden via
+         Tailwind utility CLASSES from a generated stylesheet (not inline styles). The evaluation
+         sidepanel comes from the manifest. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — Tailwind 4</h1>
+          <p class="muted">
+            Utility-CSS variant: nodes are built with plain DOM but suppressed via Tailwind classes
+            (<code>opacity-0</code>, <code>absolute left-[-9999px]</code>, <code>text-[0.1px]</code>,
+            <code>sr-only</code>) from a generated stylesheet, not inline styles. Add
+            <code>?focus=1</code> for isolated test mode.
+          </p>
+          <p class="muted">
+            <span class="tag">library: Tailwind 4.3.2</span>
+            <span class="tag">utility CSS</span>
+            <span class="tag">class-based suppression</span>
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="vm-playground">
+            <p>Visible text block for baseline rendering.</p>
+            <!-- Nodes hidden via Tailwind utility classes are injected here at runtime. -->
+          </div>
+          <div class="vm-technique-list">
+            <span class="tag">opacity-0</span>
+            <span class="tag">off-screen</span>
+            <span class="tag">sr-only clip</span>
+            <span class="tag">tiny font</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
+              Back to module catalog
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../../src/main.ts"></script>
+  </body>
+</html>
