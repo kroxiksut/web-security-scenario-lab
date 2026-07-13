@@ -1,0 +1,37 @@
+{
+  "id": "hidden-text-angular",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (Angular Ivy runtime)",
+    "ru": "Скрытый текст (рантайм Angular Ivy)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": ["opacity", "off-screen", "clipping", "framework:angular", "framework-managed-dom"],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Angular Ivy runtime)",
+      "AOT-compiled, decorator + DI component with zoneless signal change detection"
+    ],
+    "whyFlagged": {
+      "en": "Same hidden-content manipulation as the vanilla scenario, but the suppressed nodes are produced by an ahead-of-time-compiled Angular standalone component running on the Ivy runtime. Nodes are authored through the component's template and hidden via an Angular [style] binding, updated by signal-driven change detection (zoneless — no zone.js patch). This decorator/DI-based, compiled-Ivy signature differs from both virtual-DOM diffing (React/Vue/Preact) and the fine-grained signal runtimes (Solid/Svelte), so the detector must fire on Angular-authored DOM as well.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в vanilla-сценарии, но скрытые узлы создаёт заранее скомпилированный (AOT) standalone-компонент Angular на рантайме Ivy. Узлы создаются через шаблон компонента и скрываются привязкой Angular [style], обновляемой сигнальным механизмом обнаружения изменений (zoneless — без патча zone.js). Эта сигнатура на основе декораторов/DI и скомпилированного Ivy отличается и от диффинга виртуального DOM (React/Vue/Preact), и от точечных сигнальных рантаймов (Solid/Svelte), поэтому детектор должен срабатывать и на DOM, созданном Angular."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n);\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Angular's Ivy runtime inserts and updates real DOM nodes through change detection, so a subtree MutationObserver plus computed-style checks catch the framework-managed hidden nodes exactly as with any other DOM insertion — the compiled/zoneless machinery does not hide them from a DOM-level scan.",
+          "ru": "Рантайм Ivy в Angular вставляет и обновляет реальные узлы DOM через обнаружение изменений, поэтому MutationObserver по поддереву вместе с проверкой вычисленного стиля ловит скрытые узлы под управлением фреймворка так же, как любую другую вставку в DOM — скомпилированный/zoneless-механизм не прячет их от сканирования на уровне DOM."
+        }
+      }
+    ]
+  }
+}

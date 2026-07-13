@@ -3,6 +3,7 @@ import { defineConfig } from "vitest/config";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import solid from "vite-plugin-solid";
 import tailwindcss from "@tailwindcss/vite";
+import angular from "@analogjs/vite-plugin-angular";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const page = (p: string): string => fileURLToPath(new URL(p, import.meta.url));
@@ -26,7 +27,21 @@ export default defineConfig({
   // @tailwindcss/vite only activates on CSS that imports Tailwind; the Tailwind scenario's CSS is
   // imported solely by its own `.ts`, so the generated utilities code-split into that scenario's
   // chunk and never enter the shell (main.css imports no Tailwind).
-  plugins: [solid(), svelte(), tailwindcss()],
+  // Angular (AOT via @analogjs/vite-plugin-angular). Unlike Svelte/Solid, Angular has no dedicated
+  // file extension, so the plugin is doubly scoped to the Angular slice only: a dedicated
+  // `tsconfig.angular.json` bounds its compilation program to the one Angular component file, and
+  // `transformFilter` restricts the Angular transform to the component only (not the plain-TS driver,
+  // whose exports the AOT emit would otherwise drop) — so no other scenario `.ts` is Angular-compiled
+  // and the neutral shell stays Angular-free. `angular()` returns an array of plugins, hence the spread.
+  plugins: [
+    solid(),
+    svelte(),
+    tailwindcss(),
+    ...angular({
+      tsconfig: "tsconfig.angular.json",
+      transformFilter: (_code, id) => id.includes("angularHiddenText.component"),
+    }),
+  ],
   // Vue is used via render functions only (no SFCs, no @vitejs/plugin-vue). The esm-bundler build
   // references these compile-time feature flags; define them here so the plugin-less setup builds
   // clean with no runtime warnings. Harmless for pages that don't import Vue (dead-code eliminated).
@@ -77,11 +92,15 @@ export default defineConfig({
         "frameworks-vue-v2-hidden-text": page("frameworks/vue/v2/hidden-text.html"),
         "frameworks-preact-v10-hidden-text": page("frameworks/preact/v10/hidden-text.html"),
         "frameworks-lit-v3-hidden-text": page("frameworks/lit/v3/hidden-text.html"),
+        "frameworks-lit-v2-hidden-text": page("frameworks/lit/v2/hidden-text.html"),
         "frameworks-alpine-v3-hidden-text": page("frameworks/alpine/v3/hidden-text.html"),
+        "frameworks-alpine-v2-hidden-text": page("frameworks/alpine/v2/hidden-text.html"),
         "frameworks-htmx-v2-hidden-text": page("frameworks/htmx/v2/hidden-text.html"),
+        "frameworks-htmx-v1-hidden-text": page("frameworks/htmx/v1/hidden-text.html"),
         "frameworks-svelte-v5-hidden-text": page("frameworks/svelte/v5/hidden-text.html"),
         "frameworks-solid-v1-hidden-text": page("frameworks/solid/v1/hidden-text.html"),
         "frameworks-tailwind-v4-hidden-text": page("frameworks/tailwind/v4/hidden-text.html"),
+        "frameworks-angular-v22-hidden-text": page("frameworks/angular/v22/hidden-text.html"),
       },
     },
   },

@@ -68,6 +68,30 @@
 - Задать нужные флаги сборки в `vite.config.ts` (например defines Vue `__VUE_OPTIONS_API__` при
   использовании без `@vitejs/plugin-vue`).
 
+## Фреймворки с компилятор-плагином (Svelte, Solid, Angular)
+
+Некоторым фреймворкам нужен Vite-плагин для компиляции компонентов. Svelte (`.svelte`) и Solid
+(`.tsx`) просты: плагин трансформирует только своё расширение, поэтому другие страницы не затрагиваются.
+**Angular — сложный случай:** у него нет отдельного расширения, а `@analogjs/vite-plugin-angular` по
+умолчанию компилирует *каждый* `.ts`. Чтобы он не задел остальную лабу, ограничьте его **дважды**:
+
+1. **Отдельный `tsconfig.angular.json`**, в `include` которого только файл(ы) Angular-компонента —
+   тогда AOT-программа не видит другие сценарии. Передать через `angular({ tsconfig: "tsconfig.angular.json" })`.
+2. **`transformFilter`**, чтобы Angular-трансформ выполнялся только над компонентом:
+   `transformFilter: (_c, id) => id.includes("angularHiddenText.component")`. Не включайте в него
+   обычный TS-драйвер — Angular-трансформация файла без декораторов роняет его экспорты.
+3. **Переопределить `noEmit`.** Angular-программа эмитит через `builder.emit()`, но базовый `tsconfig`
+   задаёт `noEmit:true` (нужно для `allowImportingTsExtensions`). Наследование делает AOT-эмит **тихо
+   пустым** (→ rolldown `MISSING_EXPORT`). В `tsconfig.angular.json` задать `noEmit:false` и
+   `allowImportingTsExtensions:false` (импортировать Angular-файлы без суффикса `.ts`) плюс
+   `useDefineForClassFields:false` (стандартная настройка Angular).
+
+Держите декорированный компонент в **одном файле** (`_shared/<lib>HiddenText.component.ts`), а вокруг —
+JSX/обычный драйвер, чтобы компилируемая поверхность была минимальной. `angular()` возвращает **массив**
+плагинов — разверните его в `plugins`. Запускайте zoneless (`provideZonelessChangeDetection`), чтобы
+избежать глобального патча zone.js. Убедитесь, что рантайм-токены фреймворка **отсутствуют в чанке
+`main`** (там могут быть только *строки* матрицы вроде `@angular/core` — это данные, не рантайм).
+
 ## Проверка (всё должно пройти)
 
 ```

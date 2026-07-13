@@ -140,6 +140,18 @@
             "ru": "Доминирующая библиотека веб-компонентов. LitElement по умолчанию рендерит в собственный shadow root, поэтому в одном рантайме совмещены два способа обхода: DOM, созданный фреймворком, и инкапсуляция в shadow-границе. Детектор должен и обрабатывать рантайм Lit, и обходить element.shadowRoot. Рендер через tagged-шаблон html (без JSX/компилятора), поэтому лабе не нужен плагин сборки; самодостаточен, поэтому будущий мультиверсионный проход может использовать обычный npm-алиас."
           },
           "scenarios": [{ "id": "hidden-text-lit", "page": "frameworks/lit/v3/hidden-text.html" }]
+        },
+        {
+          "version": "2.8.0",
+          "major": "2",
+          "folder": "v2",
+          "alias": "lit2",
+          "releaseDate": "2023-08-16",
+          "whyIncluded": {
+            "en": "Intentionally previous Lit major, still deployed on long-lived component libraries. Lit 2 shares the LitElement / html / requestUpdate surface with Lit 3 but emits a different internal lit-html runtime signature (template-part markers, update machinery). Library major is a coverage dimension: the detector must both cope with the older Lit runtime and traverse element.shadowRoot regardless of version. Self-contained, so a plain npm alias suffices (no nested install).",
+            "ru": "Намеренно предыдущий мажор Lit, до сих пор развёрнут в долгоживущих библиотеках компонентов. Lit 2 разделяет поверхность LitElement / html / requestUpdate с Lit 3, но даёт другую внутреннюю сигнатуру рантайма lit-html (маркеры частей шаблона, механизм обновления). Мажор библиотеки — измерение покрытия: детектор должен и справляться с более старым рантаймом Lit, и обходить element.shadowRoot независимо от версии. Самодостаточен, поэтому достаточно обычного npm-алиаса (без вложенной установки)."
+          },
+          "scenarios": [{ "id": "hidden-text-lit-legacy", "page": "frameworks/lit/v2/hidden-text.html" }]
         }
       ]
     },
@@ -159,6 +171,18 @@
             "ru": "Широко используемый реактивный фреймворк, управляемый атрибутами. Поведение задаётся в атрибутах x-data / x-for / :style / @click, и Alpine материализует DOM из этой разметки на start(), пряча узлы через реактивную привязку стиля, а не императивными вызовами. Детектор должен срабатывать на DOM, управляемом атрибутами и материализованном фреймворком. Самодостаточен, поэтому будущий мультиверсионный проход может использовать обычный npm-алиас."
           },
           "scenarios": [{ "id": "hidden-text-alpine", "page": "frameworks/alpine/v3/hidden-text.html" }]
+        },
+        {
+          "version": "2.8.2",
+          "major": "2",
+          "folder": "v2",
+          "alias": "alpine2",
+          "releaseDate": "2021-05-21",
+          "whyIncluded": {
+            "en": "Intentionally previous Alpine major, still deployed across long-lived pages. Alpine 2 shares the directive syntax with Alpine 3 but has a different runtime: its dist auto-starts on load and a live MutationObserver initializes dynamically-added x-data subtrees (vs Alpine 3's explicit Alpine.start()), and it binds :style as a string rather than an object. Library major is a coverage dimension: the detector must fire on attribute-driven, framework-materialized DOM regardless of Alpine version. Self-contained, so a plain npm alias suffices (no nested install).",
+            "ru": "Намеренно предыдущий мажор Alpine, до сих пор развёрнут на долгоживущих страницах. Alpine 2 разделяет синтаксис директив с Alpine 3, но имеет другой рантайм: его dist авто-стартует при загрузке, а живой MutationObserver инициализирует динамически добавленные x-data поддеревья (против явного Alpine.start() в Alpine 3), и он биндит :style как строку, а не объект. Мажор библиотеки — измерение покрытия: детектор должен срабатывать на DOM, управляемом атрибутами и материализованном фреймворком, независимо от версии Alpine. Самодостаточен, поэтому достаточно обычного npm-алиаса (без вложенной установки)."
+          },
+          "scenarios": [{ "id": "hidden-text-alpine-legacy", "page": "frameworks/alpine/v2/hidden-text.html" }]
         }
       ]
     },
@@ -178,6 +202,18 @@
             "ru": "Популярная hypermedia-библиотека, подставляющая серверный HTML в страницу через атрибуты hx-*. Здесь скрытые узлы приходят вне очереди как статический серверный фрагмент, подставленный AJAX-запросом, а не строятся на самой странице средствами JS. Детектор должен срабатывать на контенте, вставленном после первичного рендера через htmx-swap — сканирование только исходного HTML его пропустит. Самодостаточен; фрагмент отдаётся тем же тривиальным статическим сервером (без бэкенда)."
           },
           "scenarios": [{ "id": "hidden-text-htmx", "page": "frameworks/htmx/v2/hidden-text.html" }]
+        },
+        {
+          "version": "1.9.12",
+          "major": "1",
+          "folder": "v1",
+          "alias": "htmx1",
+          "releaseDate": "2024-05-28",
+          "whyIncluded": {
+            "en": "Intentionally stale htmx 1.x major, still deployed on long-lived sites. The hx-get / hx-swap / hx-trigger swap model is unchanged from htmx 2, but the pre-2.0 ajax/swap runtime is a different signature. Library major is a coverage dimension: the detector must fire on out-of-band AJAX-swapped content regardless of the htmx runtime era. Self-contained, so a plain npm alias suffices; it reuses the same static server fragment as the htmx 2 slice.",
+            "ru": "Намеренно устаревший мажор htmx 1.x, до сих пор развёрнут на долгоживущих сайтах. Модель swap hx-get / hx-swap / hx-trigger не изменилась с htmx 2, но рантайм ajax/swap до 2.0 даёт другую сигнатуру. Мажор библиотеки — измерение покрытия: детектор должен срабатывать на контенте, подставленном вне очереди через AJAX-swap, независимо от эпохи рантайма htmx. Самодостаточен, поэтому достаточно обычного npm-алиаса; переиспользует тот же статический серверный фрагмент, что и срез htmx 2."
+          },
+          "scenarios": [{ "id": "hidden-text-htmx-legacy", "page": "frameworks/htmx/v1/hidden-text.html" }]
         }
       ]
     },
@@ -235,6 +271,25 @@
             "ru": "Утилитарная CSS-библиотека без JS-рантайма для DOM. Узлы создаются обычным DOM, но спрятаны через утилитарные классы Tailwind (opacity-0, absolute left-[-9999px], text-[0.1px], sr-only) из сгенерированной таблицы стилей, а не inline-стилями. Это отдельная ось обхода: детектор, смотрящий только на inline-атрибуты style, её пропускает — он должен читать вычисленный стиль. Компилируется @tailwindcss/vite; сгенерированный CSS ограничен чанком этого сценария (не попадает в шелл)."
           },
           "scenarios": [{ "id": "hidden-text-tailwind", "page": "frameworks/tailwind/v4/hidden-text.html" }]
+        }
+      ]
+    },
+    {
+      "id": "angular",
+      "name": "Angular",
+      "kind": "framework",
+      "versions": [
+        {
+          "version": "22.0.6",
+          "major": "22",
+          "folder": "v22",
+          "alias": "@angular/core",
+          "releaseDate": "2026-07-08",
+          "whyIncluded": {
+            "en": "The heaviest mainstream framework and the lab's only decorator + dependency-injection component model. Components are compiled ahead-of-time (AOT) by @analogjs/vite-plugin-angular into Angular's Ivy runtime; nodes are authored via the component template and mutated by signal-driven change detection (run zoneless, so no zone.js global patch). This compiled-Ivy, DI-based signature differs from both virtual-DOM diffing (React/Vue/Preact) and the fine-grained signal runtimes (Solid/Svelte), so the detector must fire on Angular-authored DOM too. The plugin is doubly scoped (dedicated tsconfig + transform filter) so only the Angular slice is Angular-compiled and the neutral shell stays framework-free.",
+            "ru": "Самый тяжёлый из массовых фреймворков и единственная в лабе модель компонентов на декораторах и внедрении зависимостей. Компоненты компилируются заранее (AOT) через @analogjs/vite-plugin-angular в рантайм Ivy; узлы создаются через шаблон компонента и меняются сигнальным обнаружением изменений (запуск zoneless, без глобального патча zone.js). Эта сигнатура на основе скомпилированного Ivy и DI отличается и от диффинга виртуального DOM (React/Vue/Preact), и от точечных сигнальных рантаймов (Solid/Svelte), поэтому детектор должен срабатывать и на DOM, созданном Angular. Плагин ограничен дважды (отдельный tsconfig + фильтр трансформации), поэтому Angular-компиляции подвергается только Angular-срез, а нейтральный шелл остаётся без фреймворка."
+          },
+          "scenarios": [{ "id": "hidden-text-angular", "page": "frameworks/angular/v22/hidden-text.html" }]
         }
       ]
     }

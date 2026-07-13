@@ -27,3 +27,12 @@ declare module "react19" {
 declare module "react-dom19/client" {
   export * from "react-dom/client";
 }
+
+// Legacy Alpine 2.x alias (`alpine2@npm:alpinejs@2.8.2`). The Alpine 2 dist ships no bundled types and
+// `@types/alpinejs` targets v3, so declare the minimal surface used: the module is imported for its
+// start-on-load side effect, and its default is the Alpine global (start()/window assignment done by
+// the dist itself). `lit2`/`htmx1` aliases resolve their own bundled types, so they need no declaration.
+declare module "alpine2" {
+  const Alpine: { start(): void };
+  export default Alpine;
+}

@@ -19,6 +19,10 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "2.6.3",
+    "@angular/build": "22.0.6",
+    "@angular/compiler": "22.0.6",
+    "@angular/compiler-cli": "22.0.6",
     "@eslint/js": "^10.0.1",
     "@sveltejs/vite-plugin-svelte": "7.2.0",
     "@tailwindcss/vite": "4.3.2",
@@ -38,14 +42,21 @@
     "vitest": "^4.1.10"
   },
   "dependencies": {
+    "@angular/common": "22.0.6",
+    "@angular/core": "22.0.6",
+    "@angular/platform-browser": "22.0.6",
+    "alpine2": "npm:alpinejs@2.8.2",
     "alpinejs": "3.15.12",
     "htmx.org": "2.0.10",
+    "htmx1": "npm:htmx.org@1.9.12",
     "jquery": "3.7.1",
     "jquery1": "npm:jquery@1.12.4",
     "lit": "3.3.3",
+    "lit2": "npm:lit@2.8.0",
     "preact": "10.29.7",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "rxjs": "7.8.2",
     "solid-js": "1.9.14",
     "svelte": "5.56.4",
     "tailwindcss": "4.3.2",

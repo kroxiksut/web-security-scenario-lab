@@ -1,0 +1,20 @@
+{
+  "// note": "Dedicated Angular AOT program for @analogjs/vite-plugin-angular. Scoped to the Angular",
+  "// note2": "slice ONLY so no other scenario is Angular-compiled (isolation). useDefineForClassFields",
+  "// note3": "is false — the standard Angular tsconfig setting the compiler expects for class fields.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "useDefineForClassFields": false,
+    "// noEmit": "Base tsconfig sets noEmit:true (required by allowImportingTsExtensions). The Angular",
+    "// noEmit2": "AOT plugin emits via this program's builder.emit(), so it MUST emit — override both.",
+    "// noEmit3": "The component imports only @angular/core (no .ts-extension imports), so dropping",
+    "// noEmit4": "allowImportingTsExtensions here is safe.",
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "strictInjectionParameters": true
+  },
+  "include": ["src/scenarios/_shared/angularHiddenText.component.ts"]
+}

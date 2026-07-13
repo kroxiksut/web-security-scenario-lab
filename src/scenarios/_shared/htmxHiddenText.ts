@@ -9,9 +9,13 @@ import type { ScenarioContext } from "../context.ts";
  * page's own script. This is a fixed-mode scenario (the fragment is static server content, so the
  * seeded rng does not apply). htmx is injected as a param for consistency with the other drivers.
  * NOT unit-tested (scenario behavior).
+ *
+ * The htmx instance is typed to just the minimal `process(Element)` surface we use, so both the htmx 2
+ * root dep (`process(string | Element)`) and the htmx 1 legacy alias (`process(Element)`) satisfy it
+ * without version-specific type wrangling — we always pass an Element.
  */
 export function runHtmxHiddenText(
-  htmx: typeof import("htmx.org").default,
+  htmx: { process(elt: Element): void },
   { root }: ScenarioContext,
 ): void {
   const playground = root.querySelector<HTMLElement>(".vm-playground");

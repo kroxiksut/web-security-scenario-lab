@@ -64,6 +64,30 @@ Same as above, plus:
 - Set any required build flags in `vite.config.ts` (e.g. Vue's `__VUE_OPTIONS_API__` defines when
   used without `@vitejs/plugin-vue`).
 
+## Compiler-plugin frameworks (Svelte, Solid, Angular)
+
+Some frameworks need a Vite plugin to compile their components. Svelte (`.svelte`) and Solid (`.tsx`)
+are easy: the plugin only transforms its own file extension, so no other page is touched. **Angular
+is the hard case** — it has no dedicated extension and `@analogjs/vite-plugin-angular` defaults to
+compiling *every* `.ts`. To keep it from touching the rest of the lab, scope it **twice**:
+
+1. **Dedicated `tsconfig.angular.json`** whose `include` lists only the Angular component file(s), so
+   the AOT program never sees other scenarios. Pass it via `angular({ tsconfig: "tsconfig.angular.json" })`.
+2. **`transformFilter`** so the Angular transform runs only on the component:
+   `transformFilter: (_c, id) => id.includes("angularHiddenText.component")`. Keep the plain-TS driver
+   out of it — Angular-transforming a non-decorator file drops its exports.
+3. **Override `noEmit`.** The Angular program emits via `builder.emit()`, but the base `tsconfig` sets
+   `noEmit:true` (needed for `allowImportingTsExtensions`). Inheriting it makes the AOT emit **silently
+   empty** (→ rolldown `MISSING_EXPORT`). In `tsconfig.angular.json` set `noEmit:false` and
+   `allowImportingTsExtensions:false` (so import Angular files without the `.ts` suffix) plus
+   `useDefineForClassFields:false` (the standard Angular setting).
+
+Keep the decorated component in **one file** (`_shared/<lib>HiddenText.component.ts`) and a JSX/plain
+driver around it, so the compiled surface stays minimal. `angular()` returns a plugin **array** — spread
+it into `plugins`. Run zoneless (`provideZonelessChangeDetection`) to avoid a global zone.js patch.
+Verify the framework's runtime tokens are **absent from the `main` chunk** (only matrix *strings* like
+`@angular/core` may appear — that's data, not runtime).
+
 ## Verify (all must pass)
 
 ```

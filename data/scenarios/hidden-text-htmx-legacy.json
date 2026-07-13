@@ -1,0 +1,46 @@
+{
+  "id": "hidden-text-htmx-legacy",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (legacy htmx 1.x AJAX-swapped fragment)",
+    "ru": "Скрытый текст (фрагмент, подставленный легаси-htmx 1.x через AJAX)"
+  },
+  "modes": ["fixed"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": [
+      "opacity",
+      "off-screen",
+      "clipping",
+      "framework:htmx",
+      "ajax-swap",
+      "out-of-band",
+      "legacy-version"
+    ],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (htmx hypermedia swap)",
+      "AJAX-swapped out-of-band inserted content",
+      "legacy library major (htmx 1.x pre-2.0 runtime)"
+    ],
+    "whyFlagged": {
+      "en": "Identical hidden-content manipulation to the htmx 2 slice, but driven by the intentionally stale htmx 1.x major, still deployed on long-lived sites. Legacy htmx issues an hx-get and swaps a static server fragment (with inline suppression styles) into the DOM on load and on each click. Library major is a coverage dimension: the detector must fire on content inserted out-of-band by an AJAX swap regardless of the htmx runtime era, not only on markup present in the page's own script or initial HTML.",
+      "ru": "Та же манипуляция со скрытым контентом, что и в срезе htmx 2, но выполняется намеренно устаревшим мажором htmx 1.x, до сих пор развёрнутым на долгоживущих сайтах. Легаси-htmx выполняет hx-get и подставляет статический серверный фрагмент (с inline-стилями подавления) в DOM при загрузке и при каждом клике. Мажор библиотеки — измерение покрытия: детектор должен срабатывать на контенте, вставленном вне очереди через AJAX-swap, независимо от эпохи рантайма htmx, а не только на разметке из собственного скрипта страницы или исходного HTML."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "new MutationObserver((records) => {\n  for (const r of records) for (const n of r.addedNodes)\n    if (n.nodeType === 1) scan(n); // htmx swap appends nodes here\n}).observe(document.body, { childList: true, subtree: true });",
+        "explanation": {
+          "en": "Legacy htmx inserts the swapped fragment via the DOM after its AJAX response exactly as htmx 2 does, so a subtree MutationObserver observes the insertion and computed-style checks then catch the hidden nodes — an initial-HTML-only scan would miss them entirely.",
+          "ru": "Легаси-htmx вставляет подставленный фрагмент через DOM после AJAX-ответа так же, как htmx 2, поэтому MutationObserver по поддереву фиксирует вставку, а проверки вычисленного стиля ловят скрытые узлы — сканирование только исходного HTML их полностью пропустит."
+        }
+      }
+    ]
+  }
+}

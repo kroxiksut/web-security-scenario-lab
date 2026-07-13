@@ -1,0 +1,46 @@
+{
+  "id": "hidden-text-lit-legacy",
+  "module": "visual-manipulation",
+  "title": {
+    "en": "Hidden Text (legacy Lit 2.x shadow-root DOM)",
+    "ru": "Скрытый текст (DOM в shadow-root под управлением легаси-Lit 2.x)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "hidden-content-manipulation",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": [
+      "opacity",
+      "off-screen",
+      "clipping",
+      "framework:lit",
+      "shadow-dom",
+      "framework-managed-dom",
+      "legacy-version"
+    ],
+    "coverageDimensions": [
+      "hidden text",
+      "opacity suppression",
+      "off-screen placement",
+      "clipping",
+      "framework-managed DOM (Lit web component)",
+      "shadow-root-encapsulated suppression via Lit template",
+      "legacy library major (Lit 2.x lit-html runtime)"
+    ],
+    "whyFlagged": {
+      "en": "Identical shadow-root-encapsulated hidden content to the Lit 3 slice, but authored by the previous Lit 2.x major, whose lit-html runtime emits a different internal template signature. A LitElement authors the suppressed nodes inside its own shadow root through a tagged-template render, grown reactively on interaction. Library major is a coverage dimension: the detector must both cope with the (older) Lit runtime and traverse element.shadowRoot to see the hidden nodes, regardless of Lit version.",
+      "ru": "Тот же инкапсулированный в shadow-root скрытый контент, что и в срезе Lit 3, но создаётся предыдущим мажором Lit 2.x, чей рантайм lit-html даёт другую внутреннюю сигнатуру шаблонов. Кастомный элемент LitElement создаёт скрытые узлы внутри собственного shadow root через рендер tagged-шаблона, добавляя их реактивно при взаимодействии. Мажор библиотеки — измерение покрытия: детектор должен и справляться с (более старым) рантаймом Lit, и обходить element.shadowRoot, чтобы увидеть скрытые узлы, независимо от версии Lit."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "function scan(node) {\n  for (const el of node.querySelectorAll('*')) {\n    const cs = getComputedStyle(el);\n    if ((cs.opacity < 0.05 || cs.display === 'none') && el.textContent.trim()) flag(el);\n    if (el.shadowRoot) scan(el.shadowRoot); // descend into Lit's shadow root\n  }\n}\nscan(document.body);",
+        "explanation": {
+          "en": "Detection must recurse into element.shadowRoot regardless of Lit version: legacy Lit 2 renders into a shadow root just like Lit 3, so a traversal that stops at the light DOM never reaches the hidden nodes. Once inside, computed-style checks catch the inline suppression the same as anywhere else.",
+          "ru": "Детекция должна рекурсивно заходить в element.shadowRoot независимо от версии Lit: легаси-Lit 2 рендерит в shadow root так же, как Lit 3, поэтому обход, останавливающийся на light DOM, никогда не доберётся до скрытых узлов. Внутри проверки вычисленного стиля ловят inline-подавление так же, как везде."
+        }
+      }
+    ]
+  }
+}
