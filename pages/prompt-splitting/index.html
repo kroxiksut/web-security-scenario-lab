@@ -9,18 +9,61 @@
   <body data-module="prompt-splitting" data-root="../..">
     <div data-shell-main>
       <article class="panel">
-        <div class="panel__header"><h1 style="margin: 0" data-i18n="module.prompt">Prompt Splitting</h1></div>
-        <div class="panel__body ps-placeholder">
-          <p data-i18n="module.placeholder">
-            Module is planned. Placeholder remains in navigation for forward compatibility.
+        <div class="panel__header">
+          <h1 style="margin: 0" data-i18n="module.prompt">Prompt Splitting</h1>
+          <p class="muted" data-i18n="module.prompt.desc">
+            One instruction distributed across several nearby DOM fragments so a single-string check
+            misses it; the detector reassembles same-region fragments. EN + RU.
           </p>
+        </div>
+        <div class="panel__body">
+          <div class="card-grid">
+            <article class="card">
+              <h3 style="margin-top: 0">Prompt Splitting — spaced</h3>
+              <p class="muted">
+                Baseline positive: instruction split at word boundaries across consecutive fragments
+                in one region, with a delayed assembler.
+              </p>
+              <a class="button" href="./spaced.html" data-test-link="true" data-i18n="module.open_test">
+                Open test page
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">Prompt Splitting — compact</h3>
+              <p class="muted">
+                Mid-word split with no whitespace at the cuts; reassembles only by compact
+                concatenation (lower-confidence positive).
+              </p>
+              <a class="button button--ghost" href="./compact.html" data-test-link="true">
+                Open compact test
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">Prompt Splitting — benign control</h3>
+              <p class="muted">
+                False-positive guard: fragments across different regions and a complete phrase in one
+                node — the detector must NOT fire.
+              </p>
+              <a class="button button--ghost" href="./benign.html" data-test-link="true">
+                Open benign control
+              </a>
+            </article>
+          </div>
         </div>
       </article>
     </div>
 
     <div data-shell-sidepanel>
       <div class="panel__header"><strong data-i18n="evaluation.title">Evaluation Summary</strong></div>
-      <div class="panel__body"><p class="muted">Placeholder mode.</p></div>
+      <div class="panel__body">
+        <div class="tag-list">
+          <span class="tag">single-region</span>
+          <span class="tag">spaced</span>
+          <span class="tag">compact</span>
+          <span class="tag">cross-region</span>
+          <span class="tag">benign-control</span>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="../../src/main.ts"></script>

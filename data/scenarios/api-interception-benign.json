@@ -1,0 +1,35 @@
+{
+  "id": "api-interception-benign",
+  "module": "api-interception",
+  "title": {
+    "en": "API Interception (benign: unmarked attributes)",
+    "ru": "Перехват API (безопасно: атрибуты без маркеров)"
+  },
+  "modes": ["fixed"],
+  "evaluation": {
+    "expectedSignal": "none",
+    "shouldFire": false,
+    "severity": "low",
+    "tags": [
+      "benign-control",
+      "false-positive-guard",
+      "attribute-no-marker",
+      "action",
+      "data-api",
+      "data-endpoint"
+    ],
+    "coverageDimensions": [
+      "action attribute without marker",
+      "data-api attribute without marker",
+      "data-endpoint attribute without marker"
+    ],
+    "whyBenign": {
+      "en": "The page exposes the same attributes the detector inspects (action, data-api, data-endpoint), but their values carry none of the markers it keys on (api, /v1/, /graphql): an ordinary checkout form, a static config path, and a plain data attribute. Presence of the attribute is not an API-surface signal, so a finding here would be a false positive.",
+      "ru": "Страница предъявляет те же атрибуты, что проверяет детектор (action, data-api, data-endpoint), но их значения не несут ни одного маркера, на который он ориентируется (api, /v1/, /graphql): обычная форма оформления заказа, путь к статическому конфигу и простой data-атрибут. Наличие атрибута само по себе не является сигналом API-поверхности, поэтому finding здесь был бы ложноположительным."
+    },
+    "notes": {
+      "en": "False-positive control for the benign matrix: asserts api-interception must NOT fire on unmarked attribute values.",
+      "ru": "Контроль ложных срабатываний для benign-матрицы: утверждает, что api-interception НЕ должен срабатывать на значениях атрибутов без маркеров."
+    }
+  }
+}

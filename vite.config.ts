@@ -79,8 +79,16 @@ export default defineConfig({
         "link-domain-security": page("pages/link-domain-security/index.html"),
         "link-domain-security-homographs": page("pages/link-domain-security/homographs.html"),
         "trigger-phrases": page("pages/trigger-phrases/index.html"),
+        "trigger-phrases-mixed": page("pages/trigger-phrases/mixed.html"),
+        "trigger-phrases-unicode": page("pages/trigger-phrases/unicode.html"),
+        "trigger-phrases-benign": page("pages/trigger-phrases/benign.html"),
         "prompt-splitting": page("pages/prompt-splitting/index.html"),
+        "prompt-splitting-spaced": page("pages/prompt-splitting/spaced.html"),
+        "prompt-splitting-compact": page("pages/prompt-splitting/compact.html"),
+        "prompt-splitting-benign": page("pages/prompt-splitting/benign.html"),
         "api-interception": page("pages/api-interception/index.html"),
+        "api-interception-endpoints": page("pages/api-interception/endpoints.html"),
+        "api-interception-benign": page("pages/api-interception/benign.html"),
         // Framework robustness pages (Phase 3). Versioned folders under frameworks/<lib>/<vN>/;
         // the framework is bundled locally into this page's chunk (no runtime CDN).
         "frameworks-jquery-v3-hidden-text": page("frameworks/jquery/v3/hidden-text.html"),

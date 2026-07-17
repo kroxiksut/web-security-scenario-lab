@@ -28,13 +28,19 @@ export const scenarioSchema = {
     evaluation: {
       type: "object",
       additionalProperties: false,
-      required: [
-        "expectedSignal",
-        "shouldFire",
-        "severity",
-        "tags",
-        "coverageDimensions",
-        "whyFlagged",
+      // `whyFlagged` / `whyBenign` are required conditionally (see `allOf` below): a positive
+      // scenario must explain why the detector should fire; a benign control must explain why it
+      // must NOT — so a false-positive control can never ship without a documented benign rationale.
+      required: ["expectedSignal", "shouldFire", "severity", "tags", "coverageDimensions"],
+      allOf: [
+        {
+          if: { properties: { shouldFire: { const: true } }, required: ["shouldFire"] },
+          then: { required: ["whyFlagged"] },
+        },
+        {
+          if: { properties: { shouldFire: { const: false } }, required: ["shouldFire"] },
+          then: { required: ["whyBenign"] },
+        },
       ],
       properties: {
         expectedSignal: { type: "string", minLength: 1 },

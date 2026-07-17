@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Interception Attribute Surfaces | API Interception</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="api-interception"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="api-interception-endpoints"
+  >
+    <!-- Scenario content only. The evaluation sidepanel is rendered from the manifest at runtime. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">API Interception — attribute surfaces</h1>
+          <p class="muted">
+            Elements whose action/data-api/data-endpoint values carry api, /v1/, or /graphql markers
+            (reserved domains, no network), with a runtime injector. Add <code>?focus=1</code> for
+            isolated test mode.
+          </p>
+        </div>
+        <div class="panel__body">
+          <p>Visible baseline paragraph for normal rendering.</p>
+          <div class="ai-playground"></div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

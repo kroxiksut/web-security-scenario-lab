@@ -9,18 +9,63 @@
   <body data-module="api-interception" data-root="../..">
     <div data-shell-main>
       <article class="panel">
-        <div class="panel__header"><h1 style="margin: 0" data-i18n="module.api">API Interception</h1></div>
-        <div class="panel__body ai-placeholder">
-          <p data-i18n="module.placeholder">
-            Module is planned. Placeholder remains in navigation for forward compatibility.
+        <div class="panel__header">
+          <h1 style="margin: 0" data-i18n="module.api">API Interception</h1>
+          <p class="muted" data-i18n="module.api.desc">
+            API-shaped interaction surfaces on the page (action/src/data-api/data-endpoint markers).
+            Detector is early-stage; scenarios track its current attribute signal and reserve its
+            declared payload-signature scope.
           </p>
+        </div>
+        <div class="panel__body">
+          <div class="card-grid">
+            <article class="card">
+              <h3 style="margin-top: 0">API Interception — attribute surfaces</h3>
+              <p class="muted">
+                Baseline positive: action/data-api/data-endpoint values carrying api, /v1/, /graphql
+                markers, with a runtime injector.
+              </p>
+              <a class="button" href="./endpoints.html" data-test-link="true" data-i18n="module.open_test">
+                Open test page
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">API Interception — benign control</h3>
+              <p class="muted">
+                False-positive guard: the same attributes with unmarked values — the detector must NOT
+                fire.
+              </p>
+              <a class="button button--ghost" href="./benign.html" data-test-link="true">
+                Open benign control
+              </a>
+            </article>
+            <article class="card card--planned">
+              <h3 style="margin-top: 0">
+                Declared vs actual payload
+                <span class="badge badge--planned" data-i18n="status.planned">Planned</span>
+              </h3>
+              <p class="muted">
+                Ahead-of-detector: a data: URI declared <code>image/png</code> whose first bytes are a
+                different signature (declared-MIME vs payload mismatch). Reserved for the module's
+                declared payload-signature scope — not yet implemented.
+              </p>
+            </article>
+          </div>
         </div>
       </article>
     </div>
 
     <div data-shell-sidepanel>
       <div class="panel__header"><strong data-i18n="evaluation.title">Evaluation Summary</strong></div>
-      <div class="panel__body"><p class="muted">Placeholder mode.</p></div>
+      <div class="panel__body">
+        <div class="tag-list">
+          <span class="tag">attribute-signal</span>
+          <span class="tag">/v1/</span>
+          <span class="tag">/graphql</span>
+          <span class="tag">benign-control</span>
+          <span class="tag">mime-signature (planned)</span>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="../../src/main.ts"></script>

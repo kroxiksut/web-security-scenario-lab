@@ -9,18 +9,61 @@
   <body data-module="trigger-phrases" data-root="../..">
     <div data-shell-main>
       <article class="panel">
-        <div class="panel__header"><h1 style="margin: 0" data-i18n="module.trigger">Trigger Phrases</h1></div>
-        <div class="panel__body tp-placeholder">
-          <p data-i18n="module.placeholder">
-            Module is planned. Placeholder remains in navigation for forward compatibility.
+        <div class="panel__header">
+          <h1 style="margin: 0" data-i18n="module.trigger">Trigger Phrases</h1>
+          <p class="muted" data-i18n="module.trigger.desc">
+            Prompt-injection-style phrases, authority impersonation, secret-disclosure and
+            safety-bypass instructions, in visible text and text-bearing attributes, EN + RU.
           </p>
+        </div>
+        <div class="panel__body">
+          <div class="card-grid">
+            <article class="card">
+              <h3 style="margin-top: 0">Trigger Phrases Mixed</h3>
+              <p class="muted">
+                Baseline positive: injection phrases across text and title/aria-label/alt, both
+                languages, with a seeded runtime injector.
+              </p>
+              <a class="button" href="./mixed.html" data-test-link="true" data-i18n="module.open_test">
+                Open test page
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">Trigger Phrases — Unicode evasion</h3>
+              <p class="muted">
+                Same phrases obfuscated with zero-width and fullwidth characters; a normalizing
+                detector should still recover them.
+              </p>
+              <a class="button button--ghost" href="./unicode.html" data-test-link="true">
+                Open Unicode evasion test
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">Trigger Phrases — benign control</h3>
+              <p class="muted">
+                False-positive guard: trigger-shaped strings in quoted/code/documentation context —
+                the detector must NOT fire.
+              </p>
+              <a class="button button--ghost" href="./benign.html" data-test-link="true">
+                Open benign control
+              </a>
+            </article>
+          </div>
         </div>
       </article>
     </div>
 
     <div data-shell-sidepanel>
       <div class="panel__header"><strong data-i18n="evaluation.title">Evaluation Summary</strong></div>
-      <div class="panel__body"><p class="muted">Placeholder mode.</p></div>
+      <div class="panel__body">
+        <div class="tag-list">
+          <span class="tag">instruction-override</span>
+          <span class="tag">authority-impersonation</span>
+          <span class="tag">sensitive-disclosure</span>
+          <span class="tag">unicode-evasion</span>
+          <span class="tag">benign-control</span>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="../../src/main.ts"></script>

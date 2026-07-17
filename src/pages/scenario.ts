@@ -45,6 +45,16 @@ function renderPanel(manifest: ScenarioManifest, locale: string): void {
     e.shouldFire ? "evaluation.should_fire" : "evaluation.should_not_fire",
   );
   const tags = e.tags.map((tag) => `<span class="tag">${esc(tag)}</span>`).join("");
+  // Positive scenarios explain why the detector should fire; benign controls explain why it must
+  // not. Show whichever rationale the manifest carries for this scenario's `shouldFire`.
+  const reasonKey = e.shouldFire ? "evaluation.why_flagged" : "evaluation.why_benign";
+  const reasonText = (e.shouldFire ? e.whyFlagged : e.whyBenign) ?? e.whyFlagged ?? e.whyBenign;
+  const reasonRow = reasonText
+    ? `<dt>${esc(t(locale, reasonKey))}</dt><dd>${esc(reasonText)}</dd>`
+    : "";
+  const notesRow = e.notes
+    ? `<dt>${esc(t(locale, "evaluation.notes"))}</dt><dd>${esc(e.notes)}</dd>`
+    : "";
   panel.innerHTML = `
     <div class="panel__header"><strong>${esc(t(locale, "evaluation.title"))}</strong></div>
     <div class="panel__body">
@@ -54,8 +64,8 @@ function renderPanel(manifest: ScenarioManifest, locale: string): void {
         <dd>${esc(e.expectedSignal)}</dd>
         <dt>${esc(fireLabel)}</dt>
         <dd>${e.shouldFire ? "✓" : "—"}</dd>
-        <dt>${esc(t(locale, "evaluation.why_flagged"))}</dt>
-        <dd>${esc(e.whyFlagged)}</dd>
+        ${reasonRow}
+        ${notesRow}
       </dl>
       <div class="tag-list">${tags}</div>
     </div>`;

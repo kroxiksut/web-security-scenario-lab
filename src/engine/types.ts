@@ -25,14 +25,22 @@ export interface DetectionExample {
   explanation: Localized;
 }
 
-/** Ground-truth evaluation metadata: what the detector is expected to do with this page. */
+/**
+ * Ground-truth evaluation metadata: what the detector is expected to do with this page.
+ *
+ * `whyFlagged` / `whyBenign` are conditionally required by the manifest schema, keyed on
+ * `shouldFire`: a positive scenario (`shouldFire: true`) must carry `whyFlagged`; a benign
+ * false-positive control (`shouldFire: false`) must carry `whyBenign`. Both are optional in the
+ * type because a given manifest only supplies the one that matches its `shouldFire`. For a benign
+ * control, use `expectedSignal: "none"`.
+ */
 export interface EvaluationMeta {
   expectedSignal: string;
   shouldFire: boolean;
   severity: Severity;
   tags: string[];
   coverageDimensions: string[];
-  whyFlagged: Localized;
+  whyFlagged?: Localized;
   whyBenign?: Localized;
   notes?: Localized;
   detectionExamples?: DetectionExample[];

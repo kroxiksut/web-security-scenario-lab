@@ -7,14 +7,17 @@ export function localize(value: Localized, locale: string, fallback = DEFAULT_LO
   return value[locale] ?? value[fallback] ?? value.en;
 }
 
-/** Evaluation metadata with all localized fields resolved to a single locale. */
+/**
+ * Evaluation metadata with all localized fields resolved to a single locale. `whyFlagged` and
+ * `whyBenign` are each present only when the manifest supplies them (keyed on `shouldFire`).
+ */
 export interface ResolvedEvaluation {
   expectedSignal: string;
   shouldFire: boolean;
   severity: Severity;
   tags: string[];
   coverageDimensions: string[];
-  whyFlagged: string;
+  whyFlagged?: string;
   whyBenign?: string;
   notes?: string;
 }
@@ -28,8 +31,8 @@ export function resolveEvaluation(manifest: ScenarioManifest, locale: string): R
     severity: e.severity,
     tags: [...e.tags],
     coverageDimensions: [...e.coverageDimensions],
-    whyFlagged: localize(e.whyFlagged, locale),
   };
+  if (e.whyFlagged) resolved.whyFlagged = localize(e.whyFlagged, locale);
   if (e.whyBenign) resolved.whyBenign = localize(e.whyBenign, locale);
   if (e.notes) resolved.notes = localize(e.notes, locale);
   return resolved;

@@ -1,0 +1,36 @@
+{
+  "id": "prompt-splitting-benign",
+  "module": "prompt-splitting",
+  "title": {
+    "en": "Prompt Splitting (benign: cross-region / complete node)",
+    "ru": "Дробление промпта (безопасно: разные регионы / целый узел)"
+  },
+  "modes": ["fixed"],
+  "evaluation": {
+    "expectedSignal": "none",
+    "shouldFire": false,
+    "severity": "low",
+    "tags": [
+      "benign-control",
+      "false-positive-guard",
+      "cross-region",
+      "complete-single-node",
+      "en",
+      "ru"
+    ],
+    "coverageDimensions": [
+      "fragments across different regions",
+      "complete phrase in one node",
+      "unrelated content between fragments",
+      "EN/RU parity"
+    ],
+    "whyBenign": {
+      "en": "The phrase's words are scattered across separate regions with unrelated content between them, and the page also shows the complete phrase in a single node. Reconstruction only walks candidates within one local region, so cross-region fragments never assemble; and a complete phrase in one node is trigger-phrases' concern, not prompt-splitting's. A prompt-splitting finding here would be a false positive.",
+      "ru": "Слова фразы разбросаны по отдельным регионам с несвязанным контентом между ними, а ещё страница показывает фразу целиком в одном узле. Реконструкция обходит кандидатов только внутри одного региона, поэтому фрагменты из разных регионов не собираются; а целая фраза в одном узле — забота trigger-phrases, а не prompt-splitting. Finding prompt-splitting здесь был бы ложноположительным."
+    },
+    "notes": {
+      "en": "False-positive control for the benign matrix: asserts prompt-splitting must NOT fire on cross-region scatter or a complete single-node phrase.",
+      "ru": "Контроль ложных срабатываний для benign-матрицы: утверждает, что prompt-splitting НЕ должен срабатывать на разбросе по регионам или целой фразе в одном узле."
+    }
+  }
+}

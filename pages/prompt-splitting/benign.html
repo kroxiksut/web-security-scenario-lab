@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Splitting Benign | Prompt Splitting</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="prompt-splitting"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="prompt-splitting-benign"
+  >
+    <!-- Benign false-positive control. The manifest declares shouldFire:false. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Prompt Splitting — benign control</h1>
+          <p class="muted">
+            Fragments scattered across different regions, plus the complete phrase in one node — the
+            detector must NOT reconstruct a finding. Add <code>?focus=1</code> for isolated test mode.
+          </p>
+        </div>
+        <div class="panel__body">
+          <p>Visible baseline paragraph for normal rendering.</p>
+          <div class="ps-playground"></div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

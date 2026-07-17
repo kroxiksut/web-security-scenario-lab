@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trigger Phrases Unicode | Trigger Phrases</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="trigger-phrases"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="trigger-phrases-unicode"
+  >
+    <!-- Scenario content only. The evaluation sidepanel is rendered from the manifest at runtime. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Trigger Phrases — Unicode evasion</h1>
+          <p class="muted">
+            The same phrases obfuscated with zero-width and fullwidth characters; a normalizing
+            detector should still recover them. Add <code>?focus=1</code> for isolated test mode.
+          </p>
+        </div>
+        <div class="panel__body">
+          <p>Visible baseline paragraph for normal rendering.</p>
+          <div class="tp-playground"></div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

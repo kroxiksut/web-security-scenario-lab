@@ -1,0 +1,52 @@
+{
+  "id": "api-interception-endpoints",
+  "module": "api-interception",
+  "title": {
+    "en": "API Interception (attribute surfaces)",
+    "ru": "Перехват API (атрибутные поверхности)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "api-surface-attribute",
+    "shouldFire": true,
+    "severity": "medium",
+    "tags": [
+      "api-interception",
+      "attribute-signal",
+      "action",
+      "data-api",
+      "data-endpoint",
+      "marker-v1",
+      "marker-api",
+      "marker-graphql",
+      "dynamic-injection"
+    ],
+    "coverageDimensions": [
+      "action attribute",
+      "data-api attribute",
+      "data-endpoint attribute",
+      "/v1/ marker",
+      "api marker",
+      "/graphql marker",
+      "dynamic DOM injection"
+    ],
+    "whyFlagged": {
+      "en": "The page exposes API-shaped interaction surfaces: a form action, data-api, and data-endpoint whose values carry the markers the detector keys on (api, /v1/, /graphql), on reserved domains, plus a runtime injector. This matches the module's current DOM-attribute signal that identifies an API surface.",
+      "ru": "Страница предъявляет API-подобные поверхности взаимодействия: form action, data-api и data-endpoint, чьи значения несут маркеры, на которые ориентируется детектор (api, /v1/, /graphql), на reserved-доменах, плюс рантайм-инжектор. Это соответствует текущему сигналу модуля по DOM-атрибутам, выявляющему API-поверхность."
+    },
+    "notes": {
+      "en": "Aligned to the CURRENT attribute signal — a lightweight surface marker, not evidence that a request occurred. The literal `src` attribute is deferred to avoid a runtime request to a non-resolving reserved domain; the img here carries its marker on data-api instead. The declared MIME-vs-first-byte-signature scope is a separate, ahead-of-detector scenario (planned).",
+      "ru": "Соответствует ТЕКУЩЕМУ атрибутному сигналу — это лёгкий маркер поверхности, а не доказательство запроса. Литеральный атрибут `src` отложен, чтобы не делать сетевой запрос к нерезолвящемуся reserved-домену; здесь img несёт маркер в data-api. Заявленный scope MIME-vs-сигнатура первых байт — отдельный ahead-of-detector сценарий (планируется)."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "const ATTRS = ['action', 'src', 'data-api', 'data-endpoint'];\nconst MARKER = /(?:^|[^a-z])api|\\/v1\\/|\\/graphql/i;\nfor (const el of document.querySelectorAll('[action],[src],[data-api],[data-endpoint]')) {\n  if (ATTRS.some((a) => MARKER.test(el.getAttribute(a) || ''))) flag(el);\n}",
+        "explanation": {
+          "en": "Read the action/src/data-api/data-endpoint attributes and flag values containing an api, /v1/, or /graphql marker.",
+          "ru": "Читаем атрибуты action/src/data-api/data-endpoint и помечаем значения с маркером api, /v1/ или /graphql."
+        }
+      }
+    ]
+  }
+}
