@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-tailwind",
   "module": "visual-manipulation",
+  "page": "frameworks/tailwind/v4/hidden-text.html",
   "title": {
     "en": "Hidden Text (Tailwind utility classes)",
     "ru": "Скрытый текст (утилитарные классы Tailwind)"

@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-react18",
   "module": "visual-manipulation",
+  "page": "frameworks/react/v18/hidden-text.html",
   "title": {
     "en": "Hidden Text (React 18 virtual DOM)",
     "ru": "Скрытый текст (виртуальный DOM React 18)"

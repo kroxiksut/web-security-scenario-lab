@@ -1,0 +1,51 @@
+{
+  "id": "api-interception-mime-signature",
+  "module": "api-interception",
+  "page": "pages/api-interception/mime-signature.html",
+  "title": {
+    "en": "API Interception (declared MIME vs payload signature)",
+    "ru": "Перехват API (заявленный MIME против сигнатуры payload)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "payload-signature-mismatch",
+    "shouldFire": true,
+    "severity": "high",
+    "tags": [
+      "api-interception",
+      "mime-signature",
+      "content-type-spoofing",
+      "payload-smuggling",
+      "data-uri",
+      "magic-bytes",
+      "ahead-of-detector",
+      "dynamic-injection"
+    ],
+    "coverageDimensions": [
+      "data: URI declared MIME",
+      "decoded first-byte signature",
+      "declared-vs-actual mismatch",
+      "download anchor href",
+      "data-payload attribute",
+      "dynamic DOM injection"
+    ],
+    "whyFlagged": {
+      "en": "The page carries inline data: URIs whose declared MIME type contradicts the format of their decoded first bytes: an image/png that is really a GIF, an image/jpeg that is really a PDF, an image/png that is really an HTML document, an application/json that is really a ZIP, an image/gif that is really a WebAssembly module. A declared content type that disagrees with the payload's magic bytes is content-type spoofing / payload smuggling — the module's declared payload-signature surface. Parsing the declared MIME and comparing it to the leading bytes should flag each mismatch.",
+      "ru": "Страница несёт инлайновые data: URI, чей заявленный MIME-тип противоречит формату их декодированных первых байт: image/png, который на деле GIF; image/jpeg, который на деле PDF; image/png, который на деле HTML-документ; application/json, который на деле ZIP; image/gif, который на деле модуль WebAssembly. Заявленный content-type, расходящийся с magic-байтами payload, — это подмена content-type / контрабанда payload, заявленная payload-signature поверхность модуля. Разбор заявленного MIME и сравнение с ведущими байтами должны помечать каждое несоответствие."
+    },
+    "notes": {
+      "en": "AHEAD OF THE DETECTOR. PageCheck's api-interception module today keys only on DOM-attribute markers (api, /v1/, /graphql); parsing a data: URI and comparing declared MIME to decoded first bytes is its declared-but-not-yet-built payload-signature scope, so this scenario leads the detector (the lab may lead — see AGENTS.md). Network-free: every data: URI is inline and carried only on non-fetching surfaces (data-* attributes, a download anchor, visible code) — never a loading src — so nothing decodes or renders and no request is issued.",
+      "ru": "ВПЕРЕДИ ДЕТЕКТОРА. Сейчас модуль api-interception в PageCheck ориентируется только на маркеры DOM-атрибутов (api, /v1/, /graphql); разбор data: URI и сравнение заявленного MIME с декодированными первыми байтами — это его заявленный, но ещё не построенный payload-signature scope, поэтому сценарий опережает детектор (лаба может опережать — см. AGENTS.md). Без сети: каждый data: URI инлайновый и размещён только на non-fetching поверхностях (data-* атрибуты, download-якорь, видимый code) — никогда на загружающем src — поэтому ничего не декодируется и не рендерится, запрос не выполняется."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "const MAGIC = [\n  { mime: 'image/png', bytes: [0x89, 0x50, 0x4e, 0x47] },\n  { mime: 'image/gif', bytes: [0x47, 0x49, 0x46] },\n  { mime: 'image/jpeg', bytes: [0xff, 0xd8, 0xff] },\n  { mime: 'application/pdf', bytes: [0x25, 0x50, 0x44, 0x46] },\n  { mime: 'application/zip', bytes: [0x50, 0x4b, 0x03, 0x04] },\n];\nfunction firstBytes(dataUri) {\n  const [head, b64] = dataUri.split(',');\n  if (!/;base64$/.test(head.split(':')[1] || '')) return null;\n  const bin = atob(b64.slice(0, 16));\n  return [...bin].map((c) => c.charCodeAt(0));\n}\nfor (const el of document.querySelectorAll('[href^=\"data:\"],[data-payload^=\"data:\"],[src^=\"data:\"]')) {\n  const uri = el.getAttribute('href') || el.getAttribute('data-payload') || el.getAttribute('src');\n  const declared = (uri.split(':')[1] || '').split(';')[0];\n  const bytes = firstBytes(uri);\n  if (!bytes) continue;\n  const looksLike = MAGIC.find((m) => m.bytes.every((b, i) => bytes[i] === b));\n  if (looksLike && looksLike.mime !== declared) flag(el, declared, looksLike.mime);\n}",
+        "explanation": {
+          "en": "For each element carrying a base64 data: URI, read the declared MIME from the prefix, decode the leading bytes, match them against known magic signatures, and flag when the detected format differs from the declared type.",
+          "ru": "Для каждого элемента с base64 data: URI читаем заявленный MIME из префикса, декодируем ведущие байты, сопоставляем с известными magic-сигнатурами и помечаем, когда обнаруженный формат отличается от заявленного типа."
+        }
+      }
+    ]
+  }
+}

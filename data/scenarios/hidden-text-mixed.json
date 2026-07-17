@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-mixed",
   "module": "visual-manipulation",
+  "page": "pages/visual-manipulation/hidden-text.html",
   "title": {
     "en": "Hidden Text (mixed techniques)",
     "ru": "Скрытый текст (смешанные техники)"

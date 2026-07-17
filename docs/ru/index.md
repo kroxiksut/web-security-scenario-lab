@@ -18,6 +18,10 @@
 ## Модули
 - [Визуальные манипуляции](../../MODULES-VISUAL-MANIPULATION.ru.md)
 - [Безопасность ссылок и доменов](../../MODULES-LINK-DOMAIN-SECURITY.ru.md)
+- **Фаза 4 — ИИ / prompt-injection** ([обзор](./README.md)):
+  - [Триггер-фразы](./trigger-phrases.md)
+  - [Дробление промпта](./prompt-splitting.md)
+  - [Перехват API](./api-interception.md)
 
 ## Платформа и политика
 - [Совместимость браузеров](../../BROWSER-COMPATIBILITY.md)

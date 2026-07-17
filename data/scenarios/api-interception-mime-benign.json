@@ -1,0 +1,36 @@
+{
+  "id": "api-interception-mime-benign",
+  "module": "api-interception",
+  "page": "pages/api-interception/mime-benign.html",
+  "title": {
+    "en": "API Interception (benign: MIME matches signature)",
+    "ru": "Перехват API (безопасно: MIME совпадает с сигнатурой)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "none",
+    "shouldFire": false,
+    "severity": "low",
+    "tags": [
+      "benign-control",
+      "false-positive-guard",
+      "mime-signature",
+      "data-uri",
+      "magic-bytes",
+      "declared-matches-actual"
+    ],
+    "coverageDimensions": [
+      "data: URI declared MIME matches signature",
+      "download anchor href",
+      "data-payload attribute"
+    ],
+    "whyBenign": {
+      "en": "The page carries the same inline data: URIs on the same non-fetching surfaces as the positive, but each URI's declared MIME AGREES with its decoded first-byte signature: a real PNG typed image/png, a real GIF typed image/gif, a real JPEG typed image/jpeg, a real ZIP typed application/zip, a real HTML document typed text/html. A correctly-typed payload is not content-type spoofing, so a payload-signature finding here would be a false positive.",
+      "ru": "Страница несёт те же инлайновые data: URI на тех же non-fetching поверхностях, что и позитив, но у каждого URI заявленный MIME СОВПАДАЕТ с декодированной сигнатурой первых байт: настоящий PNG с типом image/png, настоящий GIF с image/gif, настоящий JPEG с image/jpeg, настоящий ZIP с application/zip, настоящий HTML-документ с text/html. Корректно типизированный payload — это не подмена content-type, поэтому payload-signature finding здесь был бы ложноположительным."
+    },
+    "notes": {
+      "en": "False-positive control for the MIME/signature axis, the counterpart to the unmarked-attributes control on the attribute axis. Also ahead of the detector's current attribute-only signal; network-free (data: URIs on non-fetching surfaces only).",
+      "ru": "Контроль ложных срабатываний для оси MIME/сигнатуры, парный к контролю без-маркерных атрибутов на атрибутной оси. Также опережает текущий атрибутный сигнал детектора; без сети (data: URI только на non-fetching поверхностях)."
+    }
+  }
+}

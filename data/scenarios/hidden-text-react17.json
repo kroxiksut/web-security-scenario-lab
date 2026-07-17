@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-react17",
   "module": "visual-manipulation",
+  "page": "frameworks/react/v17/hidden-text.html",
   "title": {
     "en": "Hidden Text (legacy React 17)",
     "ru": "Скрытый текст (легаси React 17)"

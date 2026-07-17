@@ -1,6 +1,7 @@
 {
   "id": "trigger-phrases-benign",
   "module": "trigger-phrases",
+  "page": "pages/trigger-phrases/benign.html",
   "title": {
     "en": "Trigger Phrases (benign quoted / code context)",
     "ru": "Триггер-фразы (безопасный контекст: цитата / код)"

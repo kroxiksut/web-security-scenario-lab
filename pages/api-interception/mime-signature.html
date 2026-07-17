@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Interception MIME Signature | API Interception</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="api-interception"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="api-interception-mime-signature"
+  >
+    <!-- Scenario content only. The evaluation sidepanel is rendered from the manifest at runtime. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">API Interception — declared MIME vs payload signature</h1>
+          <p class="muted">
+            Inline <code>data:</code> URIs whose declared content type contradicts their decoded
+            first-byte signature (PNG-that-is-GIF, JPEG-that-is-PDF, PNG-that-is-HTML…). Carried on
+            non-fetching surfaces only — no network, nothing renders. Ahead of the detector's current
+            attribute signal. Add <code>?focus=1</code> for isolated test mode.
+          </p>
+        </div>
+        <div class="panel__body">
+          <p>Visible baseline paragraph for normal rendering.</p>
+          <div class="ai-playground"></div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

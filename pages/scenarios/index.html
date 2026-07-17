@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scenario Catalog | Web Security Scenario Lab</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body data-module="scenarios" data-page="scenarios" data-root="../..">
+    <!-- Scenario catalog. The tables are rendered at runtime from every data/scenarios/*.json
+         manifest by src/pages/scenarios.ts and re-rendered on locale change. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0" data-i18n="scenarios.title">Scenario Catalog</h1>
+          <p class="muted" data-i18n="scenarios.description">
+            Every scenario the lab ships, grouped by detection module, with its evaluation ground
+            truth and a live link to its page.
+          </p>
+        </div>
+        <div class="panel__body">
+          <div data-scenarios-catalog></div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

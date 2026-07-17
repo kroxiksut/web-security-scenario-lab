@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-alpine",
   "module": "visual-manipulation",
+  "page": "frameworks/alpine/v3/hidden-text.html",
   "title": {
     "en": "Hidden Text (Alpine directive-driven DOM)",
     "ru": "Скрытый текст (DOM под управлением директив Alpine)"

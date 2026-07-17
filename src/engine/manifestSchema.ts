@@ -7,9 +7,12 @@ export const scenarioSchema = {
   $id: "https://pagecheck.local/schemas/scenario.json",
   type: "object",
   additionalProperties: false,
-  required: ["id", "module", "title", "evaluation"],
+  required: ["id", "module", "page", "title", "evaluation"],
   properties: {
     id: { type: "string", pattern: "^[a-z0-9-]+$" },
+    // Repo-root-relative page path that hosts this scenario; no leading slash, must end in .html
+    // (same convention as data/frameworks.json scenario refs).
+    page: { type: "string", pattern: "^[A-Za-z0-9._/-]+\\.html$" },
     module: {
       enum: [
         "visual-manipulation",

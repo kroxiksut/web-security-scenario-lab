@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-jquery-legacy",
   "module": "visual-manipulation",
+  "page": "frameworks/jquery/v1/hidden-text.html",
   "title": {
     "en": "Hidden Text (legacy jQuery 1.12)",
     "ru": "Скрытый текст (легаси jQuery 1.12)"

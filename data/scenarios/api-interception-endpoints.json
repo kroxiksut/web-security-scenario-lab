@@ -1,6 +1,7 @@
 {
   "id": "api-interception-endpoints",
   "module": "api-interception",
+  "page": "pages/api-interception/endpoints.html",
   "title": {
     "en": "API Interception (attribute surfaces)",
     "ru": "Перехват API (атрибутные поверхности)"
@@ -35,8 +36,8 @@
       "ru": "Страница предъявляет API-подобные поверхности взаимодействия: form action, data-api и data-endpoint, чьи значения несут маркеры, на которые ориентируется детектор (api, /v1/, /graphql), на reserved-доменах, плюс рантайм-инжектор. Это соответствует текущему сигналу модуля по DOM-атрибутам, выявляющему API-поверхность."
     },
     "notes": {
-      "en": "Aligned to the CURRENT attribute signal — a lightweight surface marker, not evidence that a request occurred. The literal `src` attribute is deferred to avoid a runtime request to a non-resolving reserved domain; the img here carries its marker on data-api instead. The declared MIME-vs-first-byte-signature scope is a separate, ahead-of-detector scenario (planned).",
-      "ru": "Соответствует ТЕКУЩЕМУ атрибутному сигналу — это лёгкий маркер поверхности, а не доказательство запроса. Литеральный атрибут `src` отложен, чтобы не делать сетевой запрос к нерезолвящемуся reserved-домену; здесь img несёт маркер в data-api. Заявленный scope MIME-vs-сигнатура первых байт — отдельный ahead-of-detector сценарий (планируется)."
+      "en": "Aligned to the CURRENT attribute signal — a lightweight surface marker, not evidence that a request occurred. The literal `src` attribute is deferred to avoid a runtime request to a non-resolving reserved domain; the img here carries its marker on data-api instead. The declared MIME-vs-first-byte-signature scope is a separate, ahead-of-detector scenario (see api-interception-mime-signature).",
+      "ru": "Соответствует ТЕКУЩЕМУ атрибутному сигналу — это лёгкий маркер поверхности, а не доказательство запроса. Литеральный атрибут `src` отложен, чтобы не делать сетевой запрос к нерезолвящемуся reserved-домену; здесь img несёт маркер в data-api. Заявленный scope MIME-vs-сигнатура первых байт — отдельный ahead-of-detector сценарий (см. api-interception-mime-signature)."
     },
     "detectionExamples": [
       {

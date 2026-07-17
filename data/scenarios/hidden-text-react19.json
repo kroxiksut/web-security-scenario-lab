@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-react19",
   "module": "visual-manipulation",
+  "page": "frameworks/react/v19/hidden-text.html",
   "title": {
     "en": "Hidden Text (React 19)",
     "ru": "Скрытый текст (React 19)"

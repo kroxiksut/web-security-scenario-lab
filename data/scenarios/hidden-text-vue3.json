@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-vue3",
   "module": "visual-manipulation",
+  "page": "frameworks/vue/v3/hidden-text.html",
   "title": {
     "en": "Hidden Text (Vue 3 render functions)",
     "ru": "Скрытый текст (render-функции Vue 3)"

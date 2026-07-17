@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-iframe",
   "module": "visual-manipulation",
+  "page": "pages/visual-manipulation/iframe.html",
   "title": {
     "en": "Hidden Text (same-origin iframe)",
     "ru": "Скрытый текст (same-origin iframe)"

@@ -18,6 +18,10 @@ English documentation for Web Security Scenario Lab. Russian mirror: [`../ru/ind
 ## Modules
 - [Visual Manipulation](../../MODULES-VISUAL-MANIPULATION.md)
 - [Link & Domain Security](../../MODULES-LINK-DOMAIN-SECURITY.md)
+- **Phase 4 — AI / prompt-injection** ([overview](./README.md)):
+  - [Trigger Phrases](./trigger-phrases.md)
+  - [Prompt Splitting](./prompt-splitting.md)
+  - [API Interception](./api-interception.md)
 
 ## Platform & policy
 - [Browser Compatibility](../../BROWSER-COMPATIBILITY.md)

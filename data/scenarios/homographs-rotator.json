@@ -1,6 +1,7 @@
 {
   "id": "homographs-rotator",
   "module": "link-domain-security",
+  "page": "pages/link-domain-security/homographs.html",
   "title": {
     "en": "Homographs Rotator",
     "ru": "Ротатор гомографов"

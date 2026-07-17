@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-preact",
   "module": "visual-manipulation",
+  "page": "frameworks/preact/v10/hidden-text.html",
   "title": {
     "en": "Hidden Text (Preact 10 virtual DOM)",
     "ru": "Скрытый текст (виртуальный DOM Preact 10)"

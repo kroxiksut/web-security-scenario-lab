@@ -48,6 +48,27 @@
                 Open benign control
               </a>
             </article>
+            <article class="card">
+              <h3 style="margin-top: 0">Prompt Splitting — attribute chain</h3>
+              <p class="muted">
+                Positive on a different surface: fragments hidden across the
+                <code>title</code>/<code>aria-label</code>/<code>alt</code>/<code>data-note</code>
+                attributes of a same-region chain; visible text is neutral.
+              </p>
+              <a class="button" href="./attribute-chain.html" data-test-link="true" data-i18n="module.open_test">
+                Open test page
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">Prompt Splitting — attribute benign control</h3>
+              <p class="muted">
+                False-positive guard for the attribute axis: the same chain, but it assembles to an
+                ordinary tooltip, not an instruction — the detector must NOT fire.
+              </p>
+              <a class="button button--ghost" href="./attribute-benign.html" data-test-link="true">
+                Open benign control
+              </a>
+            </article>
           </div>
         </div>
       </article>
@@ -60,6 +81,7 @@
           <span class="tag">single-region</span>
           <span class="tag">spaced</span>
           <span class="tag">compact</span>
+          <span class="tag">attribute-chain</span>
           <span class="tag">cross-region</span>
           <span class="tag">benign-control</span>
         </div>

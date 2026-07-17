@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { assertManifest, validateManifest } from "../../src/engine/validateManifest.ts";
 import { localize, resolveEvaluation } from "../../src/engine/resolveEvaluation.ts";
 import type { ScenarioManifest } from "../../src/engine/types.ts";
@@ -29,14 +29,37 @@ describe("manifest validation", () => {
     }
   });
 
+  it("points every shipped manifest at an HTML page that exists", () => {
+    // The catalog links each scenario by its manifest `page`; a dangling path would be a dead link.
+    const files = readdirSync(scenarioDir).filter((f) => f.endsWith(".json"));
+    for (const file of files) {
+      const m = JSON.parse(readFileSync(new URL(file, scenarioDir), "utf8")) as ScenarioManifest;
+      const pagePath = new URL(`../../${m.page}`, import.meta.url);
+      expect(existsSync(pagePath), `${file} → missing page ${m.page}`).toBe(true);
+    }
+  });
+
   it("rejects a manifest missing required evaluation fields", () => {
     const bad = {
       id: "broken",
       module: "visual-manipulation",
+      page: "pages/visual-manipulation/hidden-text.html",
       title: { en: "Broken" },
       evaluation: { expectedSignal: "x", shouldFire: true },
     };
     expect(validateManifest(bad).valid).toBe(false);
+  });
+
+  it("requires a page and rejects a non-.html page path", () => {
+    // The catalog (src/pages/scenarios.ts) links each manifest by its `page`; a manifest with no
+    // page or a non-page path would be undiscoverable / a broken link, so the schema blocks it.
+    const noPage = structuredClone(realManifest) as { page?: string };
+    delete noPage.page;
+    expect(validateManifest(noPage).valid).toBe(false);
+
+    const notHtml = structuredClone(realManifest) as { page: string };
+    notHtml.page = "pages/visual-manipulation/hidden-text";
+    expect(validateManifest(notHtml).valid).toBe(false);
   });
 
   it("rejects an unknown module and a bad id pattern", () => {
@@ -56,6 +79,7 @@ describe("manifest validation", () => {
     const benignNoRationale = {
       id: "benign-no-rationale",
       module: "trigger-phrases",
+      page: "pages/trigger-phrases/benign.html",
       title: { en: "Benign" },
       evaluation: {
         expectedSignal: "none",

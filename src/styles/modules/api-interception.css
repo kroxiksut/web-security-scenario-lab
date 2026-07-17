@@ -27,6 +27,15 @@
   display: inline-block;
 }
 
+/* Truncated head of a data: URI shown next to a MIME/signature payload holder. */
+.ai-payload {
+  display: block;
+  margin: 0 0 var(--space-2);
+  font-size: 0.78rem;
+  word-break: break-all;
+  color: var(--color-text-muted);
+}
+
 /* Reserved-but-not-implemented catalog card (e.g. the planned MIME/signature scenario). */
 .card--planned {
   border-style: dashed;

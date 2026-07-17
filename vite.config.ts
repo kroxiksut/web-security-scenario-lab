@@ -72,6 +72,7 @@ export default defineConfig({
         index: page("index.html"),
         settings: page("pages/settings/index.html"),
         frameworks: page("pages/frameworks/index.html"),
+        scenarios: page("pages/scenarios/index.html"),
         "visual-manipulation": page("pages/visual-manipulation/index.html"),
         "visual-manipulation-hidden-text": page("pages/visual-manipulation/hidden-text.html"),
         "visual-manipulation-shadow-dom": page("pages/visual-manipulation/shadow-dom.html"),
@@ -86,9 +87,13 @@ export default defineConfig({
         "prompt-splitting-spaced": page("pages/prompt-splitting/spaced.html"),
         "prompt-splitting-compact": page("pages/prompt-splitting/compact.html"),
         "prompt-splitting-benign": page("pages/prompt-splitting/benign.html"),
+        "prompt-splitting-attribute-chain": page("pages/prompt-splitting/attribute-chain.html"),
+        "prompt-splitting-attribute-benign": page("pages/prompt-splitting/attribute-benign.html"),
         "api-interception": page("pages/api-interception/index.html"),
         "api-interception-endpoints": page("pages/api-interception/endpoints.html"),
         "api-interception-benign": page("pages/api-interception/benign.html"),
+        "api-interception-mime-signature": page("pages/api-interception/mime-signature.html"),
+        "api-interception-mime-benign": page("pages/api-interception/mime-benign.html"),
         // Framework robustness pages (Phase 3). Versioned folders under frameworks/<lib>/<vN>/;
         // the framework is bundled locally into this page's chunk (no runtime CDN).
         "frameworks-jquery-v3-hidden-text": page("frameworks/jquery/v3/hidden-text.html"),

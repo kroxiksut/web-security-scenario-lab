@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-lit",
   "module": "visual-manipulation",
+  "page": "frameworks/lit/v3/hidden-text.html",
   "title": {
     "en": "Hidden Text (Lit shadow-root DOM)",
     "ru": "Скрытый текст (DOM в shadow-root под управлением Lit)"

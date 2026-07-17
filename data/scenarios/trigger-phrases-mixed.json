@@ -1,6 +1,7 @@
 {
   "id": "trigger-phrases-mixed",
   "module": "trigger-phrases",
+  "page": "pages/trigger-phrases/mixed.html",
   "title": {
     "en": "Trigger Phrases (mixed placements)",
     "ru": "Триггер-фразы (смешанные размещения)"

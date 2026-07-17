@@ -50,6 +50,14 @@ export interface EvaluationMeta {
 export interface ScenarioManifest {
   id: string;
   module: ModuleId;
+  /**
+   * Repo-root-relative path to the HTML page that hosts this scenario (e.g.
+   * `pages/trigger-phrases/mixed.html` or `frameworks/react/v18/hidden-text.html`). The manifest
+   * owns its page path so the scenario catalog (`src/pages/scenarios.ts`) can list every scenario
+   * with a live link. For framework scenarios this must match the matching `data/frameworks.json`
+   * ref's `page` — a cross-check test enforces it (tests/unit/frameworks.test.ts).
+   */
+  page: string;
   title: Localized;
   modes?: ScenarioMode[];
   evaluation: EvaluationMeta;

@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-htmx",
   "module": "visual-manipulation",
+  "page": "frameworks/htmx/v2/hidden-text.html",
   "title": {
     "en": "Hidden Text (htmx AJAX-swapped fragment)",
     "ru": "Скрытый текст (фрагмент, подставленный htmx через AJAX)"

@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-angular",
   "module": "visual-manipulation",
+  "page": "frameworks/angular/v22/hidden-text.html",
   "title": {
     "en": "Hidden Text (Angular Ivy runtime)",
     "ru": "Скрытый текст (рантайм Angular Ivy)"

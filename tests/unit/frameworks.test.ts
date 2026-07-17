@@ -1,9 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
-import {
-  assertFrameworks,
-  validateFrameworks,
-} from "../../src/engine/validateFrameworks.ts";
+import { assertFrameworks, validateFrameworks } from "../../src/engine/validateFrameworks.ts";
 import type { FrameworkMatrix } from "../../src/engine/types.ts";
 
 const scenarioDir = new URL("../../data/scenarios/", import.meta.url);
@@ -84,9 +81,29 @@ describe("framework matrix referential integrity", () => {
       for (const version of fw.versions) {
         for (const ref of version.scenarios) {
           const pagePath = new URL(`../../${ref.page}`, import.meta.url);
-          expect(existsSync(pagePath), `${fw.id}@${version.version} → missing page ${ref.page}`).toBe(
-            true,
-          );
+          expect(
+            existsSync(pagePath),
+            `${fw.id}@${version.version} → missing page ${ref.page}`,
+          ).toBe(true);
+        }
+      }
+    }
+  });
+
+  it("agrees with each referenced manifest's own page (single source of truth)", () => {
+    // A framework scenario's page is declared in both the matrix ref and the manifest; they must
+    // match so the coverage matrix and the scenario catalog never link the same scenario to
+    // different pages.
+    for (const fw of matrix.frameworks) {
+      for (const version of fw.versions) {
+        for (const ref of version.scenarios) {
+          const manifest = JSON.parse(
+            readFileSync(new URL(`${ref.id}.json`, scenarioDir), "utf8"),
+          ) as { page: string };
+          expect(
+            manifest.page,
+            `${fw.id}@${version.version} → matrix page ${ref.page} != manifest page ${manifest.page}`,
+          ).toBe(ref.page);
         }
       }
     }

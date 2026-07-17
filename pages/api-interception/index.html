@@ -39,16 +39,26 @@
                 Open benign control
               </a>
             </article>
-            <article class="card card--planned">
-              <h3 style="margin-top: 0">
-                Declared vs actual payload
-                <span class="badge badge--planned" data-i18n="status.planned">Planned</span>
-              </h3>
+            <article class="card">
+              <h3 style="margin-top: 0">API Interception — declared MIME vs payload signature</h3>
               <p class="muted">
-                Ahead-of-detector: a data: URI declared <code>image/png</code> whose first bytes are a
-                different signature (declared-MIME vs payload mismatch). Reserved for the module's
-                declared payload-signature scope — not yet implemented.
+                Ahead-of-detector positive: inline <code>data:</code> URIs whose declared content
+                type contradicts their decoded first-byte signature (PNG-that-is-GIF, JPEG-that-is-PDF,
+                PNG-that-is-HTML). Non-fetching surfaces only — no network.
               </p>
+              <a class="button" href="./mime-signature.html" data-test-link="true" data-i18n="module.open_test">
+                Open test page
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0">API Interception — MIME/signature benign control</h3>
+              <p class="muted">
+                False-positive guard for the MIME axis: the same <code>data:</code> URIs, but each
+                declared type matches its actual signature — the detector must NOT fire.
+              </p>
+              <a class="button button--ghost" href="./mime-benign.html" data-test-link="true">
+                Open benign control
+              </a>
             </article>
           </div>
         </div>
@@ -62,8 +72,10 @@
           <span class="tag">attribute-signal</span>
           <span class="tag">/v1/</span>
           <span class="tag">/graphql</span>
+          <span class="tag">mime-signature</span>
+          <span class="tag">payload-smuggling</span>
+          <span class="tag">ahead-of-detector</span>
           <span class="tag">benign-control</span>
-          <span class="tag">mime-signature (planned)</span>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-solid",
   "module": "visual-manipulation",
+  "page": "frameworks/solid/v1/hidden-text.html",
   "title": {
     "en": "Hidden Text (Solid fine-grained runtime)",
     "ru": "Скрытый текст (точечный рантайм Solid)"

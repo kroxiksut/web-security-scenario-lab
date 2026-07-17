@@ -1,6 +1,7 @@
 {
   "id": "api-interception-benign",
   "module": "api-interception",
+  "page": "pages/api-interception/benign.html",
   "title": {
     "en": "API Interception (benign: unmarked attributes)",
     "ru": "Перехват API (безопасно: атрибуты без маркеров)"

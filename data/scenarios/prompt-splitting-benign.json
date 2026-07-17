@@ -1,6 +1,7 @@
 {
   "id": "prompt-splitting-benign",
   "module": "prompt-splitting",
+  "page": "pages/prompt-splitting/benign.html",
   "title": {
     "en": "Prompt Splitting (benign: cross-region / complete node)",
     "ru": "Дробление промпта (безопасно: разные регионы / целый узел)"

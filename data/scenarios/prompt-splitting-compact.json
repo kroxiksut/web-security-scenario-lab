@@ -1,6 +1,7 @@
 {
   "id": "prompt-splitting-compact",
   "module": "prompt-splitting",
+  "page": "pages/prompt-splitting/compact.html",
   "title": {
     "en": "Prompt Splitting (compact, mid-word)",
     "ru": "Дробление промпта (compact, разрыв внутри слов)"

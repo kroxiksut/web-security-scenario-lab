@@ -1,6 +1,7 @@
 {
   "id": "prompt-splitting-spaced",
   "module": "prompt-splitting",
+  "page": "pages/prompt-splitting/spaced.html",
   "title": {
     "en": "Prompt Splitting (spaced, single region)",
     "ru": "Дробление промпта (пробельная сборка, один регион)"

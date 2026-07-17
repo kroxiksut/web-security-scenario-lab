@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-shadow-dom",
   "module": "visual-manipulation",
+  "page": "pages/visual-manipulation/shadow-dom.html",
   "title": {
     "en": "Hidden Text (Shadow DOM)",
     "ru": "Скрытый текст (Shadow DOM)"

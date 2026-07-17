@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-vue2",
   "module": "visual-manipulation",
+  "page": "frameworks/vue/v2/hidden-text.html",
   "title": {
     "en": "Hidden Text (legacy Vue 2.7)",
     "ru": "Скрытый текст (легаси Vue 2.7)"

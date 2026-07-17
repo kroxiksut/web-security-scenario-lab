@@ -1,6 +1,7 @@
 {
   "id": "trigger-phrases-unicode",
   "module": "trigger-phrases",
+  "page": "pages/trigger-phrases/unicode.html",
   "title": {
     "en": "Trigger Phrases (Unicode normalization evasion)",
     "ru": "Триггер-фразы (обход через нормализацию Unicode)"

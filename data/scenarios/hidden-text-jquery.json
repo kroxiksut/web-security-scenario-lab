@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-jquery",
   "module": "visual-manipulation",
+  "page": "frameworks/jquery/v3/hidden-text.html",
   "title": {
     "en": "Hidden Text (jQuery-managed DOM)",
     "ru": "Скрытый текст (DOM под управлением jQuery)"

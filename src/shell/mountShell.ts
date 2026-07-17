@@ -19,6 +19,7 @@ const NAV_ITEMS: NavItem[] = [
   { module: "home", path: "index.html", i18nKey: "nav.home" },
   { module: "settings", path: "pages/settings/index.html", i18nKey: "nav.settings" },
   { module: "frameworks", path: "pages/frameworks/index.html", i18nKey: "nav.frameworks" },
+  { module: "scenarios", path: "pages/scenarios/index.html", i18nKey: "nav.scenarios" },
   {
     module: "visual-manipulation",
     path: "pages/visual-manipulation/index.html",

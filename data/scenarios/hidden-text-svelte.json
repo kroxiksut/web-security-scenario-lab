@@ -1,6 +1,7 @@
 {
   "id": "hidden-text-svelte",
   "module": "visual-manipulation",
+  "page": "frameworks/svelte/v5/hidden-text.html",
   "title": {
     "en": "Hidden Text (Svelte 5 compiled runtime)",
     "ru": "Скрытый текст (компилируемый рантайм Svelte 5)"
