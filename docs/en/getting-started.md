@@ -81,7 +81,12 @@ If you would rather not deal with that, use `npm run setup` — the result is id
 
 To check the environment without installing anything: `npm run setup -- --check`.
 
-Either command does exactly this:
+The script **never wipes anything**: it installs only what is missing and otherwise leaves an existing
+tree alone. That matters because `npm install` prunes everything from `node_modules` that
+`package.json` does not list — including packages you added by hand (`npm install --no-save …`). Force
+a full reinstall with `npm run setup -- --reinstall`.
+
+With nothing to install it says so and exits. On a fresh clone it runs:
 
 ```powershell
 npm install
@@ -97,19 +102,23 @@ React 19 scenario pages break; the rest of the lab still builds and runs. Detail
 ### 4. Run the lab
 
 ```powershell
-npm run dev
+npm start
 ```
 
 Vite prints an address — `http://localhost:5173/` by default. Open it in a browser: that is the
 landing page with the module cards. Hot reload is on and TypeScript is compiled on the fly.
 
+`npm start` runs the preflight checks, installs dependencies if they are missing, and then starts the
+dev server. Once step 3 is done, plain `npm run dev` does exactly the same thing. PowerShell wrapper:
+`powershell -ExecutionPolicy Bypass -File .\scripts\start.ps1`.
+
 Stop the server with `Ctrl+C` in the same PowerShell window.
 
-Different port, or access from the local network:
+Different port, or access from the local network (arguments are forwarded to Vite):
 
 ```powershell
-npm run dev -- --port 5180
-npm run dev -- --host
+npm start -- --port 5180
+npm start -- --host
 ```
 
 ### 5. Build and serve the static output (when needed)
@@ -192,7 +201,12 @@ sh scripts/setup.sh
 
 To check the environment without installing anything: `npm run setup -- --check`.
 
-Either command does exactly this:
+The script **never wipes anything**: it installs only what is missing and otherwise leaves an existing
+tree alone. That matters because `npm install` prunes everything from `node_modules` that
+`package.json` does not list — including packages you added by hand (`npm install --no-save …`). Force
+a full reinstall with `npm run setup -- --reinstall`.
+
+With nothing to install it says so and exits. On a fresh clone it runs:
 
 ```bash
 npm install
@@ -208,19 +222,23 @@ React 19 scenario pages break; the rest of the lab still builds and runs. Detail
 ### 4. Run the lab
 
 ```bash
-npm run dev
+npm start
 ```
 
 Vite prints an address — `http://localhost:5173/` by default. Open it in a browser: that is the
 landing page with the module cards. Hot reload is on and TypeScript is compiled on the fly.
 
+`npm start` runs the preflight checks, installs dependencies if they are missing, and then starts the
+dev server. Once step 3 is done, plain `npm run dev` does exactly the same thing. sh wrapper:
+`sh scripts/start.sh`.
+
 Stop the server with `Ctrl+C` in the same terminal.
 
-Different port, or access from the local network:
+Different port, or access from the local network (arguments are forwarded to Vite):
 
 ```bash
-npm run dev -- --port 5180
-npm run dev -- --host
+npm start -- --port 5180
+npm start -- --host
 ```
 
 ### 5. Build and serve the static output (when needed)
@@ -277,7 +295,7 @@ plant it regardless of the UI language.
 
 ## Quality gates
 
-Before proposing a change, all four must pass. One command, identical on both systems:
+Before proposing a change, everything must pass. One command, identical on both systems:
 
 ```bash
 npm run verify
@@ -290,7 +308,17 @@ npm run typecheck
 npm run lint
 npm run test
 npm run build
+npm run smoke     # starts the real servers and checks their responses
 ```
+
+That last step is not a formality. `npm run smoke` starts the dev server on a free port and a static
+server over `dist/`, then asserts against real responses: pages return 200, TypeScript is stripped,
+styles reach the browser, and every asset the built page references exists. This is the class of
+failure the other four gates miss — the Angular plugin once disabled Vite's TS transform, `npm run
+build` stayed green, and every page died on `SyntaxError` under `npm run dev`. Takes about half a
+minute.
+
+You can run either half on its own: `npm run smoke -- --dev-only` or `npm run smoke -- --dist-only`.
 
 Tests cover the **engine and infrastructure only** (seeded PRNG, manifest loading, JSON-Schema
 validation, i18n, evaluation resolution). Scenario pages are deliberately variable and imperfect and

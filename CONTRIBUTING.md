@@ -87,14 +87,20 @@ When you extend one:
 
 ## Before Submitting
 
-All four gates must pass — `npm run verify` runs them in order:
+All gates must pass — `npm run verify` runs them in order:
 
 ```bash
-npm run verify        # typecheck + lint + test + build
+npm run verify        # typecheck + lint + test + build + smoke
 ```
 
-On a fresh clone, `npm run setup` handles the preflight checks and both installs (there are thin
-`scripts/setup.ps1` and `scripts/setup.sh` wrappers that call the same script).
+The last step (`npm run smoke`) starts the dev server and a static server over `dist/`, then checks
+real responses: pages return 200, TypeScript is stripped, styles reach the browser, and every asset a
+built page references exists. Build tooling can break the running lab while every other gate stays
+green, so do not skip it.
+
+On a fresh clone, `npm run setup` handles the preflight checks and both installs; `npm start` runs the
+lab. Both have thin `scripts/*.ps1` and `scripts/*.sh` wrappers that call the same Node script.
+`setup` installs only what is missing — it will not prune packages you installed ad hoc.
 
 Tests cover the engine and infrastructure only. Scenario pages are intentionally variable and
 imperfect, and are deliberately not test-covered — do not add tests that assert scenario DOM.

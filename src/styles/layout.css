@@ -58,7 +58,10 @@
   min-width: 0;
 }
 
-@media (max-width: 1150px) {
+/* Below this width three columns would squeeze the centre under the width the coverage tables need
+   (720px for the scenario catalog), which is what produced their horizontal scrollbar. Drop the side
+   panel to a full-width row instead and give the centre the space. */
+@media (max-width: 1400px) {
   .app-frame {
     grid-template-columns: 240px minmax(0, 1fr);
   }

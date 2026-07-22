@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Framework Coverage Matrix | Web Security Scenario Lab</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
   <body data-module="frameworks" data-page="frameworks" data-root="../..">
     <!-- Coverage matrix view (Phase 3). The table is rendered at runtime from

@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings | Web Security Scenario Lab</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
   <body data-module="settings" data-page="settings" data-root="../..">
     <!-- Page content only; mountShell() (src/main.ts) builds the header/nav/sidepanel/footer. -->
@@ -83,7 +100,7 @@
     <div data-shell-sidepanel>
       <div class="panel__header"><strong data-i18n="evaluation.title">Evaluation Summary</strong></div>
       <div class="panel__body">
-        <p class="muted">Preference changes apply immediately after saving.</p>
+        <p class="muted" data-i18n="settings.apply_note"></p>
       </div>
     </div>
 

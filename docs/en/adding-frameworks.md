@@ -69,14 +69,21 @@ Same as above, plus:
 Some frameworks need a Vite plugin to compile their components. Svelte (`.svelte`) and Solid (`.tsx`)
 are easy: the plugin only transforms its own file extension, so no other page is touched. **Angular
 is the hard case** — it has no dedicated extension and `@analogjs/vite-plugin-angular` defaults to
-compiling *every* `.ts`. To keep it from touching the rest of the lab, scope it **twice**:
+compiling *every* `.ts`. To keep it from touching the rest of the lab, scope it **twice** (1–2), then
+keep two companion settings intact (3–4):
 
 1. **Dedicated `tsconfig.angular.json`** whose `include` lists only the Angular component file(s), so
    the AOT program never sees other scenarios. Pass it via `angular({ tsconfig: "tsconfig.angular.json" })`.
 2. **`transformFilter`** so the Angular transform runs only on the component:
    `transformFilter: (_c, id) => id.includes("angularHiddenText.component")`. Keep the plain-TS driver
    out of it — Angular-transforming a non-decorator file drops its exports.
-3. **Override `noEmit`.** The Angular program emits via `builder.emit()`, but the base `tsconfig` sets
+3. **Keep `oxc: {}` in `vite.config.ts`.** The plugin resolves `oxc: config.oxc ?? false`, and
+   `oxc: false` disables Vite's built-in TypeScript transform for **every** file. Together with the
+   `transformFilter` above — which correctly keeps Angular away from non-Angular files — nothing would
+   strip their types: the **dev server serves raw TS** and every page in the lab dies on
+   `SyntaxError: Unexpected token ':'`, with no styles and no shell. The build path is unaffected, so
+   this stays invisible to `npm run build`. A unit test (`tests/unit/viteConfig.test.ts`) guards the line.
+4. **Override `noEmit`.** The Angular program emits via `builder.emit()`, but the base `tsconfig` sets
    `noEmit:true` (needed for `allowImportingTsExtensions`). Inheriting it makes the AOT emit **silently
    empty** (→ rolldown `MISSING_EXPORT`). In `tsconfig.angular.json` set `noEmit:false` and
    `allowImportingTsExtensions:false` (so import Angular files without the `.ts` suffix) plus

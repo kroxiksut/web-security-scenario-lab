@@ -5,114 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visual Manipulation | Web Security Scenario Lab</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
-  <body data-module="visual-manipulation" data-root="../..">
+  <body data-module="visual-manipulation" data-page="module" data-root="../..">
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0" data-i18n="module.visual">Visual Manipulation</h1>
-          <p class="muted">
-            Hidden text, hidden inputs, overlays, clipping, opacity suppression, and z-index masking.
-          </p>
+          <h1 style="margin: 0" data-i18n="module.visual"></h1>
+          <p class="muted" data-i18n="module.visual.desc"></p>
         </div>
         <div class="panel__body">
-          <div class="card-grid">
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text Mixed</h3>
-              <p class="muted">Static + seeded variants of hidden text techniques.</p>
-              <a class="button" href="./hidden-text.html" data-test-link="true" data-i18n="module.open_test">
-                Open test page
-              </a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — benign control</h3>
-              <p class="muted">
-                False-positive guard: sr-only labels, a collapsed disclosure, inactive tab panels and
-                off-screen carousel slides. The detector must NOT fire.
-              </p>
-              <a class="button button--ghost" href="./benign.html" data-test-link="true">Open benign control</a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — Shadow DOM</h3>
-              <p class="muted">DOM-boundary coverage: hidden nodes inside an open and nested shadow root.</p>
-              <a class="button button--ghost" href="./shadow-dom.html" data-test-link="true">Open Shadow DOM test</a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — same-origin iframe</h3>
-              <p class="muted">DOM-boundary coverage: hidden nodes inside a srcdoc child frame.</p>
-              <a class="button button--ghost" href="./iframe.html" data-test-link="true">Open iframe test</a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — jQuery 3.7</h3>
-              <p class="muted">Robustness variant: the same hidden-content scenario built through a jQuery-managed DOM.</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/jquery/v3/hidden-text.html"
-                data-test-link="true"
-                >Open jQuery 3.7 variant</a
-              >
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — legacy jQuery 1.12</h3>
-              <p class="muted">Version-coverage variant: the same scenario on the intentionally stale jQuery 1.12 major.</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/jquery/v1/hidden-text.html"
-                data-test-link="true"
-                >Open jQuery 1.12 variant</a
-              >
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — legacy React 17</h3>
-              <p class="muted">Version-coverage variant: the React component mounted via the legacy ReactDOM.render path.</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/react/v17/hidden-text.html"
-                data-test-link="true"
-                >Open React 17 variant</a
-              >
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — React 18</h3>
-              <p class="muted">Virtual-DOM variant: hidden nodes authored by a React component and grown reactively via state.</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/react/v18/hidden-text.html"
-                data-test-link="true"
-                >Open React 18 variant</a
-              >
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — React 19</h3>
-              <p class="muted">Version-coverage variant: the same React component on the current React 19 reconciler.</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/react/v19/hidden-text.html"
-                data-test-link="true"
-                >Open React 19 variant</a
-              >
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — legacy Vue 2.7</h3>
-              <p class="muted">Version-coverage variant: the same scenario on the legacy Vue 2.7 major (new Vue().$mount).</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/vue/v2/hidden-text.html"
-                data-test-link="true"
-                >Open Vue 2.7 variant</a
-              >
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Hidden Text — Vue 3</h3>
-              <p class="muted">Render-function variant: hidden nodes authored by a Vue 3 app and grown reactively via a ref.</p>
-              <a
-                class="button button--ghost"
-                href="../../frameworks/vue/v3/hidden-text.html"
-                data-test-link="true"
-                >Open Vue 3 variant</a
-              >
-            </article>
-          </div>
+          <div data-module-catalog></div>
         </div>
       </article>
     </div>

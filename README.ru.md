@@ -47,9 +47,9 @@
 
 ```bash
 npm run setup                # проверки окружения + обе установки (один раз, на свежем клоне)
-npm run dev                  # http://localhost:5173/
+npm start                    # проверки, доустановка при необходимости и dev-сервер на :5173
 npm run build                # статика в dist/, готова для любого файлового сервера
-npm run verify               # typecheck + lint + test + build
+npm run verify               # typecheck + lint + test + build + smoke
 ```
 
 Раздавать нужно `dist/`, а не корень репозитория: исходные страницы ссылаются на `src/main.ts`,

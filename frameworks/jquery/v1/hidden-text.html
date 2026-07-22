@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hidden Text (legacy jQuery 1.12) | Visual Manipulation</title>
     <link rel="icon" type="image/png" href="../../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
   <body
     data-module="visual-manipulation"
@@ -17,12 +34,9 @@
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0">Hidden Text — legacy jQuery 1.12</h1>
-          <p class="muted">
-            Version-coverage variant: identical behavior to the jQuery 3.7 page, bound to the
-            intentionally stale <code>jquery@1.12.4</code> major. Add <code>?focus=1</code> for
-            isolated test mode.
-          </p>
+          <h1 style="margin: 0" data-scenario-title>Hidden Text — legacy jQuery 1.12</h1>
+          <p class="muted" data-scenario-hint></p>
+          <p class="muted" data-framework-note></p>
           <p class="muted">
             <span class="tag">framework: jQuery 1.12.4</span>
             <span class="tag">legacy version</span>
@@ -43,9 +57,7 @@
             <span class="tag">clipping</span>
           </div>
           <div style="margin-top: 16px">
-            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html">
-              Back to module catalog
-            </a>
+            <a class="button button--ghost" href="../../../pages/visual-manipulation/index.html" data-i18n="catalog.back"></a>
           </div>
         </div>
       </article>

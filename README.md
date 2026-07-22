@@ -47,9 +47,9 @@ Requires Node.js `^20.19` / `^22.12` / `>=24` (Vite 8). These four commands are 
 
 ```bash
 npm run setup                # preflight checks + both installs (once, on a fresh clone)
-npm run dev                  # http://localhost:5173/
+npm start                    # preflight, install if needed, then the dev server at :5173
 npm run build                # static output in dist/, ready for any file server
-npm run verify               # typecheck + lint + test + build
+npm run verify               # typecheck + lint + test + build + smoke
 ```
 
 Serve `dist/`, not the repository root — source pages reference `src/main.ts`, which only a bundler

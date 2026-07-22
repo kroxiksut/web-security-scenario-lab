@@ -1,6 +1,7 @@
+import matrixData from "../../data/frameworks.json";
 import { createRng } from "../engine/random.ts";
 import { resolveEvaluation } from "../engine/resolveEvaluation.ts";
-import type { ScenarioManifest } from "../engine/types.ts";
+import type { FrameworkMatrix, ScenarioManifest } from "../engine/types.ts";
 import { t } from "../i18n/index.ts";
 import { getLocale } from "../shell/language.ts";
 import { mountScenarioControls, resolveSeed } from "../shell/scenarioControls.ts";
@@ -71,9 +72,43 @@ function renderPanel(manifest: ScenarioManifest, locale: string): void {
     </div>`;
 }
 
+const matrix = matrixData as FrameworkMatrix;
+
+/** Why this framework version is in the lab — bilingual copy already maintained in the matrix. */
+function frameworkNote(scenarioId: string, locale: string): string | null {
+  for (const framework of matrix.frameworks) {
+    for (const version of framework.versions) {
+      if (!version.scenarios.some((ref) => ref.id === scenarioId)) continue;
+      const why = version.whyIncluded[locale] ?? version.whyIncluded.en ?? "";
+      return `${framework.name} ${version.version} — ${why}`;
+    }
+  }
+  return null;
+}
+
+/**
+ * Localize the page header. The title lives in the manifest in both languages, so the heading
+ * follows the UI language instead of being frozen English markup; `[data-scenario-hint]` gets the
+ * shared focus-mode hint, and framework pages get their note from the matrix (also bilingual).
+ */
+function renderHeader(manifest: ScenarioManifest, locale: string): void {
+  const heading = document.querySelector<HTMLElement>("[data-scenario-title]");
+  const title = manifest.title[locale] ?? manifest.title.en;
+  if (heading && title) {
+    heading.textContent = title;
+    document.title = `${title} | Web Security Scenario Lab`;
+  }
+  const hint = document.querySelector<HTMLElement>("[data-scenario-hint]");
+  if (hint) hint.textContent = t(locale, "scenario.focus_hint");
+
+  const note = document.querySelector<HTMLElement>("[data-framework-note]");
+  if (note) note.textContent = frameworkNote(manifest.id, locale) ?? "";
+}
+
 /**
  * Drive a scenario page: mount seed controls, run the seeded/interactive behavior, and render
- * the live evaluation panel from the manifest ground truth (re-rendered on locale change).
+ * the localized header plus the live evaluation panel from the manifest ground truth (both
+ * re-rendered on locale change).
  */
 export function initScenarioPage(): void {
   const id = document.body.dataset.scenario;
@@ -89,8 +124,12 @@ export function initScenarioPage(): void {
 
   void loadScenario(id)
     .then((manifest) => {
+      renderHeader(manifest, getLocale());
       renderPanel(manifest, getLocale());
-      document.addEventListener("lab:localechange", () => renderPanel(manifest, getLocale()));
+      document.addEventListener("lab:localechange", () => {
+        renderHeader(manifest, getLocale());
+        renderPanel(manifest, getLocale());
+      });
     })
     .catch((err: unknown) => {
       console.error("[scenario] failed to load manifest", err);

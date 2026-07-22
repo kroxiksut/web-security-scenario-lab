@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prompt Splitting Attribute Benign | Prompt Splitting</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
   <body
     data-module="prompt-splitting"
@@ -16,18 +33,14 @@
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0">Prompt Splitting — benign: ordinary tooltip chain</h1>
-          <p class="muted">
-            The same attribute-chain shape as the positive, but the assembled attribute values form
-            an ordinary UI tooltip, not an instruction — the detector must NOT fire. False-positive
-            control for the attribute axis. Add <code>?focus=1</code> for isolated test mode.
-          </p>
+          <h1 style="margin: 0" data-scenario-title>Prompt Splitting — benign: ordinary tooltip chain</h1>
+          <p class="muted" data-scenario-hint></p>
         </div>
         <div class="panel__body">
           <p>Visible baseline paragraph for normal rendering.</p>
           <div class="ps-playground"></div>
           <div style="margin-top: 16px">
-            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+            <a class="button button--ghost" href="./index.html" data-i18n="catalog.back"></a>
           </div>
         </div>
       </article>

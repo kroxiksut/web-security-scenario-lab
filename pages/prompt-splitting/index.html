@@ -5,71 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prompt Splitting | Web Security Scenario Lab</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
-  <body data-module="prompt-splitting" data-root="../..">
+  <body data-module="prompt-splitting" data-page="module" data-root="../..">
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0" data-i18n="module.prompt">Prompt Splitting</h1>
-          <p class="muted" data-i18n="module.prompt.desc">
-            One instruction distributed across several nearby DOM fragments so a single-string check
-            misses it; the detector reassembles same-region fragments. EN + RU.
-          </p>
+          <h1 style="margin: 0" data-i18n="module.prompt"></h1>
+          <p class="muted" data-i18n="module.prompt.desc"></p>
         </div>
         <div class="panel__body">
-          <div class="card-grid">
-            <article class="card">
-              <h3 style="margin-top: 0">Prompt Splitting — spaced</h3>
-              <p class="muted">
-                Baseline positive: instruction split at word boundaries across consecutive fragments
-                in one region, with a delayed assembler.
-              </p>
-              <a class="button" href="./spaced.html" data-test-link="true" data-i18n="module.open_test">
-                Open test page
-              </a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Prompt Splitting — compact</h3>
-              <p class="muted">
-                Mid-word split with no whitespace at the cuts; reassembles only by compact
-                concatenation (lower-confidence positive).
-              </p>
-              <a class="button button--ghost" href="./compact.html" data-test-link="true">
-                Open compact test
-              </a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Prompt Splitting — benign control</h3>
-              <p class="muted">
-                False-positive guard: fragments across different regions and a complete phrase in one
-                node — the detector must NOT fire.
-              </p>
-              <a class="button button--ghost" href="./benign.html" data-test-link="true">
-                Open benign control
-              </a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Prompt Splitting — attribute chain</h3>
-              <p class="muted">
-                Positive on a different surface: fragments hidden across the
-                <code>title</code>/<code>aria-label</code>/<code>alt</code>/<code>data-note</code>
-                attributes of a same-region chain; visible text is neutral.
-              </p>
-              <a class="button" href="./attribute-chain.html" data-test-link="true" data-i18n="module.open_test">
-                Open test page
-              </a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Prompt Splitting — attribute benign control</h3>
-              <p class="muted">
-                False-positive guard for the attribute axis: the same chain, but it assembles to an
-                ordinary tooltip, not an instruction — the detector must NOT fire.
-              </p>
-              <a class="button button--ghost" href="./attribute-benign.html" data-test-link="true">
-                Open benign control
-              </a>
-            </article>
-          </div>
+          <div data-module-catalog></div>
         </div>
       </article>
     </div>

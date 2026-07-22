@@ -61,7 +61,7 @@ Web Security Scenario Lab/
 |-- public/lab-fragments/     # static fragments fetched by scenarios (htmx swap)
 |-- cases/                    # Markdown case registry, per module + cross-module
 |-- docs/                     # en/ + ru/ documentation pairs
-|-- scripts/                  # setup.mjs (cross-platform) + thin .ps1/.sh wrappers
+|-- scripts/                  # setup / start / smoke (cross-platform Node) + thin .ps1/.sh wrappers
 |-- assets/
 `-- tests/unit/               # Vitest: engine and infrastructure only
 ```
@@ -238,6 +238,10 @@ These changes must happen in-browser only.
 - keep all third-party libraries local to the repo when used by scenarios
 - avoid runtime dependencies on external CDNs
 - test the engine and infrastructure only; scenario pages are deliberately variable and stay uncovered
+- gate on `npm run verify`, which ends with a **smoke check that starts the real servers** (dev and
+  static-over-`dist/`) and asserts over their responses — build tooling can break the running lab
+  while typecheck, lint, test and build all stay green
+- setup tooling must be non-destructive: install what is missing, never prune an existing tree
 - design scenario data so evaluation metadata can evolve without changing route structure
 - document current behavior separately from target behavior, and keep `docs/en` and `docs/ru` in sync
 

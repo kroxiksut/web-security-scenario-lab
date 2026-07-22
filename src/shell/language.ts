@@ -8,11 +8,28 @@ export function getLocale(): string {
   return currentLocale;
 }
 
-/** Resolve the active locale from `?lang=`, then localStorage, defaulting to English. */
+/**
+ * First supported locale the browser asks for. `navigator.languages` is ordered by preference and
+ * carries region tags (`ru-RU`, `en-GB`), so match on the primary subtag.
+ */
+function browserLocale(): string | null {
+  const requested = navigator.languages?.length ? navigator.languages : [navigator.language];
+  for (const tag of requested) {
+    const base = (tag ?? "").toLowerCase().split("-")[0] ?? "";
+    if (SUPPORTED_LOCALES.includes(base)) return base;
+  }
+  return null;
+}
+
+/**
+ * Resolve the active locale, most explicit signal first: `?lang=` (a deep link states its language),
+ * then the visitor's stored choice, then what the browser asks for, and English as the last resort.
+ */
 export function resolveLanguage(): string {
   const params = new URLSearchParams(window.location.search);
-  const candidate = (params.get("lang") ?? localStorage.getItem(LANG_KEY) ?? "").toLowerCase();
-  return SUPPORTED_LOCALES.includes(candidate) ? candidate : DEFAULT_LOCALE;
+  const explicit = (params.get("lang") ?? localStorage.getItem(LANG_KEY) ?? "").toLowerCase();
+  if (SUPPORTED_LOCALES.includes(explicit)) return explicit;
+  return browserLocale() ?? DEFAULT_LOCALE;
 }
 
 /** Apply and persist a locale: translate the DOM and update language button pressed state. */

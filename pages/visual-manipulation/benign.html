@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hidden Text Benign | Visual Manipulation</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
   <body
     data-module="visual-manipulation"
@@ -18,11 +35,8 @@
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0">Hidden Text — benign control</h1>
-          <p class="muted">
-            Content that is invisible for legitimate UI reasons — the detector must NOT fire. Add
-            <code>?focus=1</code> for isolated test mode.
-          </p>
+          <h1 style="margin: 0" data-scenario-title>Hidden Text — benign control</h1>
+          <p class="muted" data-scenario-hint></p>
         </div>
         <div class="panel__body">
           <a class="vm-skip-link" href="#vm-benign-main">Skip to scenario content</a>
@@ -71,7 +85,7 @@
             <span class="tag">focus-reveal</span>
           </div>
           <div style="margin-top: 16px">
-            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+            <a class="button button--ghost" href="./index.html" data-i18n="catalog.back"></a>
           </div>
         </div>
       </article>

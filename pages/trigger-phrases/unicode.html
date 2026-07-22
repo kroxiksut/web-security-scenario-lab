@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trigger Phrases Unicode | Trigger Phrases</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
   <body
     data-module="trigger-phrases"
@@ -16,17 +33,14 @@
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0">Trigger Phrases — Unicode evasion</h1>
-          <p class="muted">
-            The same phrases obfuscated with zero-width and fullwidth characters; a normalizing
-            detector should still recover them. Add <code>?focus=1</code> for isolated test mode.
-          </p>
+          <h1 style="margin: 0" data-scenario-title>Trigger Phrases — Unicode evasion</h1>
+          <p class="muted" data-scenario-hint></p>
         </div>
         <div class="panel__body">
           <p>Visible baseline paragraph for normal rendering.</p>
           <div class="tp-playground"></div>
           <div style="margin-top: 16px">
-            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+            <a class="button button--ghost" href="./index.html" data-i18n="catalog.back"></a>
           </div>
         </div>
       </article>

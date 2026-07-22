@@ -8,6 +8,7 @@ import { initSettingsPage } from "./pages/settings.ts";
 import { initScenarioPage } from "./pages/scenario.ts";
 import { initFrameworksPage } from "./pages/frameworks.ts";
 import { initScenariosPage } from "./pages/scenarios.ts";
+import { initModulePage } from "./pages/module.ts";
 
 /**
  * Single entry point for every page. Builds the shell around the page content, then applies
@@ -30,6 +31,7 @@ function boot(): void {
   if (document.body.dataset.page === "settings") initSettingsPage();
   if (document.body.dataset.page === "frameworks") initFrameworksPage();
   if (document.body.dataset.page === "scenarios") initScenariosPage();
+  if (document.body.dataset.page === "module") initModulePage();
   if (document.body.dataset.scenario) initScenarioPage();
 }
 

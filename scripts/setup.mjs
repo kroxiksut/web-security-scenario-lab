@@ -1,11 +1,16 @@
 // One-command setup for a fresh clone: preflight checks, then the two installs.
 // Cross-platform by design (Node, not shell) — the .ps1/.sh wrappers next to this file only
 // forward to it, so there is a single copy of the logic. Usage:
-//   node scripts/setup.mjs [--check] [--skip-frameworks]
+//   node scripts/setup.mjs [--check] [--skip-frameworks] [--reinstall]
 //     --check            run the preflight checks only, install nothing
-//     --skip-frameworks  skip `npm run frameworks:install` (breaks only React 17/19 pages)
+//     --skip-frameworks  skip the nested React installs (breaks only React 17/19 pages)
+//     --reinstall        run `npm install` even when the tree already satisfies package.json
+//
+// NON-DESTRUCTIVE BY DEFAULT: `npm install` prunes anything in node_modules that package.json does
+// not list — including packages you installed ad hoc (e.g. `npm install --no-save playwright`). So
+// this script installs only what is actually missing and otherwise leaves the tree alone.
 import { spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -13,6 +18,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const checkOnly = args.includes("--check");
 const skipFrameworks = args.includes("--skip-frameworks");
+const reinstall = args.includes("--reinstall");
 
 const ok = (m) => console.log(`  OK    ${m}`);
 const warn = (m) => console.log(`  WARN  ${m}`);
@@ -60,6 +66,17 @@ function run(command, label) {
   }
 }
 
+/** Names from package.json that have no directory in node_modules — i.e. an install is required. */
+function missingPackages(manifestPath, modulesDir) {
+  if (!existsSync(modulesDir)) return ["<node_modules>"];
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const declared = [
+    ...Object.keys(manifest.dependencies ?? {}),
+    ...Object.keys(manifest.devDependencies ?? {}),
+  ];
+  return declared.filter((name) => !existsSync(resolve(modulesDir, name)));
+}
+
 console.log("Web Security Scenario Lab — setup\n");
 console.log("Preflight:");
 
@@ -95,14 +112,35 @@ if (checkOnly) {
   process.exit(0);
 }
 
-run("npm install", "npm install");
-if (skipFrameworks) {
-  console.log("\nSkipped `npm run frameworks:install` — the React 17 / React 19 scenario pages");
-  console.log("will not work until you run it.");
+const missing = missingPackages(
+  resolve(repoRoot, "package.json"),
+  resolve(repoRoot, "node_modules"),
+);
+if (reinstall || missing.length) {
+  if (missing.length) console.log(`\nMissing from node_modules: ${missing.slice(0, 5).join(", ")}`);
+  console.log("Note: npm install removes packages that package.json does not list.");
+  run("npm install", "npm install");
 } else {
+  console.log("\nRoot dependencies already satisfy package.json — nothing installed.");
+  console.log("Force a reinstall with `npm run setup -- --reinstall` if you need one.");
+}
+
+// Nested React installs (see docs/en/adding-frameworks.md). Same rule: only when actually missing.
+const NESTED = ["frameworks/react/v17", "frameworks/react/v19"];
+const nestedMissing = NESTED.filter(
+  (dir) =>
+    missingPackages(resolve(repoRoot, dir, "package.json"), resolve(repoRoot, dir, "node_modules"))
+      .length > 0,
+);
+if (skipFrameworks) {
+  console.log("\nSkipped the nested React installs — the React 17 / React 19 scenario pages");
+  console.log("will not work until you run `npm run frameworks:install`.");
+} else if (reinstall || nestedMissing.length) {
   run("npm run frameworks:install", "npm run frameworks:install");
+} else {
+  console.log("Nested React installs already present — nothing installed.");
 }
 
 console.log("\nSetup complete. Next:");
-console.log("  npm run dev       start the lab at http://localhost:5173/");
-console.log("  npm run verify    typecheck + lint + test + build");
+console.log("  npm start         run the lab at http://localhost:5173/");
+console.log("  npm run verify    typecheck + lint + test + build + smoke");

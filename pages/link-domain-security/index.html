@@ -5,34 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Link Domain Security | Web Security Scenario Lab</title>
     <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+    <!-- The shell (header/nav/side panel/footer) is built at runtime by src/main.ts. Keep the raw
+         page content hidden until it is in place, so navigation never flashes unstyled markup.
+         mountShell() removes these wrappers, which reveals the content; <noscript> is the fallback. -->
+    <style>
+      [data-shell-main],
+      [data-shell-sidepanel] {
+        visibility: hidden;
+      }
+    </style>
+    <noscript>
+      <style>
+        [data-shell-main],
+        [data-shell-sidepanel] {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
   </head>
-  <body data-module="link-domain-security" data-root="../..">
+  <body data-module="link-domain-security" data-page="module" data-root="../..">
     <div data-shell-main>
       <article class="panel">
         <div class="panel__header">
-          <h1 style="margin: 0" data-i18n="module.link">Link Domain Security</h1>
-          <p class="muted">
-            Homographs, mixed-script domains, visible-target mismatch, redirects and unsafe protocols.
-          </p>
+          <h1 style="margin: 0" data-i18n="module.link"></h1>
+          <p class="muted" data-i18n="module.link.desc"></p>
         </div>
         <div class="panel__body">
-          <div class="card-grid">
-            <article class="card">
-              <h3 style="margin-top: 0">Homographs Rotator</h3>
-              <p class="muted">Seeded candidate rotation with visible/href mismatch.</p>
-              <a class="button" href="./homographs.html" data-test-link="true" data-i18n="module.open_test">
-                Open test page
-              </a>
-            </article>
-            <article class="card">
-              <h3 style="margin-top: 0">Links — benign control</h3>
-              <p class="muted">
-                False-positive guard: legitimate internationalized domains, a same-origin redirect
-                parameter, label text and mailto. The detector must NOT fire.
-              </p>
-              <a class="button button--ghost" href="./benign.html" data-test-link="true">Open benign control</a>
-            </article>
-          </div>
+          <div data-module-catalog></div>
         </div>
       </article>
     </div>

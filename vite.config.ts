@@ -42,6 +42,13 @@ export default defineConfig({
       transformFilter: (_code, id) => id.includes("angularHiddenText.component"),
     }),
   ],
+  // MUST stay set. `@analogjs/vite-plugin-angular` forces `oxc: config.oxc ?? false` in its config
+  // hook, and `oxc: false` disables Vite's built-in TypeScript transform for EVERY file. Because our
+  // `transformFilter` (below) correctly keeps the Angular transform off non-Angular files, nothing
+  // would strip their types: the dev server would serve raw TS (`function boot(): void`) and every
+  // page would die on `SyntaxError: Unexpected token ':'`. Setting it here makes the plugin pass our
+  // value through instead. Build is unaffected either way — this bites in dev only.
+  oxc: {},
   // Vue is used via render functions only (no SFCs, no @vitejs/plugin-vue). The esm-bundler build
   // references these compile-time feature flags; define them here so the plugin-less setup builds
   // clean with no runtime warnings. Harmless for pages that don't import Vue (dead-code eliminated).
