@@ -86,3 +86,103 @@
   z-index: 14;
   background: linear-gradient(180deg, transparent 0%, var(--color-surface) 62%);
 }
+
+/* --- Benign control ---------------------------------------------------------------------------
+   Legitimately invisible UI. `.vm-sr-only` is deliberately the SAME clip technique as `.vm-clipped`
+   above: the suppression is identical, only the content and its reachability differ. */
+.vm-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Off-screen until focused — the standard skip-link pattern. */
+.vm-skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.vm-skip-link:focus {
+  position: static;
+  display: inline-block;
+  margin-bottom: var(--space-3);
+}
+
+.vm-disclosure {
+  margin: var(--space-4) 0;
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  padding: var(--space-3);
+  background: var(--color-surface-soft);
+}
+
+.vm-disclosure summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.vm-tabs {
+  margin: var(--space-4) 0;
+}
+
+.vm-tabs__strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.vm-tabs__tab {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  color: inherit;
+  cursor: pointer;
+}
+
+.vm-tabs__tab[aria-selected="true"] {
+  border-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.vm-tabs__panel {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width-1) dashed var(--color-border);
+  border-radius: var(--radius-xs);
+}
+
+.vm-carousel {
+  margin: var(--space-4) 0;
+}
+
+.vm-carousel__track {
+  position: relative;
+  min-height: 48px;
+  overflow: hidden;
+}
+
+/* Inactive slides are parked off-screen; only the active one is in the viewport. */
+.vm-slide {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  margin: 0;
+}
+
+.vm-slide.is-active {
+  position: static;
+}
+
+.vm-status {
+  min-height: 1.2em;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+}

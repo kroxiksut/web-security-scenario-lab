@@ -40,26 +40,54 @@
 - фермой браузерной автоматизации для массового зондирования интернета
 - заменой для реального threat intel, SOC telemetry или production blocklists
 
+## Быстрый старт
+
+Требуется Node.js `^20.19` / `^22.12` / `>=24` (Vite 8). Эти четыре команды одинаковы на Windows
+(PowerShell) и Linux (bash):
+
+```bash
+npm run setup                # проверки окружения + обе установки (один раз, на свежем клоне)
+npm run dev                  # http://localhost:5173/
+npm run build                # статика в dist/, готова для любого файлового сервера
+npm run verify               # typecheck + lint + test + build
+```
+
+Раздавать нужно `dist/`, а не корень репозитория: исходные страницы ссылаются на `src/main.ts`,
+который умеет разрешить только сборщик. Для раздачи достаточно `npm run preview` или
+`node serve.mjs dist`.
+
+**Пошаговые руководства отдельно под каждую систему** — какой терминал открыть, куда перейти, что
+запустить, как раздать сборку, плюс параметры глубоких ссылок (`?seed=`, `?focus=1`, `?lang=`,
+`?theme=`): **[docs/ru/getting-started.md](./docs/ru/getting-started.md)**
+(английская версия: [docs/en/getting-started.md](./docs/en/getting-started.md)).
+
 ## Модель покрытия модулей
 
-Модули делятся на две группы.
+Модули соответствуют 1:1 модулям детектора и делятся по тому, на кого нацелена манипуляция.
 
-Реализуются в первую очередь:
+Нацелены на человека-читателя:
 
-- `visual-manipulation`
-- `link-domain-security`
+- `visual-manipulation` — контент присутствует в DOM, но убран из поля зрения (22 сценария)
+- `link-domain-security` — ссылки, у которых видимая и фактическая цель расходятся (2 сценария)
 
-Planned modules с документированными placeholder-страницами с самого начала:
+Нацелены на AI-агента, читающего страницу:
 
-- `trigger-phrases` - planned module
-- `prompt-splitting` - planned module
-- `api-interception` - planned module
+- `trigger-phrases` — инструкции в стиле prompt-injection в тексте и атрибутах (3 сценария)
+- `prompt-splitting` — одна инструкция, раздробленная по DOM-узлам или атрибутам (5 сценариев)
+- `api-interception` — API-подобные маркеры в атрибутах и заявленный MIME против сигнатуры первых байт (4 сценария)
 
-Planned modules включаются в проект для сохранения стабильной информационной архитектуры, навигации и точек расширения на будущее. Их наличие не должно создавать ощущение, что половина проекта пустая. Это forward-compatible заглушки под будущие scenario packs.
+Все пять модулей содержат настоящие сценарии; заглушек не осталось. Каждый модуль несёт и позитивные
+сценарии, и минимум один benign-контроль ложных срабатываний — всего 36 сценариев, 29 позитивных и 7
+benign. Что покрывает каждый
+модуль — см. [docs/ru/README.md](./docs/ru/README.md); таблица сценариев и оставшиеся пробелы —
+в документе конкретного модуля.
 
 ## Примечание по вкладу
 
-Planned modules должны присутствовать в структуре проекта как документированные placeholder-разделы. Если кто-то захочет помочь, он сможет присылать pull request'ы с манифестами сценариев, улучшениями заглушек, evaluation metadata или полной реализацией сценариев для этих модулей.
+Pull request'ы приветствуются: новые манифесты сценариев, дополнительные оси покрытия для
+существующего модуля, evaluation metadata, расширение матрицы фреймворков и версий. В каждом документе
+модуля есть раздел **Планируемое покрытие** — конкретные семейства и benign-контроли, которые ещё не
+построены; с него проще всего начать.
 
 ## Базовые требования
 
@@ -96,9 +124,12 @@ Angular, Solid, Preact, Lit/Web Components, jQuery, htmx, Alpine, Tailwind, …)
 - `index.html`: главная страница с каталогом модулей и сценариев.
 - `pages/visual-manipulation/`: сценарии по скрытому контенту и CSS-обфускации.
 - `pages/link-domain-security/`: сценарии по ссылкам, доменам и гомографам.
-- `pages/trigger-phrases/`: placeholder-страницы planned module.
-- `pages/prompt-splitting/`: placeholder-страницы planned module.
-- `pages/api-interception/`: placeholder-страницы planned module.
+- `pages/trigger-phrases/`: сценарии по инструкциям в стиле prompt-injection.
+- `pages/prompt-splitting/`: сценарии по инструкциям, раздробленным по DOM.
+- `pages/api-interception/`: сценарии по API-подобным атрибутам и несовпадению MIME/сигнатуры.
+- `pages/scenarios/`: каталог всех сценариев с группировкой по модулям, строится из манифестов.
+- `pages/frameworks/`: матрица покрытия по фреймворкам и версиям.
+- `frameworks/<lib>/<vN>/`: тот же сценарий, воспроизведённый на запиненной версии фреймворка.
 - `pages/shared/`: общие layout-компоненты и demo-helper'ы.
 - `assets/`: шрифты, локальные JS-библиотеки, изображения, образцы фонов.
 - `data/scenarios/`: JSON-манифесты и наборы конфигураций для вариативности.
@@ -116,7 +147,7 @@ Angular, Solid, Preact, Lit/Web Components, jQuery, htmx, Alpine, Tailwind, …)
   - `?scenario=hidden-text-mixed`
 - Динамические изменения содержимого должны происходить только в браузере.
 - Подозрительный контент должен генерироваться только из внутренних шаблонов, а не из пользовательского ввода.
-- Planned modules должны присутствовать в навигации как placeholder-элементы с видимым статусом.
+- Добавление модуля, сценария или версии фреймворка не должно требовать изменения информационной архитектуры.
 - Сценарии должны отдавать evaluation outputs, а не только визуальную вариативность.
 
 ## Evaluation Outputs
@@ -135,11 +166,8 @@ Angular, Solid, Preact, Lit/Web Components, jQuery, htmx, Alpine, Tailwind, …)
 ## Scope Of The First Release
 
 - landing page и навигация по модулям
-- static и dynamic сценарии для первых двух модулей
-- документированные placeholder-страницы для:
-  - `trigger-phrases`
-  - `prompt-splitting`
-  - `api-interception`
+- static и dynamic сценарии для всех пяти модулей
+- каталог сценариев и матрица покрытия фреймворков, строящиеся из манифестов
 - переключение языка `RU/EN`
 - scenario reset и reroll
 - панель с metadata сценария
@@ -149,22 +177,29 @@ Angular, Solid, Preact, Lit/Web Components, jQuery, htmx, Alpine, Tailwind, …)
 
 ## Карта документов
 
-- `ARCHITECTURE.md`
-- `ARCHITECTURE.ru.md`
+Основная документация лежит в [`docs/`](./docs/README.ru.md), разделена по языкам и организована по
+темам — начинайте с [`docs/ru/index.md`](./docs/ru/index.md) или
+[`docs/en/index.md`](./docs/en/index.md).
+
+В `docs/` (у каждого документа есть английское зеркало в `docs/en/`):
+
+- [`getting-started.md`](./docs/ru/getting-started.md): запуск стенда на Windows и Linux
+- [`README.md`](./docs/ru/README.md): обзор модулей детекции
+- `visual-manipulation.md`, `link-domain-security.md`, `trigger-phrases.md`, `prompt-splitting.md`,
+  `api-interception.md`: по одному документу на модуль детекции
+- [`adding-frameworks.md`](./docs/ru/adding-frameworks.md): добавление фреймворка или запиненной версии
+
+Пока в корне репозитория (переезжают в `docs/` постепенно):
+
+- `README.md` — англоязычный обзор
+- `ARCHITECTURE.md` / `ARCHITECTURE.ru.md`
 - `BROWSER-COMPATIBILITY.md`
-- `SCENARIO-DYNAMICS.md`
-- `SCENARIO-DYNAMICS.ru.md`
-- `EVALUATION-OUTPUTS.md`
-- `EVALUATION-OUTPUTS.ru.md`
+- `SCENARIO-DYNAMICS.md` / `SCENARIO-DYNAMICS.ru.md`
+- `EVALUATION-OUTPUTS.md` / `EVALUATION-OUTPUTS.ru.md`
 - `I18N.md`
 - `SECURITY-DEPLOYMENT.md`
 - `CONTRIBUTING.md`
 - `DCO.md`
-- `MODULES-VISUAL-MANIPULATION.md`
-- `MODULES-VISUAL-MANIPULATION.ru.md`
-- `MODULES-LINK-DOMAIN-SECURITY.md`
-- `MODULES-LINK-DOMAIN-SECURITY.ru.md`
-- `ROADMAP.md`
-- `ROADMAP.ru.md`
+- `ROADMAP.md` / `ROADMAP.ru.md`
 
 

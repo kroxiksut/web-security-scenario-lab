@@ -8,19 +8,24 @@ All contributors must follow the Developer Certificate of Origin process describ
 
 ## Contribution Priorities
 
+Start with [`docs/en/getting-started.md`](docs/en/getting-started.md) to run the lab, and
+[`docs/en/README.md`](docs/en/README.md) for what each detection module covers.
+
 Contributions are especially welcome in the following areas:
 
 - new reproducible browser-side scenarios
 - regression-oriented scenario improvements
+- **benign false-positive controls** — scenarios where the detector must stay silent
+- the concrete gaps listed under *Planned coverage* in each module document, for example the missing
+  benign controls for `visual-manipulation` and `link-domain-security`
 - evaluation metadata and expected outcome definitions
+- new framework libraries or pinned versions (see
+  [`docs/en/adding-frameworks.md`](docs/en/adding-frameworks.md))
 - coverage-matrix improvements
 - benchmark-lite UI improvements such as `why flagged` and signal panels
-- planned module implementations for:
-  - `trigger-phrases`
-  - `prompt-splitting`
-  - `api-interception`
+- case records under `cases/` mapping real-world observations to lab scenarios
 - cross-browser behavior validation
-- documentation clarifications
+- documentation clarifications, in mirrored `docs/en` + `docs/ru` pairs
 
 ## What Good Contributions Look Like
 
@@ -51,22 +56,48 @@ When adding or modifying scenarios:
 
 - prefer deterministic scenario manifests and seed-based variation
 - document whether the detector should fire or should not fire
-- include severity, tags, and rationale where applicable
+- include severity, tags, and rationale where applicable — the schema requires `whyFlagged` for a
+  positive scenario and `whyBenign` for a benign one
 - keep malicious-looking behavior simulated and controlled
 - avoid live internet dependencies when a local equivalent can be used
 - avoid hidden behavior that reviewers cannot understand from the diff
 - keep dynamic mutations tied to expected evaluation outputs
+- use only RFC 2606 reserved names (`.example`, `.invalid`, `.test`) — no real brands, and no link
+  that could resolve to a live host
 
-## Placeholder And Planned Modules
+A scenario is three files plus a build entry: the page under `pages/<module>/`, its behavior in
+`src/scenarios/<id>.ts` exporting `run(ctx)`, its manifest in `data/scenarios/<id>.json`, and a
+rollup input in `vite.config.ts`. Reuse a shared driver from `src/scenarios/_shared/` where the shape
+already exists rather than duplicating it.
 
-Planned modules are not filler. They are extension points.
+## Extending A Module
 
-If you contribute to a planned module:
+Every module is an extension point, and each module document ends with a *Planned coverage* section
+naming the families and controls that are not built yet.
 
-- keep routing and naming stable
-- add placeholder-safe behavior first if the implementation is incomplete
-- document expected signals and intended detector coverage
+When you extend one:
+
+- keep routing, ids, and naming stable
+- add both directions where the axis warrants it — a positive scenario and a benign control
+- document expected signals and intended detector coverage in the manifest, then update the module's
+  document in `docs/en` and `docs/ru`
 - prefer incremental scenario packs over large opaque drops
+- mark anything the detector cannot yet see as ahead-of-detector in the manifest `notes`, rather than
+  silently encoding an expectation nothing implements
+
+## Before Submitting
+
+All four gates must pass — `npm run verify` runs them in order:
+
+```bash
+npm run verify        # typecheck + lint + test + build
+```
+
+On a fresh clone, `npm run setup` handles the preflight checks and both installs (there are thin
+`scripts/setup.ps1` and `scripts/setup.sh` wrappers that call the same script).
+
+Tests cover the engine and infrastructure only. Scenario pages are intentionally variable and
+imperfect, and are deliberately not test-covered — do not add tests that assert scenario DOM.
 
 ## Pull Request Expectations
 

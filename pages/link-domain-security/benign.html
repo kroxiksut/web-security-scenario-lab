@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Links Benign | Link Domain Security</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="link-domain-security"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="homographs-benign"
+  >
+    <!-- Benign false-positive control. The manifest declares shouldFire:false. Every link here is
+         honest: matching targets, legitimate single-script internationalized domains, an in-lab
+         redirect parameter, and a non-URL label. Reserved .example domains only. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Links — benign control</h1>
+          <p class="muted">
+            Honest links that a naive homograph or mismatch heuristic would flag — the detector must
+            NOT fire. Add <code>?focus=1</code> for isolated test mode.
+          </p>
+        </div>
+        <div class="panel__body">
+          <div class="lds-link-grid"></div>
+          <div class="lds-debug"><strong>Debug:</strong> benign link set</div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

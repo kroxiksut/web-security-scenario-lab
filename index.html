@@ -21,28 +21,74 @@
           <p class="notice" data-i18n="index.note">
             Use language/theme switchers in the header and open module pages to run scenario tests.
           </p>
-          <div class="card-grid" style="margin-top: 16px">
+
+          <h2 data-i18n="index.group.human">Aimed at the human reader</h2>
+          <div class="card-grid">
             <article class="card">
               <h3 style="margin-top: 0" data-i18n="module.visual">Visual Manipulation</h3>
-              <p class="muted">Hidden text, overlays, CSS obfuscation, and dynamic visibility mutations.</p>
+              <p class="muted" data-i18n="module.visual.desc">
+                Hidden text, overlays, CSS obfuscation, and dynamic visibility mutations, reproduced across
+                shadow DOM, iframes, and every supported framework version.
+              </p>
               <a class="button" href="./pages/visual-manipulation/index.html" data-i18n="module.open_catalog">
                 Open module catalog
               </a>
             </article>
             <article class="card">
               <h3 style="margin-top: 0" data-i18n="module.link">Link Domain Security</h3>
-              <p class="muted">Visible-target mismatch, homographs, punycode and protocol abuse patterns.</p>
+              <p class="muted" data-i18n="module.link.desc">
+                Visible-target mismatch, homographs, punycode and protocol abuse patterns, rotated per seed.
+              </p>
               <a class="button" href="./pages/link-domain-security/index.html" data-i18n="module.open_catalog">
                 Open module catalog
               </a>
             </article>
+          </div>
+
+          <h2 data-i18n="index.group.agent">Aimed at an AI agent reading the page</h2>
+          <div class="card-grid">
             <article class="card">
               <h3 style="margin-top: 0" data-i18n="module.trigger">Trigger Phrases</h3>
-              <p class="muted" data-i18n="module.placeholder">
-                Module is planned. Placeholder remains in navigation for forward compatibility.
-              </p>
-              <a class="button button--ghost" href="./pages/trigger-phrases/index.html" data-i18n="module.open_catalog">
+              <p class="muted" data-i18n="module.trigger.desc"></p>
+              <a class="button" href="./pages/trigger-phrases/index.html" data-i18n="module.open_catalog">
                 Open module catalog
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0" data-i18n="module.prompt">Prompt Splitting</h3>
+              <p class="muted" data-i18n="module.prompt.desc"></p>
+              <a class="button" href="./pages/prompt-splitting/index.html" data-i18n="module.open_catalog">
+                Open module catalog
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0" data-i18n="module.api">API Interception</h3>
+              <p class="muted" data-i18n="module.api.desc"></p>
+              <a class="button" href="./pages/api-interception/index.html" data-i18n="module.open_catalog">
+                Open module catalog
+              </a>
+            </article>
+          </div>
+
+          <h2 data-i18n="index.group.overview">Cross-module views</h2>
+          <div class="card-grid">
+            <article class="card">
+              <h3 style="margin-top: 0" data-i18n="scenarios.title">Scenario Catalog</h3>
+              <p class="muted" data-i18n="index.scenarios.desc">
+                Every scenario grouped by detection module, with its expected signal, verdict, severity,
+                and tags — generated from the manifests.
+              </p>
+              <a class="button" href="./pages/scenarios/index.html" data-i18n="index.open_scenarios">
+                Open scenario catalog
+              </a>
+            </article>
+            <article class="card">
+              <h3 style="margin-top: 0" data-i18n="frameworks.title">Framework Coverage Matrix</h3>
+              <p class="muted" data-i18n="index.frameworks.desc">
+                Which framework runtimes and pinned versions the lab reproduces scenarios on.
+              </p>
+              <a class="button" href="./pages/frameworks/index.html" data-i18n="index.open_frameworks">
+                Open coverage matrix
               </a>
             </article>
           </div>

@@ -15,12 +15,23 @@
     "coverageDimensions": [
       "punycode or homograph pattern",
       "mixed-script domain",
+      "deceptive host carried in the anchor href",
       "visible-target mismatch",
       "unsafe protocol or schema obfuscation"
     ],
     "whyFlagged": {
       "en": "The anchor text shows a trusted-looking domain while the href uses a mixed-script homograph or an unsafe protocol, so the visible target does not match the real destination.",
       "ru": "Видимый текст ссылки показывает доверенный домен, а href использует mixed-script гомограф или небезопасный протокол — видимая цель не совпадает с реальной."
-    }
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "const a = document.querySelector('.lds-link-target');\nconst claimed = a.textContent.match(/https?:\\/\\/([^/\\s]+)/)?.[1];\nconst actual = new URL(a.getAttribute('href'), location.href).hostname;\nif (claimed && actual !== claimed) flag(a);",
+        "explanation": {
+          "en": "Compare the hostname the anchor text claims against the hostname the href actually resolves to; a homograph label differs even though the two render identically.",
+          "ru": "Сравните имя хоста, заявленное текстом ссылки, с тем, куда фактически ведёт href: гомографическая метка отличается, хотя выглядит идентично."
+        }
+      }
+    ]
   }
 }

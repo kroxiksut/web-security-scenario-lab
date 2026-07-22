@@ -40,26 +40,53 @@ This project is not:
 - a browser automation farm for mass internet probing
 - a replacement for real-world threat intel, SOC telemetry, or production blocklists
 
+## Quick Start
+
+Requires Node.js `^20.19` / `^22.12` / `>=24` (Vite 8). These four commands are identical on Windows
+(PowerShell) and Linux (bash):
+
+```bash
+npm run setup                # preflight checks + both installs (once, on a fresh clone)
+npm run dev                  # http://localhost:5173/
+npm run build                # static output in dist/, ready for any file server
+npm run verify               # typecheck + lint + test + build
+```
+
+Serve `dist/`, not the repository root — source pages reference `src/main.ts`, which only a bundler
+can resolve. `npm run preview` or `node serve.mjs dist` will do it.
+
+**Step-by-step walkthroughs, separately for each system** — which terminal to open, where to `cd`,
+what to run, how to serve the build, plus the deep-link parameters (`?seed=`, `?focus=1`, `?lang=`,
+`?theme=`): **[docs/en/getting-started.md](./docs/en/getting-started.md)**
+(Russian: [docs/ru/getting-started.md](./docs/ru/getting-started.md)).
+
 ## Module Coverage Model
 
-Modules are split into two groups.
+Modules map 1:1 to the detector's modules and split by what the manipulation targets.
 
-Implemented first:
+Aimed at the human reader:
 
-- `visual-manipulation`
-- `link-domain-security`
+- `visual-manipulation` — content present in the DOM but suppressed from view (22 scenarios)
+- `link-domain-security` — links whose visible and actual target disagree (2 scenarios)
 
-Planned modules with documented placeholder pages from the start:
+Aimed at an AI agent reading the page:
 
-- `trigger-phrases` - planned module
-- `prompt-splitting` - planned module
-- `api-interception` - planned module
+- `trigger-phrases` — prompt-injection-style instructions in text and attributes (3 scenarios)
+- `prompt-splitting` — one instruction fragmented across DOM nodes or attributes (5 scenarios)
+- `api-interception` — API-shaped attribute markers, and declared MIME vs first-byte signature (4 scenarios)
 
-Planned modules are included to preserve stable information architecture, navigation, and extension points for future work. Their presence should not be interpreted as missing half the product. They are forward-compatible placeholders for future scenario packs.
+All five modules ship real scenarios; none is a placeholder. Every module carries both positive
+scenarios and at least one benign false-positive control — 36 scenarios in total, 29 positive and 7
+benign. See
+[docs/en/README.md](./docs/en/README.md) for what each module covers, and each module document for its
+scenario table and remaining coverage gaps.
 
 ## Contribution Note
 
-Planned modules should be present in the project structure as documented placeholders. Contributors who want to help may open pull requests with scenario manifests, placeholder-page improvements, evaluation metadata, or full scenario implementations for those modules.
+Contributors may open pull requests with new scenario manifests, additional coverage axes for an
+existing module, evaluation metadata, or framework/version widening. Each module document lists its
+**Planned coverage** — the concrete families and benign controls not yet built — which is the easiest
+place to start.
 
 ## Core Requirements
 
@@ -96,9 +123,12 @@ libraries are vendored/pinned locally — no runtime CDN dependency.
 - `index.html`: main entry page with module cards and scenario catalog.
 - `pages/visual-manipulation/`: scenarios for hidden content and CSS obfuscation.
 - `pages/link-domain-security/`: scenarios for link mismatch and homograph testing.
-- `pages/trigger-phrases/`: planned module placeholder pages.
-- `pages/prompt-splitting/`: planned module placeholder pages.
-- `pages/api-interception/`: planned module placeholder pages.
+- `pages/trigger-phrases/`: scenarios for prompt-injection-style instructions.
+- `pages/prompt-splitting/`: scenarios for instructions fragmented across the DOM.
+- `pages/api-interception/`: scenarios for API-shaped attributes and MIME/signature mismatch.
+- `pages/scenarios/`: data-driven catalog of every scenario, grouped by module.
+- `pages/frameworks/`: framework/version coverage matrix.
+- `frameworks/<lib>/<vN>/`: the same scenario reproduced on a pinned framework version.
 - `pages/shared/`: shared layouts and generic demo helpers.
 - `assets/`: fonts, local JS libraries, images, background samples.
 - `data/scenarios/`: JSON manifests and randomized configuration sets.
@@ -116,7 +146,7 @@ libraries are vendored/pinned locally — no runtime CDN dependency.
   - `?scenario=hidden-text-mixed`
 - Dynamic content changes must happen in the browser only.
 - Suspicious content must be generated from internal templates, not from user input.
-- Planned modules must still appear in navigation as placeholders with a visible status label.
+- Adding a module, scenario, or framework version must not require an information-architecture change.
 - Scenarios should expose evaluation outputs instead of only visual variation.
 
 ## Evaluation Outputs
@@ -135,11 +165,8 @@ The long-term goal is to make the lab benchmark-lite rather than a loose collect
 ## Scope of the First Release
 
 - landing page and module navigation
-- static and dynamic scenarios for the first two modules
-- documented placeholder pages for:
-  - `trigger-phrases`
-  - `prompt-splitting`
-  - `api-interception`
+- static and dynamic scenarios for all five modules
+- scenario catalog and framework coverage matrix generated from the manifests
 - RU and EN UI language switch
 - scenario reset and reroll
 - scenario metadata panel
@@ -149,23 +176,28 @@ The long-term goal is to make the lab benchmark-lite rather than a loose collect
 
 ## Document Map
 
+Full documentation lives in [`docs/`](./docs/README.md), split by language and organized by topic —
+start from [`docs/en/index.md`](./docs/en/index.md) or [`docs/ru/index.md`](./docs/ru/index.md).
+
+In `docs/` (each with a Russian mirror under `docs/ru/`):
+
+- [`getting-started.md`](./docs/en/getting-started.md): running the lab on Windows or Linux
+- [`README.md`](./docs/en/README.md): detection-module overview
+- `visual-manipulation.md`, `link-domain-security.md`, `trigger-phrases.md`, `prompt-splitting.md`,
+  `api-interception.md`: one document per detection module
+- [`adding-frameworks.md`](./docs/en/adding-frameworks.md): adding a framework or a pinned version
+
+Still in the repository root (migrating into `docs/` incrementally):
+
 - `README.ru.md`: Russian overview
-- `ARCHITECTURE.md`: project architecture and directory model
-- `ARCHITECTURE.ru.md`: Russian architecture overview
+- `ARCHITECTURE.md` / `ARCHITECTURE.ru.md`: project architecture and directory model
 - `BROWSER-COMPATIBILITY.md`: compatibility targets and testing policy
-- `SCENARIO-DYNAMICS.md`: randomization, refresh behavior, and scenario mutation rules
-- `SCENARIO-DYNAMICS.ru.md`: Russian scenario dynamics overview
-- `EVALUATION-OUTPUTS.md`: evaluation artifacts and benchmark-lite model
-- `EVALUATION-OUTPUTS.ru.md`: Russian evaluation artifacts overview
+- `SCENARIO-DYNAMICS.md` / `SCENARIO-DYNAMICS.ru.md`: randomization, refresh behavior, mutation rules
+- `EVALUATION-OUTPUTS.md` / `EVALUATION-OUTPUTS.ru.md`: evaluation artifacts and benchmark-lite model
 - `I18N.md`: language model and future localization expansion
 - `SECURITY-DEPLOYMENT.md`: deployment and hardening rules
 - `CONTRIBUTING.md`: contribution workflow and expectations
 - `DCO.md`: Developer Certificate of Origin requirements
-- `MODULES-VISUAL-MANIPULATION.md`: first module test requirements
-- `MODULES-VISUAL-MANIPULATION.ru.md`: Russian requirements for the first module
-- `MODULES-LINK-DOMAIN-SECURITY.md`: second module test requirements
-- `MODULES-LINK-DOMAIN-SECURITY.ru.md`: Russian requirements for the second module
-- `ROADMAP.md`: staged delivery plan
-- `ROADMAP.ru.md`: Russian roadmap
+- `ROADMAP.md` / `ROADMAP.ru.md`: staged delivery plan
 
 

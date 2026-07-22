@@ -62,6 +62,11 @@
   text-underline-offset: 0.16em;
 }
 
+/* Reviewer-facing note on a benign link card: which naive heuristic it guards against. */
+.lds-note {
+  font-style: italic;
+}
+
 .lds-debug {
   margin-top: var(--space-5);
   border: var(--border-width-1) solid var(--color-border);

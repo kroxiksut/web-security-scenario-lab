@@ -1,0 +1,50 @@
+{
+  "id": "hidden-text-benign",
+  "module": "visual-manipulation",
+  "page": "pages/visual-manipulation/benign.html",
+  "title": {
+    "en": "Hidden Text (benign UI concealment)",
+    "ru": "Скрытый текст (безопасное сокрытие в UI)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "none",
+    "shouldFire": false,
+    "severity": "low",
+    "tags": [
+      "benign-control",
+      "false-positive-guard",
+      "sr-only",
+      "disclosure-widget",
+      "tab-panel",
+      "carousel",
+      "focus-reveal"
+    ],
+    "coverageDimensions": [
+      "screen-reader-only text (clip technique)",
+      "skip link revealed on focus",
+      "collapsed disclosure widget (display:none)",
+      "inactive ARIA tab panels ([hidden])",
+      "off-screen carousel slides",
+      "user-reachable hidden content"
+    ],
+    "whyBenign": {
+      "en": "Every node that is invisible at load is invisible for an ordinary UI reason and the user can reach all of it by normal interaction: screen-reader-only labels, a skip link revealed on focus, a collapsed disclosure widget, inactive ARIA tab panels, and off-screen carousel slides. The suppression techniques are deliberately identical to the positive scenarios — the sr-only class is the same clip trick as .vm-clipped — so a detector that keys only on 'text present but not rendered' fires here and is wrong. The content is ordinary product copy, not smuggled instructions.",
+      "ru": "Каждый узел, невидимый при загрузке, невидим по обычной UI-причине, и пользователь может добраться до всего этого штатным взаимодействием: подписи только для скринридера, skip-ссылка, появляющаяся по фокусу, свёрнутый disclosure-виджет, неактивные ARIA-панели вкладок и вынесенные за экран слайды карусели. Техники подавления намеренно те же, что в позитивных сценариях — класс sr-only использует тот же клиппинг, что и .vm-clipped, — поэтому детектор, реагирующий только на «текст есть, но не отрисован», сработает здесь и ошибётся. Содержимое — обычный товарный текст, а не пронесённые инструкции."
+    },
+    "notes": {
+      "en": "False-positive control: asserts the detector must NOT fire. Pairs with the hidden-content positives; the distinguishing evidence is content and reachability, not the CSS technique.",
+      "ru": "Контроль ложных срабатываний: утверждает, что детектор НЕ должен срабатывать. Парный к позитивным сценариям скрытого контента; отличает их содержимое и достижимость, а не CSS-техника."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "const el = document.querySelector('.vm-sr-only');\nconst labelled = el.id && document.querySelector(`[aria-describedby~=\"${el.id}\"]`);\nif (!labelled && !el.closest('[role=\"tabpanel\"], details, [aria-roledescription=\"carousel\"]')) flag(el);",
+        "explanation": {
+          "en": "Before flagging clipped text, check whether it serves an accessibility or disclosure role — a label referenced by aria-describedby, a tab panel, a details body, or a carousel slide is not concealment.",
+          "ru": "Перед тем как помечать клиппированный текст, проверьте, не выполняет ли он роль доступности или раскрытия — подпись, на которую ссылается aria-describedby, панель вкладки, тело details или слайд карусели сокрытием не являются."
+        }
+      }
+    ]
+  }
+}

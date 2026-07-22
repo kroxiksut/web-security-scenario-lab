@@ -20,12 +20,18 @@
         </div>
         <div class="panel__body">
           <div class="lds-link-grid">
+            <!-- The deception lives in the anchor itself: the visible text claims the Latin host,
+                 while href carries the lookalike. Reserved .example domain — never resolves. -->
             <article class="lds-link-card lds-link--mismatch">
-              <a href="https://trusted-bank.example">https://trusted-bank.example</a>
+              <a class="lds-link-target" href="https://truѕted-bank.example">https://trusted-bank.example</a>
               <div class="lds-link-meta">
                 <div>
-                  <span class="lds-label">href</span>
-                  <span class="lds-domain lds-domain--mixed-script">https://trսsted-bank.example</span>
+                  <span class="lds-label">visible text</span>
+                  <span class="lds-domain">https://trusted-bank.example</span>
+                </div>
+                <div>
+                  <span class="lds-label">actual href</span>
+                  <span class="lds-domain lds-domain--mixed-script">https://truѕted-bank.example</span>
                 </div>
               </div>
             </article>

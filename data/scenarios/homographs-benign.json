@@ -1,0 +1,49 @@
+{
+  "id": "homographs-benign",
+  "module": "link-domain-security",
+  "page": "pages/link-domain-security/benign.html",
+  "title": {
+    "en": "Links (benign honest targets)",
+    "ru": "Ссылки (безопасные честные цели)"
+  },
+  "modes": ["fixed", "randomized"],
+  "evaluation": {
+    "expectedSignal": "none",
+    "shouldFire": false,
+    "severity": "low",
+    "tags": [
+      "benign-control",
+      "false-positive-guard",
+      "internationalized-domain",
+      "same-origin-redirect",
+      "label-text",
+      "mailto"
+    ],
+    "coverageDimensions": [
+      "matching visible text and href",
+      "legitimate single-script internationalized domain",
+      "same host with a deeper path",
+      "anchor text that claims no hostname",
+      "same-origin redirect parameter",
+      "non-HTTP but safe scheme (mailto)"
+    ],
+    "whyBenign": {
+      "en": "Every link is honest, but each trips a naive version of one of this module's heuristics: a single-script internationalized domain (German, Cyrillic, or Japanese) is non-ASCII without impersonating anything, a deeper path on the same host is not a target mismatch, anchor text that is a label claims no hostname to compare against, a next= parameter pointing back into the lab is not an open redirect, and mailto: is a non-HTTP scheme that is not unsafe. A detector that flags non-ASCII hosts, any path difference, or any redirect parameter fires here and is wrong.",
+      "ru": "Все ссылки честные, но каждая задевает наивную версию одной из эвристик модуля: интернационализированный домен в одной письменности (немецкий, кириллица, японский) не-ASCII, но никого не подделывает; более глубокий путь на том же хосте — не расхождение цели; текст-подпись не заявляет имени хоста, и сравнивать не с чем; параметр next=, ведущий обратно внутрь стенда, — не открытый редирект; а mailto: — не-HTTP-схема, которая не является небезопасной. Детектор, помечающий любые не-ASCII хосты, любое отличие пути или любой redirect-параметр, сработает здесь и ошибётся."
+    },
+    "notes": {
+      "en": "False-positive control: asserts the detector must NOT fire. Pairs with homographs-rotator, where the same surfaces carry a real deception.",
+      "ru": "Контроль ложных срабатываний: утверждает, что детектор НЕ должен срабатывать. Парный к homographs-rotator, где те же поверхности несут настоящий обман."
+    },
+    "detectionExamples": [
+      {
+        "language": "js",
+        "snippet": "const scripts = (h) => [/\\p{Script=Latin}/u, /\\p{Script=Cyrillic}/u, /\\p{Script=Han}/u]\n  .filter((re) => re.test(h)).length;\n// Fire on MIXED scripts within one label, not on non-ASCII alone.\nif (scripts(host) > 1) flag(link);",
+        "explanation": {
+          "en": "A hostname written entirely in one non-Latin script is a legitimate internationalized domain; only mixing scripts inside one label indicates impersonation.",
+          "ru": "Имя хоста, целиком записанное одной нелатинской письменностью, — легитимный интернационализированный домен; на подделку указывает только смешение письменностей внутри одной метки."
+        }
+      }
+    ]
+  }
+}

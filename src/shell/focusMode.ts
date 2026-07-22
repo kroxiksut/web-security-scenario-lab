@@ -1,3 +1,5 @@
+import { t } from "../i18n/index.ts";
+import { getLocale } from "./language.ts";
 import type { LabSettings } from "./settingsStore.ts";
 
 /**
@@ -20,6 +22,9 @@ export function setupFocusMode(settings: LabSettings): void {
   exitButton.className = "focus-exit button button--ghost";
   exitButton.type = "button";
   exitButton.dataset.i18n = "focus.exit";
+  // The button is created after the page-wide translate pass, and translateDom() only walks
+  // descendants of the node it is given — so set the label here or it renders empty.
+  exitButton.textContent = t(getLocale(), "focus.exit");
   exitButton.addEventListener("click", () => {
     params.set("focus", "0");
     window.location.search = params.toString();

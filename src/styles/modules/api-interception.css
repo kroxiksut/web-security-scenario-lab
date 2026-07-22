@@ -35,9 +35,3 @@
   word-break: break-all;
   color: var(--color-text-muted);
 }
-
-/* Reserved-but-not-implemented catalog card (e.g. the planned MIME/signature scenario). */
-.card--planned {
-  border-style: dashed;
-  opacity: 0.75;
-}

@@ -120,18 +120,6 @@
   border: var(--border-width-1) solid transparent;
 }
 
-.badge--mvp {
-  color: var(--color-success);
-  border-color: color-mix(in srgb, var(--color-success) 50%, transparent);
-  background: color-mix(in srgb, var(--color-success) 18%, transparent);
-}
-
-.badge--planned {
-  color: var(--color-info);
-  border-color: color-mix(in srgb, var(--color-info) 44%, transparent);
-  background: color-mix(in srgb, var(--color-info) 18%, transparent);
-}
-
 .badge--severity-high {
   color: var(--color-danger);
   border-color: color-mix(in srgb, var(--color-danger) 44%, transparent);

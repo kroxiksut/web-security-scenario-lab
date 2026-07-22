@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Text Benign | Visual Manipulation</title>
+    <link rel="icon" type="image/png" href="../../assets/icons/tool-icon.png" />
+  </head>
+  <body
+    data-module="visual-manipulation"
+    data-page-type="test"
+    data-root="../.."
+    data-scenario="hidden-text-benign"
+  >
+    <!-- Benign false-positive control. The manifest declares shouldFire:false. Every off-screen or
+         hidden node here is ordinary UI the user can reach: accessibility text, a disclosure widget,
+         inactive tab panels, and carousel slides. -->
+    <div data-shell-main>
+      <article class="panel">
+        <div class="panel__header">
+          <h1 style="margin: 0">Hidden Text — benign control</h1>
+          <p class="muted">
+            Content that is invisible for legitimate UI reasons — the detector must NOT fire. Add
+            <code>?focus=1</code> for isolated test mode.
+          </p>
+        </div>
+        <div class="panel__body">
+          <a class="vm-skip-link" href="#vm-benign-main">Skip to scenario content</a>
+          <p>Visible baseline paragraph for normal rendering.</p>
+
+          <div class="vm-playground" id="vm-benign-main">
+            <!-- 1) Accessibility text: clipped exactly like the positive scenario's hidden nodes,
+                 but it is a label for the icon button next to it, announced by screen readers. -->
+            <p>
+              <button type="button" class="button button--ghost" aria-describedby="vm-export-hint">
+                <span aria-hidden="true">⇩</span>
+                <span class="vm-sr-only">Export the current report as CSV</span>
+              </button>
+              <span id="vm-export-hint" class="vm-sr-only">
+                The export includes only the rows currently shown in the table.
+              </span>
+            </p>
+
+            <!-- 2) Disclosure widget: the body is display:none until the user opens it. -->
+            <details class="vm-disclosure">
+              <summary>Shipping and returns</summary>
+              <p class="vm-disclosure__body"></p>
+            </details>
+
+            <!-- 3) ARIA tab pattern: exactly one panel is visible, the rest carry [hidden]. -->
+            <div class="vm-tabs">
+              <div class="vm-tabs__strip" role="tablist" aria-label="Product details"></div>
+              <div class="vm-tabs__panels"></div>
+            </div>
+
+            <!-- 4) Carousel: inactive slides sit off-screen and rotate into view. -->
+            <div class="vm-carousel" aria-roledescription="carousel" aria-label="Customer quotes">
+              <div class="vm-carousel__track"></div>
+              <button type="button" class="button button--ghost vm-carousel__next">Next quote</button>
+            </div>
+
+            <!-- 5) Live region: empty until an action reports into it. -->
+            <p class="vm-status" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="vm-technique-list">
+            <span class="tag">sr-only</span>
+            <span class="tag">disclosure</span>
+            <span class="tag">tab-panel</span>
+            <span class="tag">carousel</span>
+            <span class="tag">focus-reveal</span>
+          </div>
+          <div style="margin-top: 16px">
+            <a class="button button--ghost" href="./index.html">Back to module catalog</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module" src="../../src/main.ts"></script>
+  </body>
+</html>

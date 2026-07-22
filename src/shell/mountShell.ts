@@ -8,13 +8,18 @@
  * "../.." for a page two levels deep), which keeps navigation correct under any static server.
  */
 
+// Imported (not written as a runtime path string) so Vite emits the file and rewrites the URL —
+// a hand-built `${root}/assets/...` path exists on the dev server but 404s in the built site.
+import logoUrl from "../../assets/icons/tool-icon.png";
+
 interface NavItem {
   module: string;
   path: string;
   i18nKey: string;
-  badge?: "mvp" | "planned";
 }
 
+// Every detection module ships real scenarios; the nav carries no status badges. Module ordering
+// follows what the manipulation targets: the human reader first, then an AI agent reading the page.
 const NAV_ITEMS: NavItem[] = [
   { module: "home", path: "index.html", i18nKey: "nav.home" },
   { module: "settings", path: "pages/settings/index.html", i18nKey: "nav.settings" },
@@ -24,47 +29,35 @@ const NAV_ITEMS: NavItem[] = [
     module: "visual-manipulation",
     path: "pages/visual-manipulation/index.html",
     i18nKey: "module.visual",
-    badge: "mvp",
   },
   {
     module: "link-domain-security",
     path: "pages/link-domain-security/index.html",
     i18nKey: "module.link",
-    badge: "mvp",
   },
   {
     module: "trigger-phrases",
     path: "pages/trigger-phrases/index.html",
     i18nKey: "module.trigger",
-    badge: "planned",
   },
   {
     module: "prompt-splitting",
     path: "pages/prompt-splitting/index.html",
     i18nKey: "module.prompt",
-    badge: "planned",
   },
   {
     module: "api-interception",
     path: "pages/api-interception/index.html",
     i18nKey: "module.api",
-    badge: "planned",
   },
 ];
-
-function badgeHtml(badge: NavItem["badge"]): string {
-  if (badge === "mvp") return ' <span class="badge badge--mvp" data-i18n="status.mvp">MVP</span>';
-  if (badge === "planned")
-    return ' <span class="badge badge--planned" data-i18n="status.planned">Planned</span>';
-  return "";
-}
 
 function navHtml(root: string, activeModule: string): string {
   return NAV_ITEMS.map((item) => {
     const active = item.module === activeModule ? " is-active" : "";
     return (
       `<a class="module-link${active}" href="${root}/${item.path}" data-module-link="${item.module}">` +
-      `<span data-i18n="${item.i18nKey}"></span>${badgeHtml(item.badge)}</a>`
+      `<span data-i18n="${item.i18nKey}"></span></a>`
     );
   }).join("");
 }
@@ -74,7 +67,7 @@ function shellHtml(root: string, navMenu: string): string {
     <header class="app-header">
       <div class="app-header__content">
         <a class="app-logo" href="${root}/index.html">
-          <img src="${root}/assets/icons/tool-icon.png" width="28" height="28" alt="Lab icon" />
+          <img src="${logoUrl}" width="28" height="28" alt="Lab icon" />
           <span data-i18n="app.title">Web Security Scenario Lab</span>
         </a>
         <div class="app-controls">

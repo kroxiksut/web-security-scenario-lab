@@ -1,4 +1,4 @@
-# Adding a Framework or Version (Phase 3)
+# Adding a Framework or Version
 
 Russian mirror: [`../ru/adding-frameworks.md`](../ru/adding-frameworks.md).
 
