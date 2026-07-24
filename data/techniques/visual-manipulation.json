@@ -1,0 +1,205 @@
+{
+  "module": "visual-manipulation",
+  "techniques": [
+    {
+      "id": "hidden-text",
+      "title": {
+        "en": "Hidden text",
+        "ru": "Скрытый текст"
+      },
+      "detector": "hiddenTextDetector",
+      "methods": [
+        {
+          "id": "display-none",
+          "title": { "en": "display: none", "ru": "display: none" },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "medium" }
+        },
+        {
+          "id": "visibility-hidden",
+          "title": { "en": "visibility: hidden", "ru": "visibility: hidden" },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "medium" }
+        },
+        {
+          "id": "opacity-zero",
+          "title": { "en": "opacity: 0", "ru": "opacity: 0" },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "low" }
+        },
+        {
+          "id": "low-contrast",
+          "title": {
+            "en": "Low-contrast camouflage",
+            "ru": "Камуфляж по контрасту"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "low" }
+        },
+        {
+          "id": "font-size-zero",
+          "title": {
+            "en": "font-size suppression",
+            "ru": "Подавление font-size"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "medium" }
+        },
+        {
+          "id": "negative-text-indent",
+          "title": {
+            "en": "Negative text-indent",
+            "ru": "Отрицательный text-indent"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "low" }
+        },
+        {
+          "id": "offscreen",
+          "title": {
+            "en": "Off-screen positioning",
+            "ru": "Вынос за экран"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-text", "detector": "hiddenTextDetector", "severity": "medium" }
+        },
+        {
+          "id": "benign-sr-only",
+          "title": {
+            "en": "Benign: screen-reader-only text",
+            "ru": "Benign: текст только для скринридера"
+          },
+          "benign": true,
+          "shouldFire": false
+        },
+        {
+          "id": "benign-small-decorative",
+          "title": {
+            "en": "Benign: small decorative label",
+            "ru": "Benign: мелкий декоративный лейбл"
+          },
+          "benign": true,
+          "shouldFire": false
+        }
+      ]
+    },
+    {
+      "id": "style-obfuscation",
+      "title": {
+        "en": "Style obfuscation",
+        "ru": "Обфускация стилями"
+      },
+      "detector": "styleObfuscationDetector",
+      "methods": [
+        {
+          "id": "clipping",
+          "title": { "en": "CSS clipping", "ru": "CSS-клиппинг" },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "clipping-hiding", "detector": "styleObfuscationDetector", "severity": "medium" }
+        },
+        {
+          "id": "transform-scale",
+          "title": { "en": "transform: scale(0)", "ru": "transform: scale(0)" },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "transform-suppression", "detector": "styleObfuscationDetector", "severity": "medium" }
+        },
+        {
+          "id": "filter",
+          "title": { "en": "filter / blend suppression", "ru": "Подавление filter / blend" },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "filter-blend-manipulation", "detector": "styleObfuscationDetector", "severity": "medium" }
+        },
+        {
+          "id": "aria-hidden",
+          "title": {
+            "en": "Semantic mismatch (aria-hidden on visible text)",
+            "ru": "Семантическое рассогласование (aria-hidden на видимом тексте)"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "semantic-visibility-mismatch", "detector": "styleObfuscationDetector", "severity": "medium" }
+        },
+        {
+          "id": "bidi-override",
+          "title": {
+            "en": "unicode-bidi override",
+            "ru": "unicode-bidi override"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "css-bidi-presentation", "detector": "styleObfuscationDetector", "severity": "medium" }
+        },
+        {
+          "id": "pseudo-content",
+          "title": {
+            "en": "::before / ::after label substitution",
+            "ru": "Подмена лейбла через ::before / ::after"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "pseudo-content-substitution", "detector": "styleObfuscationDetector", "severity": "low" }
+        },
+        {
+          "id": "text-security",
+          "title": {
+            "en": "-webkit-text-security masking",
+            "ru": "Маскировка через -webkit-text-security"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "css-text-masking", "detector": "styleObfuscationDetector", "severity": "medium" }
+        }
+      ]
+    },
+    {
+      "id": "hidden-input",
+      "title": {
+        "en": "Hidden inputs & editable surfaces",
+        "ru": "Скрытые инпуты и editable-поверхности"
+      },
+      "detector": "hiddenInputDetector",
+      "methods": [
+        {
+          "id": "hidden-text-input",
+          "title": {
+            "en": "Hidden text input",
+            "ru": "Скрытый текстовый инпут"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-input", "detector": "hiddenInputDetector", "severity": "medium" }
+        },
+        {
+          "id": "hidden-consent",
+          "title": {
+            "en": "Hidden pre-checked consent control",
+            "ru": "Скрытый заранее отмеченный чекбокс согласия"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-input", "detector": "hiddenInputDetector", "severity": "high" }
+        },
+        {
+          "id": "hidden-editable",
+          "title": {
+            "en": "Hidden editable surface",
+            "ru": "Скрытая editable-поверхность"
+          },
+          "benign": false,
+          "shouldFire": true,
+          "expected": { "type": "hidden-editable-surface", "detector": "hiddenInputDetector", "severity": "high" }
+        }
+      ]
+    }
+  ]
+}

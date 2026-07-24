@@ -1,0 +1,152 @@
+/* Module playground (generative page). Controls + decoy environment; answer key in the sidepanel.
+   Deliberately does NOT restyle injected problem nodes — their inline hiding styles must win. */
+
+.pg-controls {
+  margin-bottom: var(--space-5);
+}
+
+.pg-controls__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.pg-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pg-field__label {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pg-soon {
+  font-size: 0.8rem;
+}
+
+.pg-techniques__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.pg-bulk {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.pg-group {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  margin: 0 0 var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+}
+
+.pg-group legend {
+  font-weight: 600;
+  padding: 0 var(--space-2);
+}
+
+.pg-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* Decoy environment — a plausible benign page the problems hide inside. */
+.pg-decoy {
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-5);
+  background: var(--color-surface-soft);
+}
+
+.pg-decoy--isolated {
+  background: transparent;
+}
+
+.pg-decoy__header {
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  margin-bottom: var(--space-4);
+}
+
+.pg-decoy__article h2 {
+  margin: 0 0 var(--space-3);
+}
+
+.pg-decoy__pull {
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--space-4);
+  margin: var(--space-4) 0;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.pg-decoy__comments {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: var(--border-width-1) solid var(--color-border);
+}
+
+.pg-decoy__comment {
+  margin-bottom: var(--space-2);
+}
+
+.pg-decoy__footer {
+  margin-top: var(--space-5);
+  font-size: 0.85rem;
+}
+
+/* Answer key (sidepanel). */
+.pg-ans__summary {
+  font-family: var(--font-family-mono);
+  font-size: 0.9rem;
+  margin: 0 0 var(--space-3);
+}
+
+.pg-ans__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pg-ans {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.pg-ans__name {
+  flex: 1 1 auto;
+  min-width: 8ch;
+}
+
+.pg-ans__type {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.pg-ans--benign {
+  opacity: 0.85;
+}
